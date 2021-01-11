@@ -1,0 +1,82 @@
+1.写出自己理解的原型和原型链
+
+每个对象都有一个__proto__这就是它的原型
+每个构造函数都有一个prototype这就是它的原型
+实例化对象和原型的constructor指向构造函数
+原型链： 原型链：当一个对象调用自身不存在的属性和方法，会去自己__proto__关联父级元素中的原型中查找，
+	如果找不到就去父级的父级原型去查找，直到找到或者undefine才停止。
+ 
+
+2.function y(num) {
+    console.log(num);  //2  实参传递
+    var num = 1;
+    console.log(num);  //1  上面定义
+    console.log(fn);   // console.log(2)  声明函数
+    var fn = function() {
+       console.log(1);  //1
+   }
+   console.log(fn);  // console.log(1)  上面定义
+   function fn(){
+       console.log(2);  //2
+   }
+   console.log(fn);  // console.log(1)  函数表达式
+}
+y(2);
+请写出最终答案。
+
+3.function y() {
+    console.log(num);  //console.log(3)声明式函数提升
+    var num = 1;
+    console.log(num); //1
+    function num() { console.log(3); }
+    function num() { console.log(5); }
+    console.log(num);  //1
+}
+y();
+请写出最终答案。
+
+4.function y() {    
+    var num = 1;
+    console.log(num);  //1
+    function num() { console.log(3); }
+    console.log(num);  //1
+}
+y();
+
+5.for(var i = 0;i<10;i++){ 
+	setTimeout(()=>{ console.log(i); },100);
+ }
+//写出三种能正常打印0-9的方法
+第一种:   for(let i = 0;i<10;i++){ 
+	  setTimeout(()=>{ console.log(i); },100);
+              }
+第二种：for(var i = 0;i<10;i++){ 
+	console.log(i)
+ 	}
+第三种：...
+
+6.密码必须为6-15位的数字、字母、_-的组合。请使用正则表达式验证。
+/\w{6,15}/
+
+7.//注意审题
+function A() {}
+function B() {}
+B.prototype = Object.create(A.prototype);
+B.prototype.constructor = B;
+function C() {}
+C.prototype = Object.create(B.prototype);
+C.prototype.constructor = C;
+
+var c1 = new C();
+c1.prototype === ? undefined
+c1.__proto__ === ? C.prototype
+c1.__proto__.prototype === ? undefined
+c1.__proto__.__proto__ === ?  B.prototype
+c1.__proto__.__proto__.__proto__ === ?  A.prototype
+c1.__proto__.constructor === ?  C.prototype.constructor
+c1.__proto__.constructor.prototype === ?  C.prototype
+c1.__proto__.constructor.prototype.constructor === ? C.prototype.constructor
+C.prototype.constructor === ?   c1.__proto__.constructor.prototype.constructor
+C.prototype.constructor.prototype === ?  c1.__proto__.constructor.prototype
+C.prototype.constructor.prototype.constructor === ? c1.__proto__.constructor.prototype.constructor
+C.prototype.__proto__ === ?  B.prototype
