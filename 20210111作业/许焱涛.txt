@@ -1,0 +1,95 @@
+原型
+
+ 每个函数上都有一个prototype 称为显式原型
+ 每个实例对象上都有一个—proto — 称为隐式原型
+ 每个prototype原型都有一个constructor 指向它关联的构造函数
+
+原型链
+ 获取对象时 本身没有这个属性就去原型--proto--上去找如果找不到就去原型的原型上去找 一直找到最外层
+
+2.function y(num) {
+   AO：{
+	num：2
+}
+    console.log(num); 2
+    var num = 1;
+    console.log(num); 1
+    console.log(fn);
+    var fn = function() {
+       console.log(1);
+   }
+   console.log(fn);
+   function fn(){
+       console.log(2);
+   }
+   console.log(fn);
+}
+y(2);
+
+
+function y(num) {
+   AO：{
+	num：   function fn(){
+       console.log(2);
+   }
+}
+    console.log(num); 2
+    var num = 1;
+    console.log(num); 1
+    console.log(fn);   log（2）
+    var fn = function() {
+       console.log(1);
+   }
+   console.log(fn); log（1）
+
+   console.log(fn); log（1）
+}
+y(2);
+
+
+3.function y() {
+AO:{
+  num:    function num() { console.log(5); }
+
+}
+    console.log(num);  log(5)
+    var num = 1;
+    console.log(num); 1
+    function num() { console.log(3); }
+
+    console.log(num); 1
+} 
+y();
+
+
+4.function y() {    
+AO:{
+num:  function num() { console.log(3); }
+}
+    var num = 1;
+    console.log(num); 1
+  
+    console.log(num); 1
+}
+y();
+
+5
+
+
+
+6.
+const  a  = /^[a-zA-Z]([a-zA-Z]+$)\w{6,15}$/
+
+7.
+c1.prototype ===C.__proto__.prototype
+c1.__proto__ === C.prototype
+c1.__proto__.prototype === undefined
+c1.__proto__.__proto__ === =B.prototype
+c1.__proto__.__proto__.__proto__ === A.prototype
+c1.__proto__.constructor === C
+c1.__proto__.constructor.prototype === C.prototype
+c1.__proto__.constructor.prototype.constructor === C
+C.prototype.constructor === C
+C.prototype.constructor.prototype === C.prototype
+C.prototype.constructor.prototype.constructor === C
+C.prototype.__proto__ === B.prototype

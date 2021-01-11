@@ -1,0 +1,127 @@
+崔鑫琦第二天笔记
+
+1.写出自己理解的原型和原型链
+原型：js的所有对象中都有一个proto属性，这个属性对应的就是自身的原型，
+除了proto之外还有prototype属性，在函数对象作为构造函数创建实例时，prototype属性值就被作为实例对象的原型proto
+原型链：当找一个属性或方法时，如果没找到，就在当前对象的原型对象中找；还没找到，就在原型对象的原型中找，直到找到为止；如果找到最顶层也没找到，就返回undefind
+
+2.function y(num) {
+    console.log(num);//2
+    var num = 1;
+    console.log(num);//1
+    console.log(fn);//2
+    var fn = function() {
+       console.log(1);
+   }
+   console.log(fn);//1
+   function fn(){
+       console.log(2);
+   }
+   console.log(fn);//1
+}
+y(2);
+
+3.function y() {
+    console.log(num); // 5
+    var num = 1;
+    console.log(num);//1
+    function num() { console.log(3); }
+    function num() { console.log(5); }
+    console.log(num); //1
+}
+y();
+
+4.function y() {    
+    var num = 1;
+    console.log(num); //1
+    function num() { console.log(3); }
+    console.log(num);//1
+}
+y();
+
+
+5.for(var i = 0;i<10;i++){ 
+	setTimeout(()=>{ console.log(i); },100);
+ }
+//写出三种能正常打印0-9的方法
+
+<1>
+for(let i=0;i<10;i++){
+console.log(i)
+}
+
+<2>
+for(let i=0;i<10;i++){
+setTimeout(() => {
+​	console.log(i)
+},100)
+
+}
+
+<3>
+var i = 0;
+    var timer = setInterval(() => {
+        i++;
+        if (i == 9) {
+            clearInterval(timer)
+        }
+        console.log(i)
+    }, 100);
+
+6.密码必须为6-15位的数字、字母、_-的组合。请使用正则表达式验证
+/^\w{6,15}$/
+
+7.//注意审题
+function A() {}
+function B() {}
+B.prototype = Object.create(A.prototype);
+B.prototype.constructor = B;
+function C() {}
+C.prototype = Object.create(B.prototype);
+C.prototype.constructor = C;
+
+var c1 = new C();
+c1.prototype === ?
+c1.__proto__ === ?
+c1.__proto__.prototype === ?
+c1.__proto__.__proto__ === ?
+c1.__proto__.__proto__.__proto__ === ?
+c1.__proto__.constructor === ?
+c1.__proto__.constructor.prototype === ?
+c1.__proto__.constructor.prototype.constructor === ?
+C.prototype.constructor === ?
+C.prototype.constructor.prototype === ?
+C.prototype.constructor.prototype.constructor === ?
+C.prototype.__proto__ === ?
+
+console.log(c1)
+        console.log(c1.prototype === undefined) 
+        console.log(c1.__proto__ === C.prototype)
+        console.log(c1.__proto__.prototype === undefined)
+        console.log(c1.__proto__.__proto__ === B.prototype)
+        console.log(c1.__proto__.__proto__.__proto__ === A.prototype)
+        console.log(c1.__proto__.constructor === C.prototype.constructor)
+        console.log(c1.__proto__.constructor.prototype === C.prototype)
+        console.log(c1.__proto__.constructor.prototype.constructor === C.prototype.constructor)
+        console.log(C.prototype.constructor === c1.__proto__.constructor.prototype.constructor)
+        console.log(C.prototype.constructor.prototype === c1.__proto__.constructor.prototype)
+        console.log(C.prototype.constructor.prototype.constructor ===c1.__proto__.constructor.prototype.constructor)
+        console.log(C.prototype.__proto__ === B.prototype)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

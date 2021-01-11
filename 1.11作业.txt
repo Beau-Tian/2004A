@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <!--写出自己理解的原型和原型链  -->
+    <span>
+        prototype
+        每一个韩式都有一个prototype属性 被称为显示原型
+        _ _proto_ _
+        每个实例对象都会有_ _proto_ _ 属性其被称为隐式原型
+        每一个实例对象的隐式原型_ _proto_ _ 属性指向自身构造函数的的显示原型prototype
+        constructor
+        每个prototype原型都有一个constructor属性， 指向他关系的构造函数
+        原型链
+        获取对象属性时 如果对象本身没有这个属性 那就去他的原型_ _proto_ _ 上找 如果还找不到
+        就去找原型的原型 一直找到最顶层(Object.prototype)为止。 Object.protoptype对象也有
+        _ _proto_ _ 属性值为null
+    </span>
+    <hr>
+
+    <script>
+        
+        // 2.
+        // function y(num) {
+        //         console.log(num);   // 2 
+        //         var num = 1;
+        //         console.log(num);   //1
+        //         console.log(fn);       //f fn(){console.log(2);}
+        //         var fn = function () {
+        //             console.log(1);
+        //         }
+        //         console.log(fn);       //f fn(){console.log(1);}
+        //         function fn() {
+        //             console.log(2);
+        //         }
+        //         console.log(fn);        //f fn(){console.log(1);}
+        //     }
+        //     y(2);
+        // 请写出最终答案。
+
+        // 3.
+        // function y() {
+        //         console.log(num); //f num(){console.log(5);}
+        //         var num = 1;
+        //         console.log(num);   //1
+        //         function num() { console.log(3); }
+        //         function num() { console.log(5); }
+        //         console.log(num);   //1
+        //     }
+        //     y();
+        // 请写出最终答案。
+
+        // 4.
+        // function y() {
+        //     var num = 1;
+        //     console.log(num);   //1
+        //     function num() { console.log(3); }
+        //     console.log(num);   //1
+        // }
+        // y();
+
+        // 5.   写出三种能正常打印0-9的方法
+        // for (var i = 0; i < 10; i++) {
+        //     setTimeout(() => { console.log(i); }, 100);
+        //     console.log(i)
+        // } // 第一钟
+
+        // var random_1 = Math.random() + "";
+        //     var ran = random_1.charAt(3);
+        //     document.write(ran);
+
+        // public class 递归连续数 {
+        //     public static void f(int begin, int end) {
+        //         if (begin > end) return;	// 填空
+        //         System.out.println(begin);
+        //         f(begin + 1, end);
+        //     }
+        //     public static void main(String[] args) {
+        //         f(0, 9);
+        //     }
+
+        // 6.密码必须为6 - 15位的数字、字母、_ - 的组合。请使用正则表达式验证。
+        /^(?!^[\d]+$)(?!^[-]+$)(?!^[_]+$)(?!^[a-zA-Z]+$)[\w-]{6,15}$/
+
+        // 7
+        // /*
+        // function A() { }
+        // function B() { }
+        // B.prototype = Object.create(A.prototype);
+        // B.prototype.constructor = B;
+        // function C() { }
+        // C.prototype = Object.create(B.prototype);
+        // C.prototype.constructor = C;
+
+        // var c1 = new C();
+        // c1.__proto__.constructor === C.prototype
+        // c1.__proto__.constructor.prototype === C.prototype
+        // c1.__proto__.constructor.prototype.constructor === C
+        // C.prototype.constructor === C
+        // C.prototype.constructor.prototype === c1.__proto__
+        // C.prototype.constructor.prototype.constructor === C
+        // C.prototype.__proto__ === B.prototype
+        // */
+
+
+
+    </script>
+
+
+</body>
+
+</html>
