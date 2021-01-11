@@ -1,0 +1,44 @@
+1.写出自己理解的原型和原型链
+
+2.function y(num) {
+    console.log(num);
+    var num = 1;
+    console.log(num);
+    console.log(fn);
+    var fn = function() {
+       console.log(1);
+   }
+   console.log(fn);
+   function fn(){
+       console.log(2);
+   }
+   console.log(fn);
+}
+y(2);
+请写出最终答案。
+
+3.function y() {
+    console.log(num);
+    var num = 1;
+    console.log(num);
+    function num() { console.log(3); }
+    function num() { console.log(5); }
+    console.log(num);
+}
+y();
+请写出最终答案。
+
+4.function y() {    
+    var num = 1;
+    console.log(num);
+    function num() { console.log(3); }
+    console.log(num);
+}
+y();
+
+5.for(var i = 0;i<10;i++){ 
+	setTimeout(()=>{ console.log(i); },100);
+ }
+//写出三种能正常打印0-9的方法
+
+6.密码必须为6-15位的数字、字母、_-的组合。请使用正则表达式验证。
