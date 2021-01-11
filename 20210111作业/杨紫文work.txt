@@ -1,0 +1,86 @@
+1.原型和原型链理解
+所有的对象都有一个proto属性，函数对象中有prototype 属性，所有对象的proto属性指向它构造函数得prototype属性。
+当获取对象属性或者方法时，如果对象本身没有这个属性或者方法，就会去他的原型--proto--上去找，也就是他的构造函数prototype，如果还没有找到，就去prototype的__proto__中查找，这样一层一层向上查找就是原型链。
+2.function y(num) {
+AO:{
+	num:2,
+	fn: function fn(){
+       		console.log(2);
+   	}
+}	
+    console.log(num);     2
+    var num = 1;
+    console.log(num);  1
+    console.log(fn);  log2
+//表达式函数
+    var fn = function() {
+       console.log(1);
+   }
+   console.log(fn);log1
+//申明式函数
+  
+   console.log(fn);log1
+}
+y(2);
+3.function y() {
+AO:{
+	num:undefined
+	num:function num() { console.log(5); }
+	
+}
+    console.log(num);  log5
+    var num = 1;
+    console.log(num);  1
+    function num() { console.log(3); }
+    function num() { console.log(5); }
+    console.log(num);  1
+}
+y();
+4.function y() {    
+AO:{
+	num:function num() { console.log(3); }
+}
+    var num = 1;
+    console.log(num);   1
+    
+    console.log(num);  1
+}
+y();
+5.for(var i = 0;i<10;i++){ 
+	setTimeout(()=>{ console.log(i); },100);
+ }
+//写出三种能正常打印0-9的方法
+1.for(var i=0;i<10;i++){
+	try{
+		throw i;
+	}catch(a){
+		setTimeout(function(){
+			console.log(a)
+		},1000)
+	}
+}
+
+6.密码必须为6-15位的数字、字母、_-的组合。请使用正则表达式验证。
+var reg = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/;
+7.//注意审题
+function A() {}
+function B() {}
+B.prototype = Object.create(A.prototype);
+B.prototype.constructor = B;
+function C() {}
+C.prototype = Object.create(B.prototype);
+C.prototype.constructor = C;
+
+var c1 = new C();
+c1.prototype ===C.__proto__.prototype
+c1.__proto__ === C.prototype    
+c1.__proto__.prototype === undefined
+c1.__proto__.__proto__ === =B.prototype
+c1.__proto__.__proto__.__proto__ === A.prototype
+c1.__proto__.constructor === C
+c1.__proto__.constructor.prototype === C.prototype
+c1.__proto__.constructor.prototype.constructor === C
+C.prototype.constructor === C
+C.prototype.constructor.prototype === C.prototype
+C.prototype.constructor.prototype.constructor === C
+C.prototype.__proto__ === B.prototype
