@@ -68,7 +68,7 @@ C.prototype.constructor = C;
 
 var c1 = new C();
 c1.prototype === C.prototype?
-c1.__proto__ ===B.prototype 
+c1.__proto__ ===C.prototype 
 c1.__proto__.prototype === A.prtotype
 c1.__proto__.__proto__ === B.prototype
 c1.__proto__.__proto__.__proto__ === A.prototype
