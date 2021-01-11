@@ -9,6 +9,89 @@
 </head>
 
 <body>
+    <script>
+        //1.
+        function y(num) {
+            console.log(num);   //2
+            var num = 1;
+            console.log(num);   //1
+            console.log(fn);    //1
+            var fn = function () {
+                console.log(1);
+            }
+            console.log(fn);    //2
+            function fn() {
+                console.log(2); //2
+            }
+            console.log(fn);
+        }
+        y(2);
+
+        //2.
+        function y() {
+            console.log(num);   //log 5
+            var num = 1;
+            console.log(num);   //1
+            function num() { console.log(3); }
+            function num() { console.log(5); }
+            console.log(num);   //1
+        }
+        y();
+
+        //3.
+        function y() {
+            var num = 1;
+            console.log(num);   //1
+            function num() { console.log(3); }
+            console.log(num);   //1
+        }
+        y();
+
+        //4.
+        for (var i = 0; i < 10; i++) {
+            setTimeout(() => { console.log(i); }, 100);
+            console.log(i);
+
+        }
+        var random_1 = Math.random() + "";
+        var ran = random_1.charAt(3);
+        document.write(ran);
+
+
+        //写出三种能正常打印0-9的方法
+
+        //5.
+
+        // 密码必须为6 - 15位的数字、字母、_ - 的组合。请使用正则表达式验证。
+        / ^ (? !^ [\d] + $)(?!^ [-] + $)(?!^ [_] + $)(?!^ [a - zA - Z] + $)[\w -]{ 6, 15 } $/
+        //6.
+        7.//注意审题
+        function A() { }
+        function B() { }
+        B.prototype = Object.create(A.prototype);
+        B.prototype.constructor = B;
+        function C() { }
+        C.prototype = Object.create(B.prototype);
+        C.prototype.constructor = C;
+
+
+        var c1 = new C();
+        c1.prototype === C.__proto__.prototype
+        c1.__proto__ === C.prototype
+        c1.__proto__.prototype === c1.prototype
+        c1.__proto__.__proto__ === B.prototype
+        c1.__proto__.__proto__.__proto__ === A.prototype
+        c1.__proto__.constructor === C
+        c1.__proto__.constructor.prototype === C.prototype
+        c1.__proto__.constructor.prototype.constructor === C
+        C.prototype.constructor === C
+        C.prototype.constructor.prototype === c1.__proto__
+        C.prototype.constructor.prototype.constructor === C
+        C.prototype.__proto__ === B.prototype 
+    </script>
+
+
+
     <!--写出自己理解的原型和原型链  -->
     <span>
         prototype
@@ -112,7 +195,6 @@
 
 
     </script>
-
 
 </body>
 
