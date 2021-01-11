@@ -1,0 +1,2 @@
+执行 git pull 出现 Your configuration specifies to merge with the ref 'refs/heads/xxx' ， but no such ref was fetched
+然后再执行 git push --set-upstream origin xxx 即可
