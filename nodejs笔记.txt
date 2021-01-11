@@ -1,0 +1,186 @@
+《《搭建ejs框架》》
+文件夹内cmd打开命令符
+express -e 项目名
+进入项目cd
+下载依赖：npm i 
+下载两个art模块:
+npm install --save art-template
+npm install --save express-art-template
+下载mongooes连接数据库：
+npm i mongoose --save 
+固定修改的那行：
+app.engine("art",require("express-art-template"))
+连接数据库：
+var userModel=require("../model/users")
+下载时间模块：
+npm i  moment --save
+引入时间模块：
+var moment=require("moment")
+下载multer模块:
+npm i multer --save
+引入multer模块:
+var multer=require("multer")
+配置上传的文件存在哪里:
+var up=multer({dest:"./public/uploads"})
+
+
+
+
+
+
+req:请求头信息；
+res:响应头信息
+http模块：用来
+path模块：用来拼接路径
+npm (node package mange)下载包
+err 代表读取出错以后的信息，如果出错了，err 是出错的信息，如果没有出错，err = null
+data代表读取的文件内容；      
+        1.当安装mongodb数据库软件出现弹框时的解决的办法
+			1.点击Igone按钮
+			2.在d盘里新建data文件夹
+			3.找到mongodb的安装目录进入到bin文件夹
+			在bin文件夹启动终端
+			4.在终端输入：mongod --dbpath d:\data 回车
+			5.再打开一个终端：输入：mongo 回车；
+			6.用mongDB compass(图标是小树叶) 去连接数据库，可以连接成功
+        2.装mongodb数据库软件没有出现弹框时的解决的办法；
+        用mongDB compass(图标是小树叶) 去连接数据库，可以连接成功
+       XMLHttp ajax的核心
+       通过应用生成器工具 express-generator 可以快速创建一个应用的骨架。
+
+你可以通过 npx （包含在 Node.js 8.2.0 及更高版本中）命令来运行 Express 应用程序生成器。
+
+$ npx express-generator
+对于较老的 Node 版本，请通过 npm 将 Express 应用程序生成器安装到全局环境中并执行即可。
+
+$ npm install -g express-generator
+$ express
+-h 参数可以列出所有可用的命令行参数：
+
+$ express -h
+
+  Usage: express [options] [dir]
+
+  Options:
+
+    -h, --help          输出使用方法
+        --version       输出版本号
+    -e, --ejs           添加对 ejs 模板引擎的支持
+        --hbs           添加对 handlebars 模板引擎的支持
+        --pug           添加对 pug 模板引擎的支持
+    -H, --hogan         添加对 hogan.js 模板引擎的支持
+        --no-view       创建不带视图引擎的项目
+    -v, --view <engine> 添加对视图引擎（view） <engine> 的支持 (ejs|hbs|hjs|jade|pug|twig|vash) （默认是 jade 模板引擎）
+    -c, --css <engine>  添加样式表引擎 <engine> 的支持 (less|stylus|compass|sass) （默认是普通的 css 文件）
+        --git           添加 .gitignore
+    -f, --force         强制在非空目录下创建
+例如，如下命令创建了一个名称为 myapp 的 Express 应用。此应用将在当前目录下的 myapp 目录中创建，并且设置为使用 Pug 模板引擎（view engine）：
+
+$ express --view=pug myapp
+
+   create : myapp
+   create : myapp/package.json
+   create : myapp/app.js
+   create : myapp/public
+   create : myapp/public/javascripts
+   create : myapp/public/images
+   create : myapp/routes
+   create : myapp/routes/index.js
+   create : myapp/routes/users.js
+   create : myapp/public/stylesheets
+   create : myapp/public/stylesheets/style.css
+   create : myapp/views
+   create : myapp/views/index.pug
+   create : myapp/views/layout.pug
+   create : myapp/views/error.pug
+   create : myapp/bin
+   create : myapp/bin/www
+然后安装所有依赖包：
+$ cd myapp
+$ npm install
+在 MacOS 或 Linux 中，通过如下命令启动此应用：
+$ DEBUG=myapp:* npm start
+在 Windows 中，通过如下命令启动此应用：
+> set DEBUG=myapp:* & npm start
+然后在浏览器中打开 http://localhost:3000/ 网址就可以看到这个应用了。
+通过生成器创建的应用一般都有如下目录结构：
+├── app.js
+├── bin
+│   └── www
+├── package.json
+├── public
+│   ├── images
+│   ├── javascripts
+│   └── stylesheets
+│       └── style.css
+├── routes
+│   ├── index.js
+│   └── users.js
+└── views
+    ├── error.pug
+    ├── index.pug
+    └── layout.pug
+
+
+
+
+
+
+
+
+7 directories, 9 files
+通过 Express 应用生成器创建应用只是众多方法中的一种。你可以不使用它，也可以修改它让它符合你的需求。
+分页：mongoose-sex-page
+第一步引入分页模块 const pagination = require("mongoose-sex-page")
+第二步@：page():接受一个参数，当前页
+size():接受一个参数，每页显示多条数据
+display]
+npm i mongoose-sex-page下载分页；
+-T42
+
+
+https://www.yuque.com/docs/share/3c90abb8-403a-4c94-b529-12f8a9ac672f?# 《2003A-随堂笔记（陈淼）》
+///知识点
+重点
+          node的模块化开发
+          内置模块
+          第三方模块
+知识点
+模块化的概念
+                模块化是指解决一个复杂问题时自顶向下逐层把系统划分成若干模块的过程，有多种属性，分别反映其内部特性
+模块化的好处
+                模块和模块之间不会出现变量"污染"，一个模块就是一个作用域。
+                模块化开发效率高、可维护性好
+                模块化可以做到职责分离，每个模块实现一个独立的功能
+模块导出
+               在模块的内部，module变量代表的就是当前模块，它的exports属性就是对外的接口，加载某个模块，     加载的就是module.exports属性，这个属性指向一个空的对象
+模块导入
+通过require("fs")来加载模块
+如果是第三方模块，需要先使用npm进行下载
+如果是自定义模块，需要加上相对路径./或者../,可以省略.js后缀，如果文件名是index.js那么index.js也可以省略。
+模块可以被多次加载，但是只会在第一次加载
+    内置模块
+               fs模块
+               fs.readFile()
+ fs.writeFile()
+ fs.appendFile()
+ fs.unlink()
+ fs.mkdir()
+ fs.rmdir()
+ fs.rename()
+path模块
+       path.join()
+       path.extname()
+  第三方模块     
+         概念
+别人写好的、具有特定功能的、我们能直接使用的模块即第三方模块，由于第三方模块通常都是由多个文件组成并且被放置在一个文件夹中，所以又称为包
+       npm node包管理工具
+       package.json 文件
+       npm  init
+       npm 安转模块
+         npm install 模块名 --save
+      卸载模块
+          npm uninstall 模块名 --save
+      本地安装
+      全局安装
+     本地安装全局安装区别
