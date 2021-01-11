@@ -1,7 +1,5 @@
 1.写出自己理解的原型和原型链
-每个函数都有一个prototype他也叫做显示原型还有每个实例都有一个__proto__这个叫做隐式原型，实例的隐式原型指向构造函数的显示原型
 
-获取对象属性时，如果对象本身没有这个属性，就会去他的原型上__proto__去找，如果还找不到就去找原型的原型，一直找到最顶层为止（object.prototype）
 2.function y(num) {
     console.log(num);
     var num = 1;
@@ -17,7 +15,6 @@
    console.log(fn);
 }
 y(2);
-答案：2 1 2 1 1
 请写出最终答案。
 
 3.function y() {
@@ -29,7 +26,6 @@ y(2);
     console.log(num);
 }
 y();
-答案：5  1  1 
 请写出最终答案。
 
 4.function y() {    
@@ -39,8 +35,6 @@ y();
     console.log(num);
 }
 y();
-答案：1  1
-
 
 
 5.for(var i = 0;i<10;i++){ 
@@ -56,7 +50,7 @@ arr.forEach(function(ind){console.log(ind)})
 //写出三种能正常打印0-9的方法
 
 6.密码必须为6-15位的数字、字母、_-的组合。请使用正则表达式验证。
-/^{5,15}[a-zA-Z0-9_]$/
+
 7.//注意审题
 function A() {}
 function B() {}
@@ -67,15 +61,15 @@ C.prototype = Object.create(B.prototype);
 C.prototype.constructor = C;
 
 var c1 = new C();
-c1.prototype === C.prototype.prototype
-c1.__proto__ === C.prototype
-c1.__proto__.prototype === C.prototype.__proto__
-c1.__proto__.__proto__ === B.prototype
-c1.__proto__.__proto__.__proto__ ===A.prototype
-c1.__proto__.constructor === C.prototype.constructor
-c1.__proto__.constructor.prototype === C.prototype.constructor.prototype
-c1.__proto__.constructor.prototype.constructor === C.prototype.constructor.prototype.constructor
-C.prototype.constructor === C
-C.prototype.constructor.prototype === C.prototype
-C.prototype.constructor.prototype.constructor === C.prototype.constructor
-C.prototype.__proto__ === C.prototype.__proto__
+c1.prototype === 
+c1.__proto__ ===
+c1.__proto__.prototype === 
+c1.__proto__.__proto__ ===
+c1.__proto__.__proto__.__proto__ ===
+c1.__proto__.constructor === 
+c1.__proto__.constructor.prototype === 
+c1.__proto__.constructor.prototype.constructor === 
+C.prototype.constructor === 
+C.prototype.constructor.prototype === 
+C.prototype.constructor.prototype.constructor === 
+C.prototype.__proto__ === 
