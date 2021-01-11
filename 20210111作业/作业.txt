@@ -1,0 +1,87 @@
+1.写出自己理解的原型和原型链
+原型：每个函数对象都有属性和方法，每个对象都有一个原型对象，指向函数的原型原型。
+原型链：函数被实例化之后，都有一个__proto__属性。指向函数的原型。相当于汽车模型定好之后的量产，不能修改属性。
+要想寻找某个属性，先从当前对象中查找，如果找到可以从他的原型上面去查找。如果还找不到，可以从原型的原型上去查找，直到找到最顶级的原型。如果还找不到，则返回undefined。
+这种一级一级向上查找，形成的链条关系，称为原型链
+2.函数y（num）{
+    console.log(num); 2
+    var num = 1;
+    console.log(num);1
+    console.log(fn);
+    var fn = function() {
+       console.log(1);
+   }
+   console.log(fn);
+   function fn(){
+       console.log(2);
+   }
+   console.log(fn);
+}
+y(2);
+请写出最终答案。
+2
+
+3.function y() {
+    console.log(num);1
+    var num = 1;
+    console.log(num);1
+    function num() { console.log(3); }
+    function num() { console.log(5); }
+    console.log(num);
+}
+y();
+请写出最终答案。
+5
+4.function y() {    
+    var num = 1;
+    console.log(num);1
+    function num() { console.log(3); }
+    console.log(num);
+}
+y();
+3
+5.for(var i = 0;i<10;i++){ 
+	setTimeout(()=>{ console.log(i); },100);
+ }
+//写出三种能正常打印0-9的方法
+第一种：
+将 var 改成 let 。
+第二种：
+<script>
+        setTimeout(() => {
+            for(var i =0;i<10;i++){
+                console.log(i);
+            }
+        },100);
+ </script>
+ 
+ 第三种：
+ <script>
+       for(var i=0;i<10;i++){
+           console.log(i);
+       }
+    </script>
++6.密码必须为6-15位的数字，字母，_-的组合。请使用正则表达式验证。：
+/[0-9a-zA-Z _] {6，15}/
+7.//注意审题
+function A() {}
+function B() {}
+B.prototype = Object.create(A.prototype);
+B.prototype.constructor = B;
+function C() {}
+C.prototype = Object.create(B.prototype);
+C.prototype.constructor = C;
+
+var c1 = new C();
+c1.prototype ===？C.prototype
+c1 .__ proto__ ===？C.prototype
+c1 .__ proto __。prototype ===？ B.prototype
+c1 .__ proto __.__ proto__ ===吗？B.prototype
+c1.__proto__.__proto__.__proto__ === ?A.prototype
+c1.__proto__.constructor === ?c
+c1.__proto__.constructor.prototype === ?B.prototype
+c1.__proto__.constructor.prototype.constructor === ?B
+C.prototype.constructor === ?B
+C.prototype.constructor.prototype === ?A.prototype
+C.prototype.constructor.prototype.constructor === ?A
+C.prototype.__proto__ === ? A.prototype
