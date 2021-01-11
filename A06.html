@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+    table {
+        text-align: center;
+    }
+    td{
+        width: 80px;
+        border-bottom: 1px solid black;
+    }
+    </style>
+</head>
+<body>
+    <h2>员工信息管理</h2>
+    姓名:    <input type="text" class="yzq-inp"> <br>
+    性别:    <input type="text" class="yzq-inp1"> <br>
+    身份证号码: <input type="text" class="yzq-inp2">
+    <br> <button class="yzq-btn">提交数据</button>  <button class="yzq-btn1">删除选中数据</button>
+    <table>
+        <thead>
+        <tr>
+            <td><input type="checkbox" class="yzq-inp3">全选</td>
+            <td>编号</td>
+            <td>姓名</td>
+            <td>性别</td>
+            <td>身份证号码</td>
+            <td>操作</td>
+        </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><input type="checkbox" class="yzq-inp4"></td>
+                <td>100001</td>
+                <td>李明</td>
+                <td>男</td>
+                <td>215458752301875204</td>
+                <td><a href="#" class="yzq-a">删除</a></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <script>
+    // 获取
+    var yzq_inp = document.getElementsByClassName('yzq-inp')[0]
+    var yzq_inp1 = document.getElementsByClassName('yzq-inp1')[0]
+    var yzq_inp2 = document.getElementsByClassName('yzq-inp2')[0]
+    var yzq_btn = document.getElementsByClassName('yzq-btn')[0]
+    var yzq_tbody = document.getElementsByTagName('tbody')[0]
+    var yzq_num=100000;
+    // 点击事件
+    yzq_btn.onclick = function(){
+        yzq_num++;
+        var yzq_sum = yzq_inp2.value.slice(0,-4)+'****'
+        // 判断
+        if(yzq_inp.value=='' || yzq_inp2.value==''){
+            return alert('姓名和身份证号码不能为空')
+        }
+        // 创建新元素
+        var yzq_new = document.createElement('tr')
+        yzq_new.innerHTML = '<td><input type="checkbox" class="yzq-inp4"></td>\
+                <td>'+yzq_num+'</td>\
+                <td>'+yzq_inp.value+'</td>\
+                <td>'+yzq_inp1.value+'</td>\
+                <td>'+yzq_sum+'</td>\
+                <td><a href="#" class="yzq-a" onclick="yzq_add(this)">删除</a></td>'
+        yzq_tbody.appendChild(yzq_new)
+    }
+    // 删除
+    function yzq_add(e){
+        e.parentNode.parentNode.remove()
+    }
+    // 全选
+    var yzq_inp3 = document.getElementsByClassName('yzq-inp3')[0]
+    var yzq_inp4 = document.getElementsByClassName('yzq-inp4')
+    yzq_inp3.onclick = function(){
+        for(var i=0;i<yzq_inp4.length;i++){
+            var yzq_qx = yzq_inp3.checked;
+            yzq_inp4[i].checked = yzq_qx
+        }
+    }
+    // 选中删除
+    var yzq_btn1 = document.getElementsByClassName('yzq-btn1')[0]
+    yzq_btn1.onclick = function(){
+        for(var j=0;j<yzq_inp4.length;j++){
+            if(yzq_inp4[j].checked){
+                yzq_inp4[j].parentNode.parentNode.remove()
+                j--;
+            }
+        }
+    }
+    </script>
+</body>
+</html>
