@@ -1,5 +1,16 @@
 1.写出自己理解的原型和原型链
 
+  每个函数都有一个prototype属性，被称为显示原型 
+  每个实例对象都会有`_ _proto_ _`属性,其被称为隐式原型
+  每一个实例对象的隐式原型`_ _proto_ _`属性指向自身构造函数的显式原型prototype
+  每个prototype原型都有一个constructor属性，指向它关联的构造函数。
+  JS中的所有东西都是对象，函数也是对象, 而且是一种特殊的对象
+  JS中所有的东西都由Object衍生而来, 即所有东西原型链的终点指向Object.prototype
+  JS对象都有一个隐藏的__proto__属性，他指向创建它的构造函数的原型，但是有一个例外，Object.prototype.__proto__指向的是null。
+
+ 原型链	
+当一个对象调用自身不存在的属性/方法时，就会去自己 [proto] 关联的前辈 prototype 对象上去找，如果没找到，就会去该 prototype 原型 [proto] 关联的前辈 prototype 去找。依次类推，直到找到属性/方法或 undefined 为止。从而形成了所谓的“原型链”。
+
 2.function y(num) {
     console.log(num);
     var num = 1;
@@ -15,7 +26,16 @@
    console.log(fn);
 }
 y(2);
-请写出最终答案。
+请写出最终答案。2 1 
+fn(){
+console.log(2)
+}
+fn(){
+console.log(1)
+}
+fn(){
+console.log(1)
+}
 
 3.function y() {
     console.log(num);
@@ -27,6 +47,7 @@ y(2);
 }
 y();
 请写出最终答案。
+num(){cosole.log(5)}
 
 4.function y() {    
     var num = 1;
@@ -34,14 +55,26 @@ y();
     function num() { console.log(3); }
     console.log(num);
 }
-y();
+y(); 1 1
 
 5.for(var i = 0;i<10;i++){ 
 	setTimeout(()=>{ console.log(i); },100);
  }
 //写出三种能正常打印0-9的方法
+ 第一种：   for (let i = 0; i < 10; i++) {
+        setTimeout(() => { 
+            document.write(i+'<br>')
+        }, 100);
+    };
+第二种： for (var i = 0; i< 10; i++){
+    setTimeout(() => {
+        console.log(i);
+    }, 1000)
+}；
+第三种：
 
 6.密码必须为6-15位的数字、字母、_-的组合。请使用正则表达式验证。
+   ^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,16}$
 
 7.//注意审题
 function A() {}
@@ -52,16 +85,19 @@ function C() {}
 C.prototype = Object.create(B.prototype);
 C.prototype.constructor = C;
 
+
 var c1 = new C();
-c1.prototype === ?
-c1.__proto__ === ?
-c1.__proto__.prototype === ?
-c1.__proto__.__proto__ === ?
-c1.__proto__.__proto__.__proto__ === ?
-c1.__proto__.constructor === ?
-c1.__proto__.constructor.prototype === ?
-c1.__proto__.constructor.prototype.constructor === ?
-C.prototype.constructor === ?
-C.prototype.constructor.prototype === ?
-C.prototype.constructor.prototype.constructor === ?
-C.prototype.__proto__ === ?
+c1.prototype === c1.__proto__constructor
+
+
+c1.__proto__ === C.prototype 
+c1.__proto__.prototype ===   c1.prototype
+c1.__proto__.__proto__ === B.prototype 
+c1.__proto__.__proto__.__proto__ ===  A.prototype 
+c1.__proto__.constructor === C.prototype
+c1.__proto__.constructor.prototype === C.prototype
+c1.__proto__.constructor.prototype.constructor ===C 
+C.prototype.constructor === C
+C.prototype.constructor.prototype === c1.__proto__ 
+C.prototype.constructor.prototype.constructor ===  C
+C.prototype.__proto__ === B.prototype
