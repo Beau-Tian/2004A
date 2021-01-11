@@ -104,7 +104,6 @@ var i = 0;
 true
 
 8.原型链
-7.//注意审题 
   function A() {} 
   function B() {} 
   B.prototype = Object.create(A.prototype); 
