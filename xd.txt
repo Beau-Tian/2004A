@@ -1,0 +1,93 @@
+第一题
+        function y(num) {
+            console.log(num);  //2
+            var num = 1;
+            console.log(num);  //1
+            console.log(fn);    //console.log(2)
+            var fn = function () {
+                console.log(1);  
+            }
+            console.log(fn);   //console.log(1)
+            function fn() {
+                console.log(2);
+            }
+            console.log(fn);   //console.log(2)
+        }
+        y(2);
+
+
+第二题
+        function y() {
+            console.log(num);  //ƒunction num() { console.log(5); }
+            var num = 1;
+            console.log(num);  //1
+            function num() { console.log(3); }
+            function num() { console.log(5); }
+            console.log(num); //1 
+        }
+        y();
+
+第三题
+      function y() {
+            var num = 1;
+            console.log(num);  //1
+            function num() { console.log(3); }
+            console.log(num);  //1
+        }
+        y();
+
+第四题
+     for (var i = 0; i < 10; i++) {
+            setTimeout(() => {
+                console.log(i);  //打印10遍10
+            }, 100);
+        }
+写出三种能正常打印0-9的方法
+(第一种)   ---for循环---
+     for(let i=0;i<10;i++){
+console.log(i);
+}
+
+(第二种) ---for in---
+let arr = [0,1,2,3,4,5,6,7,8,9]
+for(let key in arr){
+console.log(key)
+}
+
+
+(第三种) ---forEach---
+let arr = [0,1,2,3,4,5,6,7,8,9]
+arr.forEach(item =>{
+console.log(item);
+})
+
+第五题
+密码必须为6-15位的数字、字母、_-的组合。请使用正则表达式验证
+/^\S*(?=\S{6,})(?=\S*\d)(?=\S*[A-Z])(?=\S*[a-z])(?=\S*[!@#$%^&*? ])\S*$/
+
+^[a-zA-Z]/w{6,15}$
+
+
+第六题
+function A() {}
+function B() {}
+B.prototype = Object.create(A.prototype);
+B.prototype.constructor = B;
+function C() {}
+C.prototype = Object.create(B.prototype);
+C.prototype.constructor = C;
+
+var c1 = new C();
+  c1.prototype === C.__proto__.prototype
+  c1.__proto__ === C.prototype 
+  c1.__proto__.prototype === c1.prototype
+  c1.__proto__.__proto__ === B.prototype
+  c1.__proto__.__proto__.__proto__ === A.prototype
+  c1.__proto__.constructor === C
+  c1.__proto__.constructor.prototype === C.prototype 
+  c1.__proto__.constructor.prototype.constructor === C 
+  C.prototype.constructor === C 
+  C.prototype.constructor.prototype === C.prototype 
+  C.prototype.constructor.prototype.constructor === C
+  C.prototype.__proto__ === B.prototype 
+
