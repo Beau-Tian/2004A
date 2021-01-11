@@ -1,0 +1,71 @@
+1、写出自己理解的原型和原型链
+     原型就是JavaScript所有的对象都包含proto属性，它对应的就是自身的原型，除了proto之外还有prototype属性；而原型链就是当一个对象调用自身不存在的属性时，就去自己prototype的上一辈去找，如果没找到就去prototype原型proto关联的上一辈去找，以此类推，直到找到方法或者undefined为止。
+2、function y(num) {
+    console.log(num);
+    var num = 1;
+    console.log(num);
+    console.log(fn);
+    var fn = function() {
+       console.log(1);
+   }
+   console.log(fn);
+   function fn(){
+       console.log(2);
+   }
+   console.log(fn);
+}
+y(2);
+请写出最终答案
+ 答：2，1，2，1，1
+3、.function y() {
+    console.log(num);
+    var num = 1;
+    console.log(num);
+    function num() { console.log(3); }
+    function num() { console.log(5); }
+    console.log(num);
+}
+y();
+请写出最终答案。
+ 答：1，1
+4、function y() {    
+    var num = 1;
+    console.log(num);
+    function num() { console.log(3); }
+    console.log(num);
+}
+y();
+ 答：1，1
+5，for(var i = 0;i<10;i++){ 
+	setTimeout(()=>{ console.log(i); },100);
+ }
+var arr=[0,1,2,3,4,5,6,7,8,9]
+for(var ser in arr){console.log(ser)}
+
+for(var ser of arr){console.log(ser)}
+
+//写出三种能正常打印0-9的方法
+答：
+6、密码必须为6-15位的数字、字母、_-的组合。请使用正则表达式验证。
+           答：/^[a-zA-Z0-9@\$]{6,15}$/
+7、function A() {}
+function B() {}
+B.prototype = Object.create(A.prototype);
+B.prototype.constructor = B;
+function C() {}
+C.prototype = Object.create(B.prototype);
+C.prototype.constructor = C;
+
+var c1 = new C();
+c1.prototype === C.prototype.prototype
+c1.__proto__ === C.prototype
+c1.__proto__.prototype === C.__proto__.prtotype
+c1.__proto__.__proto__ === B.prototype
+c1.__proto__.__proto__.__proto__ === A.prototype
+c1.__proto__.constructor === C.prototype.constructor
+c1.__proto__.constructor.prototype === C.prototype.constructor.prototype
+c1.__proto__.constructor.prototype.constructor === C.prototype.constructor.prototype.constructor
+C.prototype.constructor === C.prototype.constructor
+C.prototype.constructor.prototype ===C.prototype.constructor.prototype
+C.prototype.constructor.prototype.constructor === C.prototype.constructor.prototype.constructor
+C.prototype.__proto__ === B.prototype
