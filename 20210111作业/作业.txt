@@ -1,0 +1,67 @@
+1.写出自己理解的原型和原型链
+
+2.function y(num) {
+    console.log(num);
+    var num = 1;
+    console.log(num);
+    console.log(fn);
+    var fn = function() {
+       console.log(1);
+   }
+   console.log(fn);
+   function fn(){
+       console.log(2);
+   }
+   console.log(fn);
+}
+y(2);
+请写出最终答案。
+
+3.function y() {
+    console.log(num);
+    var num = 1;
+    console.log(num);
+    function num() { console.log(3); }
+    function num() { console.log(5); }
+    console.log(num);
+}
+y();
+请写出最终答案。
+
+4.function y() {    
+    var num = 1;
+    console.log(num);
+    function num() { console.log(3); }
+    console.log(num);
+}
+y();
+
+5.for(var i = 0;i<10;i++){ 
+	setTimeout(()=>{ console.log(i); },100);
+ }
+//写出三种能正常打印0-9的方法
+
+6.密码必须为6-15位的数字、字母、_-的组合。请使用正则表达式验证。
+
+7.//注意审题
+function A() {}
+function B() {}
+B.prototype = Object.create(A.prototype);
+B.prototype.constructor = B;
+function C() {}
+C.prototype = Object.create(B.prototype);
+C.prototype.constructor = C;
+
+var c1 = new C();
+c1.prototype === ?
+c1.__proto__ === ?
+c1.__proto__.prototype === ?
+c1.__proto__.__proto__ === ?
+c1.__proto__.__proto__.__proto__ === ?
+c1.__proto__.constructor === ?
+c1.__proto__.constructor.prototype === ?
+c1.__proto__.constructor.prototype.constructor === ?
+C.prototype.constructor === ?
+C.prototype.constructor.prototype === ?
+C.prototype.constructor.prototype.constructor === ?
+C.prototype.__proto__ === ?
