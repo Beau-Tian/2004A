@@ -1,0 +1,92 @@
+1.每个函数都有一个prototype属性，被称为显示原型
+  每个实例对象都会有__proto__属性，被称为隐士原型
+   每个实例的隐式原型__proto__属性指向自身构造函数的显示原型prototype
+   原型链
+     获取对象属性时，如果对象本身没有这个属性，那么就会去他的原型__proto__上去找，如果没有查找到，就去找原型的原型，
+     一直找到最顶层(Object.prototype)为止。Object.prototype对象也有__proto__属性值为null。
+ 2.function y(num) {
+            console.log(num)   //num = 2
+            var num = 1;
+            console.log(num)   //num = 1
+            console.log(fn)   ////fn(){console.log(2)}
+            var fn = function () {
+                console.log(1)
+            }
+            console.log(fn);   //fn(){console.log(1)}
+
+            function fn(){
+                console.log(2)   
+            }
+            console.log(fn)    //fn(){console.log(1)}
+        }
+        y(2)
+
+
+3.          function y(){
+                console.log(num)   //   f (num){ consloe.log(5)}
+                var num = 1
+                console.log(num)   //1
+                function num(){
+                    console.log(3)
+                }
+                function num(){
+                    console.log(5)
+                }
+
+                console.log(num)  //1
+            }
+            y()
+
+
+
+
+
+4.    function y(){
+        var num = 1
+        console.log(num);   //1
+        function num(){
+            console.log(3)
+        }
+        console.log(num)   //1
+
+    }
+    y()
+
+
+
+5.    for(var i = 0;i<10; i++){
+        console.log(i)
+    }
+
+
+  var arr =[0,1,2,3,4,5,6,7,8,9]
+   for(i in arr){
+       console.log(i)
+   }
+
+
+
+6.var reg = /^[A-z0-9_]{6,15}$/
+
+
+
+7.function A() {}
+function B() {}
+B.prototype = Object.create(A.prototype);
+B.prototype.constructor = B;
+function C() {}
+C.prototype = Object.create(B.prototype);
+C.prototype.constructor = C;
+var c1 = new C();
+c1.prototype === ?
+c1.__proto__ === ?
+c1.__proto__.prototype === ?
+c1.__proto__.__proto__ === ?
+c1.__proto__.__proto__.__proto__ === ?
+c1.__proto__.constructor === ?
+c1.__proto__.constructor.prototype === ?
+c1.__proto__.constructor.prototype.constructor === ?
+C.prototype.constructor === ?
+C.prototype.constructor.prototype === ?
+C.prototype.constructor.prototype.constructor === ?
+C.prototype.__proto__ === ?
