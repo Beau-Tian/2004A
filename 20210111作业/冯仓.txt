@@ -79,18 +79,29 @@ num:undefind,
  }
 //写出三种能正常打印0-9的方法
 *********************************
-答：for(let i = 0;i<10;i++){ 
-	setTimeout(()=>{ console.log(i); },100);
- }
+答：for (var i = 0; i < 10; i++) {
+            (function (j) {
+                setTimeout(() => {
+                    console.log(j);
+                }, 100);
+            })(i);
+        }
 
-for(let i = 0;i<10;i++){ 
-	function(){
-	setTimeout(()=>{ console.log(i); },100);
-               }(i）
-}
-//for(let i = 0;i<10;i++){ 
-	setTimeout(()=>{ console.log(i); },100);
- }
+for (let i = 1; i <10; i++) {
+            setTimeout(() => {
+                console.log(i);
+            }, 100);
+        }
+
+for (var i = 1; i < 10; i++) {
+            timer(i);
+        }
+
+        function timer(i) {
+            setTimeout(() => {
+                console.log(i);
+            }, 100);
+        }
 ===========================================================
 6.密码必须为6-15位的数字、字母、_-的组合。请使用正则表达式验证。
 *********************************
