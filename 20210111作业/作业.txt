@@ -1,5 +1,15 @@
 1.写出自己理解的原型和原型链
-
+*********************************
+答：原型：
+每个对象都有一个__proto__属性，并且指向它的prototype原型对象
+每个构造函数都有一个prototype原型对象
+prototype原型对象里的constructor指向构造函数本身
+原型链：
+当一个对象调用自身不存在的属性/方法时，就会去自己 [proto] 关联的前辈 prototype 
+对象上去找，如果没找到，就会去该 prototype 原型 [proto] 关联的前辈 prototype 去找。
+依次类推，直到找到属性/方法或 undefined 为止。从而形成了所谓的“原型链”。
+    
+================================================================ 
 2.function y(num) {
     console.log(num);
     var num = 1;
@@ -16,7 +26,19 @@
 }
 y(2);
 请写出最终答案。
-
+*********************************
+答：2，  1，  fn(){console.log(2)},   fn(){console.log(1)},     fn(){console.log(1)}
+Ao:{
+    num:undefind,
+num :2,
+ function fn(){
+       console.log(2);
+   }	
+ var fn = function() {
+       console.log(1);
+   }	
+}
+==============================================================
 3.function y() {
     console.log(num);
     var num = 1;
@@ -27,25 +49,68 @@ y(2);
 }
 y();
 请写出最终答案。
+*********************************
+答：ƒ num() { console.log(5); },   1,   1
+AO:{
+ num:undefind,
+  function num() { console.log(3); }
+    function num() { console.log(5); }
+       var num = 1;
 
+}
+==============================================================
 4.function y() {    
-    var num = 1;
+    var num = 1; 
     console.log(num);
     function num() { console.log(3); }
     console.log(num);
 }
 y();
+*********************************
+答： 1 , 1
+Ao:{
+num:undefind,
+ var num = 1;   //使用var 关键字声明的变量会提升到代码的头部  变量提升
+  function num() { console.log(3); }
 
+}
+===========================================================
 5.for(var i = 0;i<10;i++){ 
 	setTimeout(()=>{ console.log(i); },100);
  }
 //写出三种能正常打印0-9的方法
+*********************************
+答：for (var i = 0; i < 10; i++) {
+            (function (j) {
+                setTimeout(() => {
+                    console.log(j);
+                }, 100);
+            })(i);
+        }
 
+for (let i = 1; i <10; i++) {
+            setTimeout(() => {
+                console.log(i);
+            }, 100);
+        }
+
+for (var i = 1; i < 10; i++) {
+            timer(i);
+        }
+
+        function timer(i) {
+            setTimeout(() => {
+                console.log(i);
+            }, 100);
+        }
+===========================================================
 6.密码必须为6-15位的数字、字母、_-的组合。请使用正则表达式验证。
-
+*********************************
+答：/^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,15}$/
+===========================================================
 7.//注意审题
 function A() {}
-function B() {}
+function B() {}            
 B.prototype = Object.create(A.prototype);
 B.prototype.constructor = B;
 function C() {}
@@ -53,15 +118,18 @@ C.prototype = Object.create(B.prototype);
 C.prototype.constructor = C;
 
 var c1 = new C();
-c1.prototype === ?
-c1.__proto__ === ?
-c1.__proto__.prototype === ?
-c1.__proto__.__proto__ === ?
-c1.__proto__.__proto__.__proto__ === ?
-c1.__proto__.constructor === ?
-c1.__proto__.constructor.prototype === ?
-c1.__proto__.constructor.prototype.constructor === ?
-C.prototype.constructor === ?
-C.prototype.constructor.prototype === ?
-C.prototype.constructor.prototype.constructor === ?
-C.prototype.__proto__ === ?
+ console.log(c1)
+c1.prototype === undefined
+c1.__proto__ === C.prototype
+c1.__proto__.prototype === undefined
+c1.__proto__.__proto__ === B.prototype
+c1.__proto__.__proto__.__proto__ === A.prototype
+c1.__proto__.constructor === C.prototype.constructor
+c1.__proto__.constructor.prototype === C.prototype
+c1.__proto__.constructor.prototype.constructor === C.prototype.constructor
+C.prototype.constructor === c1.__proto__.constructor.prototype.constructor
+C.prototype.constructor.prototype === c1.__proto__.constructor.prototype
+C.prototype.constructor.prototype.constructor ===c1.__proto__.constructor.prototype.constructor
+C.prototype.__proto__ === B.prototype
+
+
