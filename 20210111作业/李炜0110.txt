@@ -1,0 +1,102 @@
+1.写出自己理解的原型和原型链
+原型
+  每个函数都会有一个prototype属性这个属性叫做原型
+  每个实例对象都会有一个__proto__属性 这个属性叫做隐式原型
+  每个实例对象的__proto__的隐式的原型上都会指向自身的构造原型
+  在每个prototype的属性上有constructor属性来指向关联的构造函数
+原型链
+原型链：获取对象属性时，如果对象本身没有这个属性，
+那就会去他的原型`__proto__`上去找，如果还查不到，就去找原型的原型，
+一直找到最顶层(`Object.prototype`)为止。
+Object.prototype对象也有__proto__属性值为null。
+
+2.function y(num) {
+    console.log(num);
+    var num = 1;
+    console.log(num);
+    console.log(fn);
+    var fn = function() {
+       console.log(1);
+   }
+   console.log(fn);
+   function fn(){
+       console.log(2);
+   }
+   console.log(fn);
+}
+y(2);
+请写出最终答案。
+第一个打印的是 2 
+第二个打印的是 1 
+第三个打印的是 2 
+第四个打印的是 1
+第五个打印的是 1
+3.function y() {
+    console.log(num);
+    var num = 1;
+    console.log(num);
+    function num() { console.log(3); }
+    function num() { console.log(5); }
+    console.log(num);
+}
+y();
+请写出最终答案。
+第一个打印的是 5 
+第二个打印的是 1
+第三个打印的是 1
+4.function y() {    
+    var num = 1;
+    console.log(num);
+    function num() { console.log(3); }
+    console.log(num);
+}
+y();
+第一个打印的是 1
+第二个打印的是 1
+
+5.for(var i = 0;i<10;i++){ 
+    setTimeout(()=>{ console.log(i); },100);
+ }
+//写出三种能正常打印0-9的方法
+第一种方法
+var换成let let属于块级作用域
+for(let i=0;i<=9;i++){
+    setTimeout(()=>{ console.log(i); 
+},100);}
+第二种
+for(var i = 0;i<10;i++){ 
+    setTimeout(i=>{ console.log(i); },100,i);
+}
+第三种
+for (var i = 0; i < 10; i++) {
+  (i => {
+    setTimeout(() => {
+      console.log(i);
+    }, 1000)
+  })(i)
+}
+
+6.密码必须为6-15位的数字、字母、_-的组合。请使用正则表达式验证。
+/^[\da-Z0-9_-]{6-15}$/
+7.//注意审题
+function A() {}
+function B() {}
+B.prototype = Object.create(A.prototype);
+B.prototype.constructor = B;
+function C() {}
+C.prototype = Object.create(B.prototype);
+C.prototype.constructor = C;
+
+var c1 = new C();
+c1.prototype === c1.__proto__.prototype 
+c1.__proto__ === C.prototype
+c1.__proto__.prototype === c1.prototype 
+c1.__proto__.__proto__ === B.prototype
+c1.__proto__.__proto__.__proto__ === A.prototype
+c1.__proto__.constructor === C
+c1.__proto__.constructor.prototype === C.prototype
+c1.__proto__.constructor.prototype.constructor === C
+C.prototype.constructor === C
+C.prototype.constructor.prototype === C.prototype
+C.prototype.constructor.prototype.constructor === C
+C.prototype.__proto__ === B.prototype

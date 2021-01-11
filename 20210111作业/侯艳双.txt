@@ -1,0 +1,87 @@
+1.写出自己理解的原型和原型链
+javascript的所有对象都包含了一个proto属性 这个属性指向的就是自身的原型
+javascript的所有函数对象都有一个proto的属性 还有一个prototype的属性    当这个属性作为创建构造函数使用时他的prototype属性会做为proto属性
+
+原型链
+原型链就是先从自身查找 如果查找不到 在去原型查找 如果在查找不到继续向上一级查找 直到找到undefind为止
+
+
+
+2.function y(num) {   
+    console.log(num);                           2
+    var num = 1;                                    
+    console.log(num);                         1
+    console.log(fn);                                2
+    var fn = function() {                         
+       console.log(1);                            1
+   }
+   console.log(fn);                            1
+   
+   console.log(fn);
+}
+y(2);
+请写出最终答案。
+
+3.function y() {
+    console.log(num);
+    var num = 1;
+    console.log(num);
+    function num() { console.log(3); }
+    function num() { console.log(5); }
+    console.log(num);
+}
+y();
+请写出最终答案。
+
+4.function y() {    
+    var num = 1;
+    console.log(num);
+    function num() { console.log(3); }
+    console.log(num);
+}
+y();
+
+
+5.for(var i = 0;i<10;i++){ 
+	setTimeout(()=>{ console.log(i); },100);
+ }
+
+第一种:   for(let i = 0;i<10;i++){ 
+	  setTimeout(()=>{ console.log(i); },100);
+              }
+第二种：for(var i = 0;i<10;i++){ 
+	console.log(i)
+ 	}
+第三种：...
+
+
+6.密码必须为6-15位的数字、字母、_-的组合。请使用正则表达式验证。
+/\w{6,15}/
+
+
+
+
+
+7.//注意审题
+function A() {}
+function B() {}
+B.prototype = Object.create(A.prototype);
+B.prototype.constructor = B;
+function C() {}
+C.prototype = Object.create(B.prototype);
+C.prototype.constructor = C;
+
+
+var c1 = new C();
+c1.prototype === C.__proto__.prototype?
+c1.__proto__ === C.prototype ?
+c1.__proto__.prototype ===   c1.prototype?
+c1.__proto__.__proto__ === B.prototype ?
+c1.__proto__.__proto__.__proto__ ===  A.prototype ?
+c1.__proto__.constructor === C.prototype?
+c1.__proto__.constructor.prototype === C.prototype?
+c1.__proto__.constructor.prototype.constructor ===C ?
+C.prototype.constructor === C?
+C.prototype.constructor.prototype === c1.__proto__ ?
+C.prototype.constructor.prototype.constructor ===  C?
+C.prototype.__proto__ === B.prototype ?
