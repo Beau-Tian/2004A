@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+    ul{
+        list-style: none;
+    }
+    .yzq-big {
+        width: 600px;
+        margin: 0 auto;
+    }
+    .yzq-inp {
+        width: 500px;
+    }
+    .yzq-inp1 {
+        width: 500px;
+        height: 200px;
+        margin-top: 10px;
+    }
+    .yzq-small {
+        width: 230px;
+        height: 80px;
+        margin-left: 302px;
+    }
+    h2 {
+        margin-left: 106px;
+    }
+    .a1 {
+        color: red;
+        text-decoration: none;
+    }
+    li {
+        width: 500px;
+        height: 100px;
+        border-top: 1px solid black;
+    }
+    .yzq-p {
+        margin-top: 10px;
+    } 
+    .yzq-a {
+        float: right;
+    }
+    .yzq {
+        float: right;
+    }
+    </style>
+</head>
+<body>
+    <div class="yzq-big">
+        <input type="text" class="yzq-inp" placeholder="输入性名"><br>
+        <input type="text" class="yzq-inp1" placeholder="发表你的评论">
+        <div class="yzq-small">
+            还能输入<span class="yzq_pan">100</span>个字符 <span class="yzq-pa">??</span>
+            <button class="yzq-btn">发表评论</button>
+            <h2><a href="#" class="a1">清空留言</a></h2>
+        </div>
+        <ul>
+            <li>
+                <p class="yzq-p">
+                    <span class="yzq-pan1">weixin_39278430</span>
+                    <span class="yzq-pan2">2018-01-09 22:03</span>
+                    <span class="yzq"><span class="yzq-pan3">3</span>楼</span>
+                </p>
+                <p class="yzq-pi">
+                    有收获
+                    <a href="#" class="yzq-a">删除</a>
+                </p>
+            </li>
+            <li>
+                <p class="yzq-p">
+                    <span class="yzq-pan1">weixin_39278430</span>
+                    <span class="yzq-pan2">2018-01-09 22:03</span>
+                    <span class="yzq"><span class="yzq-pan3">2</span>楼</span>
+                </p>
+                <p class="yzq-pi">
+                    有收获
+                    <a href="#" class="yzq-a">删除</a>
+                </p>
+            </li>
+            <li>
+                <p class="yzq-p">
+                    <span class="yzq-pan1">weixin_39278430</span>
+                    <span class="yzq-pan2">2018-01-09 22:03</span>
+                    <span class="yzq"><span class="yzq-pan3">1</span>楼</span>
+                </p>
+                <p class="yzq-pi">
+                    有收获
+                    <a href="#" class="yzq-a" >删除</a>
+                </p>
+            </li>
+        </ul>
+    </div>
+    <script>
+    // 正确添加
+    // 获取
+    var yzq_inp = document.getElementsByClassName('yzq-inp')[0]
+    var yzq_inp1 = document.getElementsByClassName('yzq-inp1')[0]
+    var yzq_btn = document.getElementsByClassName('yzq-btn')[0]
+    var yzq_ul = document.getElementsByTagName('ul')[0]
+    // 字数长度
+    var yzq_pa = document.getElementsByClassName('yzq-pa')[0]
+    yzq_inp1.onkeyup = function(){
+        yzq_pa.innerHTML=100-yzq_inp1.value.length;
+    }
+    var num=0;
+    // 点击事件
+    yzq_btn.onclick = function(){
+        // 判断
+        if (yzq_inp.value==''||yzq_inp1.value==''){
+            alert('输入内容不能为空')
+            return
+        }
+        num++
+        // 获取时间
+        var yzq_timer = new Date()
+        // 年
+        var yzq_n = yzq_timer.getFullYear()
+        // 月
+        var yzq_y = yzq_timer.getMonth()
+        // 日
+        var yzq_r = yzq_timer.getDate()
+        // 时
+        var yzq_s = yzq_timer.getHours()
+        // 分
+        var yzq_f = yzq_timer.getMinutes()
+        // 秒
+        var yzq_m = yzq_timer.getSeconds()
+        // 拼接
+        var yzq_time = yzq_n+'-'+yzq_y+'-'+yzq_r+''+yzq_s+':'+yzq_f+':'+yzq_m
+        // 创建
+        var yzq_li = document.createElement('li')
+        yzq_li.innerHTML = '<p class="yzq-p">\
+                    <span class="yzq-pan1">'+yzq_inp.value+'</span>\
+                    <span class="yzq-pan2">'+yzq_time+'</span>\
+                    <span class="yzq"><span class="yzq-pan3">'+num+'</span>楼</span>\
+                </p>\
+                <p class="yzq-pi">\
+                    '+yzq_inp1.value+'\
+                    <a href="#" class="yzq-a" onclick="yzq_add(this)">删除</a>\
+                </p>'
+                yzq_ul.insertBefore(yzq_li,yzq_ul.firstChild)
+                add()
+    }
+    // 单行删除
+    function yzq_add(ele){
+        ele.parentNode.parentNode.remove()
+        add()
+    }
+    // 清空留言
+    var yzq_a1 = document.getElementsByClassName('a1')[0]
+    yzq_a1.onclick = function(){
+        yzq_ul.innerHTML=''
+    }
+    function add(){
+        var yzq_pan3 = document.getElementsByClassName('yzq-pan3')
+        var len = yzq_pan3.length
+        for(var i=0;i<yzq_pan3.length;i++){
+            yzq_pan3[i].innerHTML = len-i
+        }
+    }
+    </script>
+</body>
+</html>
