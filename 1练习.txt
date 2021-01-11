@@ -1,0 +1,5 @@
+ /*
+        原型中有 constructor  指向函数的本身
+        原型中的属性 prototype
+        原型中实例化后的属性 __proto__  ==== 原形的属性  prototype
+        */
