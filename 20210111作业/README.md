@@ -60,3 +60,5 @@ C.prototype.constructor === C
 C.prototype.constructor.prototype === c1.__proto__ 
 C.prototype.constructor.prototype.constructor ===  C
 C.prototype.__proto__ === B.prototype
+
+.
