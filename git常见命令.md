@@ -14,7 +14,7 @@ git push origin 本地的分支名:线上分支名
 
 git push origin master  把本地master分支，推到线上master分支上，
 
-**更改链接的远程仓库地址的话**
+更改链接的远程仓库地址的话
 
 git remote add origin  远程的url地址仓库
 
