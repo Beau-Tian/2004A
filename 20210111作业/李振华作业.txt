@@ -1,0 +1,102 @@
+1、每个函数都有一个prototype属性，这个属性就是原型
+     原型链： 每个实例化对象都有一个__proto__属性，这个属性指向函数的原型，当我们访问对象中的属性的时候，先从当前对象找，如果找不到的话，从当前原型中查找， 当前函数的继承对象中查找，最后如果没有找到返回 undefined
+     每个实例化的对象的的__proto__属性指向函数的原型属性prototype
+     函数的prototype中包含constructor属性，
+     constructor属性指向函数本身
+
+2、function y(num) {
+        console.log(num);  // 2
+        var num = 1;
+        console.log(num);  // 1
+        console.log(fn);  // fn = function(){console.log(2);}
+        var fn = function () {
+          console.log(1);
+        };
+        console.log(fn);  // fn = function(){console.log(1);}
+        function fn() {
+          console.log(2);
+        }
+        console.log(fn);  // fn = function(){console.log(1);}
+      }
+      y(2);
+
+3、function y() {
+        console.log(num);  // fn = function(){console.log(5);}
+        var num = 1;
+        console.log(num);  // 1
+        function num() {
+          console.log(3);
+        }
+        function num() {
+          console.log(5);
+        }
+        console.log(num);  // 1
+      }
+      y();
+
+4、function y() {
+        var num = 1;
+        console.log(num);  // 1
+        function num() {
+          console.log(3);
+        }
+        console.log(num);  // 1
+      }
+      y();
+
+5、for(var i = 0;i<10;i++){ 
+	setTimeout(()=>{ console.log(i); },100);
+      }
+     //写出三种能正常打印0-9的方法
+     一：
+           for (let i = 0; i < 10; i++) {
+               setTimeout(() => {
+               console.log(i);
+             }, 100);
+          }
+     二：
+         for (var i = 0; i < 10; i++) {
+            console.log(i)
+         }
+    三：
+       for (var i = 0; i < 10; i++) {
+        (function (i) {
+          setTimeout(() => {
+            console.log(i);
+          }, 100);
+        })(i);
+      }
+   四：
+      for (var i = 0; i < 10; i++) {
+        try {
+          throw i;
+        } catch (e) {
+          setTimeout(function () {
+            console.log(e);
+          }, 100);
+        }
+      }
+
+6、密码必须为6-15位的数字、字母、_-的组合。请使用正则表达式验证。
+     var reg=/^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,12}$/;
+
+7、function A() {}
+function B() {}
+B.prototype = Object.create(A.prototype);
+B.prototype.constructor = B;
+function C() {}
+C.prototype = Object.create(B.prototype);
+C.prototype.constructor = C;
+
+var c1 = new C();
+      c1.__proto__ === C.prototype;
+      c1.__proto__.prototype === undefined;
+      c1.__proto__.__proto__ === B.prototype;
+      c1.__proto__.__proto__.__proto__ === A.prototype;
+      c1.__proto__.constructor === C;
+      c1.__proto__.constructor.prototype === C.prototype;
+      c1.__proto__.constructor.prototype.constructor === C;
+      C.prototype.constructor === C;
+      C.prototype.constructor.prototype === C.prototype;
+      C.prototype.constructor.prototype.constructor === C;
+      C.prototype.__proto__ === B.prototype;
