@@ -1,47 +1,79 @@
-1.写出自己理解的原型和原型链
+﻿1.写出自己理解的原型和原型链
+     原型：每一个函数都有一个prototype属性，也被成为显示原型， 每个实例化对象都有--proto--属性，也被成为隐式原型，隐式原型又指向显示原型，二者为相等的关系， 显示原型下有
+constructor 属性，constructor指向的是构造函数本身，看似是一个球形关系，一环扣一环，最结果从哪里来到哪里去。
+    原型链： 当我们在对象中查找属性时，现在自身对象中查找，如果没有找到，就会去prototype中查找，如果还是找不到，就会去原型的原型上查找，直到找到最顶层，如果还是找不到，就
+会返回undefined
 
 2.function y(num) {
-    console.log(num);
+    console.log(num);                 //2
     var num = 1;
-    console.log(num);
-    console.log(fn);
+    console.log(num);                             //1
+    console.log(fn);                          //undefined
     var fn = function() {
-       console.log(1);
+       console.log(1);             
    }
-   console.log(fn);
+   console.log(fn);                    //1
    function fn(){
        console.log(2);
    }
-   console.log(fn);
+   console.log(fn);     //2
 }
 y(2);
 请写出最终答案。
 
 3.function y() {
-    console.log(num);
+    console.log(num);                           //undefined
     var num = 1;
-    console.log(num);
+    console.log(num);                           //1
     function num() { console.log(3); }
     function num() { console.log(5); }
-    console.log(num);
+    console.log(num);                          //1
 }
 y();
 请写出最终答案。
 
+
+
+
 4.function y() {    
     var num = 1;
-    console.log(num);
+    console.log(num);                    //1
     function num() { console.log(3); }
-    console.log(num);
+    console.log(num);                        //1
 }
 y();
+
+
+
+
 
 5.for(var i = 0;i<10;i++){ 
 	setTimeout(()=>{ console.log(i); },100);
  }
 //写出三种能正常打印0-9的方法
+ 1   for(let i = 0;i<10;i++){ 
+	setTimeout(()=>{ console.log(i); },100);
+      }
+ 2    for(let i = 0;i<10;i++){
+	((j)=>{
+		setTimeout(function(){
+		console.log(j)
+
+　　　　	},100)
+
+       })(i)
+3 function timer(i) {
+    setTimeout( console.log( i ), i*1000 );
+  }
+  for (var i=0; i<=9;i++) {
+    timer(i);
+  }
+
 
 6.密码必须为6-15位的数字、字母、_-的组合。请使用正则表达式验证。
+^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,15}$
+
+
 
 7.//注意审题
 function A() {}
@@ -53,15 +85,15 @@ C.prototype = Object.create(B.prototype);
 C.prototype.constructor = C;
 
 var c1 = new C();
-c1.prototype === ?
-c1.__proto__ === ?
-c1.__proto__.prototype === ?
-c1.__proto__.__proto__ === ?
-c1.__proto__.__proto__.__proto__ === ?
-c1.__proto__.constructor === ?
-c1.__proto__.constructor.prototype === ?
-c1.__proto__.constructor.prototype.constructor === ?
-C.prototype.constructor === ?
-C.prototype.constructor.prototype === ?
-C.prototype.constructor.prototype.constructor === ?
-C.prototype.__proto__ === ?
+c1.prototype === ? 				 答案 undefined	  
+c1.__proto__ === ?                                                    答案 C.prototype
+c1.__proto__.prototype === ?			 答案 C.prototype
+c1.__proto__.__proto__ === ?			 答案 B
+c1.__proto__.__proto__.__proto__ === ?		 答案 A.prototype
+c1.__proto__.constructor === ?			 答案 C
+c1.__proto__.constructor.prototype === ?		 答案C.prototype
+c1.__proto__.constructor.prototype.constructor === ?答案C
+C.prototype.constructor === ?			 答案C
+C.prototype.constructor.prototype === ?		 答案C.prototype
+C.prototype.constructor.prototype.constructor === ?答案C
+C.prototype.__proto__ === ?			 答案c1.constructor
