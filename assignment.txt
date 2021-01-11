@@ -1,0 +1,143 @@
+
+1.写出自己理解的原型和原型链
+
+每一个构造函数都有一个prototype属性，这个prototype属性就是函数的原型。
+
+	看到老师的灵感是来源于一个电影，我第一个想到电影的就是《我不是药神》，这部电影的主角也有它的原型，
+
+	所以说原型就是原来的类型或者模型的意思，电影是通过一个人物原型来模仿或复制一个新的人物，
+
+	构造函数的原型就是prototype属性，
+
+	这个属性是一个指针，它指向了一个对象，
+	
+	这个对象的用途是包含特定类型的所有实例共享的属性和方法，这个原型对象是用来给实例共享属性和方法的。
+ 
+	而每个实例内部都有一个指向原型对象的指针。
+
+	访问原型对象属性的要求就是实例化以后。
+
+为什么要用它:
+	
+	易读性，可维护性好，有易用性，只创建一次就可以，减少内存
+
+
+2.函数y（num）{
+
+    console.log（num）; 
+
+    var num = 1;
+
+    console.log（num）; 
+
+    console.log（fn）; 	
+
+    var fn = function（）{
+
+       console.log（1）; 
+   }
+   console.log（fn）;	
+
+   函数fn（）{
+
+       console.log（2）;
+   }
+   console.log（fn）;   
+}
+y（2）;
+请写出最终答案：
+2 
+1 
+fn(){console.log（2）}
+fn(){console.log（1）}
+fn(){console.log（1）}
+undefined
+
+3.函数y（）{
+    console.log（num）;
+    var num = 1;
+    console.log（num）;
+    函数num（）{console.log（3）; }
+    函数num（）{console.log（5）; }
+    console.log（num）;
+}
+y（）;
+请写出最终答案:
+num(){console.log(5)}
+1
+1
+
+4.函数y（）{    
+    var num = 1;
+    console.log（num）;  答案 //1
+    函数num（）{console.log（3）; }
+    console.log（num）;	  答案//1
+}
+y（）;
+
+5.for（var i = 0; i <10; i ++）{ 
+	//答案: 10个10
+	setTimeout（（）=> {console.log（i）;}，100）;
+ }
+//写出三种能正常打印0-9的方法
+	第一种:
+		for (let i = 0; i < 10; i++) {
+            setTimeout(() => { console.log(i); }, 100);
+        }
+	第二种:
+	var i = 0;
+        var timer = setInterval(() => {
+            i++;
+            if (i == 9) {
+                clearInterval(timer)
+            }
+            console.log(i)
+        }, 100);
+	第三种:
+	  var i = 10;
+        for(let j= 0; j < i;j++){
+            console.log(j)
+        }
+	第四种:递归
+  // 递归
+          var i = 0;
+        function f1() {
+            console.log(i);
+            i++;
+            
+            if (i < 10) {
+                f1();
+            }
+            
+        };
+        f1();
+	
+6.密码必须为6-15位的数字，字母，_-的组合。请使用正则表达式验证。
+/^[a-zA-Z0-9_-]{6,15}$/ 或者 /^[\w]{6,15}$/
+
+7.//注意审题
+ function A() { }
+        function B() { }
+        B.prototype = Object.create(A.prototype);
+        B.prototype.constructor = B;
+        function C() { }
+        C.prototype = Object.create(B.prototype);
+        C.prototype.constructor = C;
+
+        var c1 = new C();
+        console.log(c1)
+        console.log(c1.prototype === undefined) 
+        console.log(c1.__proto__ === C.prototype)
+        console.log(c1.__proto__.prototype === undefined)
+        console.log(c1.__proto__.__proto__ === B.prototype)
+        console.log(c1.__proto__.__proto__.__proto__ === A.prototype)
+        console.log(c1.__proto__.constructor === C.prototype.constructor)
+        console.log(c1.__proto__.constructor.prototype === C.prototype)
+        console.log(c1.__proto__.constructor.prototype.constructor === C.prototype.constructor)
+        console.log(C.prototype.constructor === c1.__proto__.constructor.prototype.constructor)
+        console.log(C.prototype.constructor.prototype === c1.__proto__.constructor.prototype)
+        console.log(C.prototype.constructor.prototype.constructor ===c1.__proto__.constructor.prototype.constructor)
+        console.log(C.prototype.__proto__ === B.prototype)
+      
+2
+©2021 GitHub，Inc.
