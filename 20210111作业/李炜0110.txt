@@ -5,6 +5,10 @@
   每个实例对象的__proto__的隐式的原型上都会指向自身的构造原型
   在每个prototype的属性上有constructor属性来指向关联的构造函数
 原型链
+原型链：获取对象属性时，如果对象本身没有这个属性，
+那就会去他的原型`__proto__`上去找，如果还查不到，就去找原型的原型，
+一直找到最顶层(`Object.prototype`)为止。
+Object.prototype对象也有__proto__属性值为null。
 
 2.function y(num) {
     console.log(num);
