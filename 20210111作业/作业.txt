@@ -65,15 +65,15 @@ C.prototype.constructor = C;
 
 var c1 = new C();
 console.log(c1)
-        console.log(c1.prototype === undefined) 
-        console.log(c1.__proto__ === C.prototype)
-        console.log(c1.__proto__.prototype === undefined)
-        console.log(c1.__proto__.__proto__ === B.prototype)
-        console.log(c1.__proto__.__proto__.__proto__ === A.prototype)
-        console.log(c1.__proto__.constructor === C.prototype.constructor)
-        console.log(c1.__proto__.constructor.prototype === C.prototype)
-        console.log(c1.__proto__.constructor.prototype.constructor === C.prototype.constructor)
-        console.log(C.prototype.constructor === c1.__proto__.constructor.prototype.constructor)
-        console.log(C.prototype.constructor.prototype === c1.__proto__.constructor.prototype)
-        console.log(C.prototype.constructor.prototype.constructor ===c1.__proto__.constructor.prototype.constructor)
-        console.log(C.prototype.__proto__ === B.prototype)
+        console.log(c1.prototype ===) 
+        console.log(c1.__proto__ === )
+        console.log(c1.__proto__.prototype === )
+        console.log(c1.__proto__.__proto__ === )
+        console.log(c1.__proto__.__proto__.__proto__ === )
+        console.log(c1.__proto__.constructor ===)
+        console.log(c1.__proto__.constructor.prototype === )
+        console.log(c1.__proto__.constructor.prototype.constructor ===）
+        console.log(C.prototype.constructor === )
+        console.log(C.prototype.constructor.prototype ===）
+        console.log(C.prototype.constructor.prototype.constructor ===)
+        console.log(C.prototype.__proto__ ===)
