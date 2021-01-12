@@ -1,4 +1,12 @@
 1.写出自己理解的原型和原型链
+每个函数都有一个原型prototyp显示原型，
+每个构造函数都有--proto--属性隐示原型，指向原型prototyp显示原型，
+每个prototype都包含一个constructor属性，指向构造函数本身
+
+原型链是先从当前对象中查找属性和方法，如果没有就从原型中查找，
+没有，就从继承的对象中找，如果没有就返回undefined
+
+基本都是死记硬背的。。。。。
 
 
 <<<<<<< HEAD
@@ -147,6 +155,20 @@ C.prototype.constructor = C;
 
 var c1 = new C();
 <<<<<<< HEAD
+c1.prototype === C1.prototype ?
+c1.__proto__ === C.protoype?
+c1.__proto__.prototype === C__proto__.prototype?
+c1.__proto__.__proto__ === B.prototype?
+c1.__proto__.__proto__.__proto__ ===  A.prototype
+c1.__proto__.constructor === C?
+c1.__proto__.constructor.prototype === C.prototype?
+c1.__proto__.constructor.prototype.constructor === C?
+C.prototype.constructor ===C ?
+C.prototype.constructor.prototype === C.prototype?
+C.prototype.constructor.prototype.constructor ===C ?
+C.prototype.__proto__ ===B.prototype ?
+=======
+<<<<<<< HEAD
 console.log(c1)
         console.log(c1.prototype ===) 
         console.log(c1.__proto__ === )
@@ -244,3 +266,4 @@ C.prototype.constructor.prototype === ?A.prototype
 C.prototype.constructor.prototype.constructor === ?A
 C.prototype.__proto__ === ? A.prototype
 >>>>>>> 1b9373974923e32d704bee414b49be7d7caceaa7
+>>>>>>> d7e5f1778680fe1f6c4299e8c081147e5fa259f6
