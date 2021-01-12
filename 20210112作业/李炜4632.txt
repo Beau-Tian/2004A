@@ -1,0 +1,75 @@
+1、new Promise((resolve,reject)=>{
+            axios.get('');
+            resolve('a')
+        }).then(c=>{
+            console.log('then'+c);
+        }).catch(e=>{
+            console.log('error'+e);
+            return 123
+        }).then(c=>{
+            console.log(c);
+            return 321
+        }).then(c=>{
+            console.log(c)
+        })
+
+2、function resolveAfter2Seconds(x) {
+            return new Promise(resolve => {
+                setTimeout(() => {
+                    resolve(x)
+                },100)
+            });
+        }
+
+        async function f1() {
+            var x = await resolveAfter2Seconds(10);
+            console.log(x)
+        }
+
+        f1()
+
+3、==只要值相等就可以,===类型和值都要相等才可以
+
+4、let不允许在相同作用域内，重复声明同一个变量。否则报错
+使用let命令变量之前，该变量是不可用的。这被称为“暂时性死区”
+
+5、
+第一次打印：输出2
+第二次打印：报错
+首先会存在一个变量的提升也就是var b = 1;
+const不存在变量提升
+然后执行const obj = {a:1};
+最后执行这两个obj.a = 2;b = 2;
+
+
+6、	我今年13 
+	我今年15
+	我今年12
+	我今年12
+前面2个 是变量提升先运行内部变量 所以是13和15
+后面2个  var tell = obj.tellMe;
+        	    tell = obj1.tellMe;
+直接把函数赋值给tell ，所以调用不了内部函数，使用了外部函数
+所以是 12  12 
+
+
+7、	张三
+	李四
+
+8、function arr(name, age) {
+  this.name = name;
+  this.age = age;
+}
+women.prototype.eat = function () {
+  console.log(`我叫${this.name1}，会吃了`);
+}
+women.prototype.tell = function () {
+  console.log(`我叫${this.name1}，今年${this.age}岁`);
+}
+arr.isarr = function (obj) {
+  if (obj instanceof arr) {
+    console.log('这是一个arr的实例');
+  } else {
+    console.log('这不是一个arr的实例');
+  }
+}
