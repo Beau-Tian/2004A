@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 第一题 链式调用的promise
+        // const p = new Promise((resolve, reject) => {
+        //     setTimeout(() => {
+        //         resolve(111);
+        //     }, 1000)
+        // });
+        // p.then(res => {
+        //     console.log(res);
+        //     return "哈哈哈";
+        // }).then(res => {
+        //     console.log(res)
+        // });
+
+        // // 第二题
+        // function takeLongTime(n) {
+        //     return new Promise(resolve => {
+        //         setTimeout(() => resolve(n + 200), n);
+        //     });
+        // }
+        // function step1(n) {
+        //     console.log(`step1 with ${n}`);
+        //     return takeLongTime(n);
+        // }
+        // function step2(m, n) {
+        //     console.log(`step2 with ${m} and ${n}`);
+        //     return takeLongTime(m + n);
+        // }
+        // function step3(k, m, n) {
+        //     console.log(`step3 with ${k}, ${m} and ${n}`);
+        //     return takeLongTime(k + m + n);
+        // }
+
+        // async function doIt() {
+        //     console.time("doIt");
+        //     const time1 = 300;
+        //     const time2 = await step1(time1);
+        //     const time3 = await step2(time1, time2);
+        //     const result = await step3(time1, time2, time3);
+        //     console.log(`result is ${result}`);
+        //     console.timeEnd("doIt");
+        // }
+
+        // doIt();
+
+        // 第三题
+        // ==和===的区别
+        // 简单来说： == 代表相同， ===代表严格相同,
+        // 理解： 当进行双等号比较时候： 先检查两个操作数数据类型，如果相同， 则进行 === 比较， 如果不同， 则愿意为你进行一次类型转换， 转换成相同类型后再进行比较， 而 === 比较时， 如果类型不同，直接就是false.
+        // 双等号 ==：
+
+        // （1）如果两个值类型相同，再进行三个等号(===)的比较
+
+        // （2）如果两个值类型不同，也有可能相等，需根据以下规则进行类型转换在比较：
+
+        // 1）如果一个是null，一个是undefined，那么相等
+
+        // 2）如果一个是字符串，一个是数值，把字符串转换成数值之后再进行比较
+
+        // 三等号 ===:
+
+        // （1）如果类型不同，就一定不相等
+
+        // （2）如果两个都是数值，并且是同一个值，那么相等；如果其中至少一个是NaN，那么不相等。（判断一个值是否是NaN，只能使用isNaN() 来判断）
+
+        // （3）如果两个都是字符串，每个位置的字符都一样，那么相等，否则不相等。
+
+        // （4）如果两个值都是true，或是false，那么相等
+
+        // （5）如果两个值都引用同一个对象或是函数，那么相等，否则不相等
+
+        // （6）如果两个值都是null，或是undefined，那么相等
+
+        // 第四题
+        // var name = "";
+        // let name = ""; //会报错 因为let不可以重复名命 而var可以重复名命
+
+        // 第五题
+        // const obj = { a: 1 }; var b = 1; obj.a = 2; b = 2;
+        // console.log(obj)
+        // console.log(obj.a)
+        // console.log(b)
+
+        // 第六题
+        // var age = 12;
+        // var obj = {
+        //     age: 13,
+        //     tellMe() {
+        //         console.log('我今年' + this.age);
+        //     }
+        // }
+        // var obj1 = {
+        //     age: 15,
+        //     tellMe: () => {
+        //         console.log('我今年' + this.age);
+        //     }
+        // }
+        // obj.tellMe();
+        // obj1.tellMe();
+        // var tell = obj.tellMe;
+        // tell();
+        // tell = obj1.tellMe;
+        // tell();
+        //         运行结果:
+        // 作业.html: 100 我今年13
+        // 作业.html: 106 我今年12
+        // 作业.html: 100 我今年12
+        // 作业.html: 106 我今年12
+
+        // 第七题
+        // function person() {
+        //     this.name = '张三';
+        // }
+        // person.prototype.name = '李四';
+        // var p = new person();
+        // console.log(p.name); //张三
+        // delete p.name;
+        // console.log(p.name); //李四
+
+        // 第八题
+        function human(name, age) {
+            this.name = name;
+            this.age = age;
+        }
+        human.prototype.eat = function () {
+            console.log(`我叫${this.namee}，会吃饭了`);
+        }
+        human.prototype.tell = function () {
+            console.log(`我叫${this.namee}，今年${this.age}岁`);
+        }
+        human.isHuman = function (obj) {
+            if (obj instanceof human) {
+                console.log('这是一个human的实例');
+            } else {
+                console.log('这不是一个human的实例');
+            }
+        }
+    </script>
+</body>
+
+</html>
