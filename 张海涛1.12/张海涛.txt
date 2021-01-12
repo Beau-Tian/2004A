@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    1、
+    <hr>
+    2、
+    async getList(){
+    const{data:res} =await this.$axios.get('rights/list')
+    if(res.meta.status!==200){
+    return this.$message.error('获取权限列表数据失败')
+    }
+    this.rightsList= res.data
+    console.log(this.rightsList)
+    }
+    <hr>
+    3、==是相等 比较等号两边的值是否相等
+    ===是全等 比较等号两边的值和变量是否全等
+    <hr>
+    4、
+    var name ='undefined'
+    let name ='undefined'
+    <hr>
+    5、a = undefined; b = 2
+    <hr>
+    6、
+    <script>
+    //   var age = 12;
+    //     var obj = {
+    //         age: 13,
+    //         tellMe() {
+    //             console.log('我今年' + this.age);
+    //         }
+    //     }
+    //     var obj1 = {
+    //         age: 15,
+    //         tellMe: () => {
+    //             console.log('我今年' + this.age);
+    //         }
+    //     }
+    //     obj.tellMe(); //13 当前代码快里面的obj
+    //     obj1.tellMe();  //12 箭头函数的this指向他父级的上下文
+    //     var tell = obj.tellMe;
+    //     tell(); //12 吧obj.tellMe的值赋值给tell
+    //     tell = obj1.tellMe;
+    //     tell();  //12 吧箭头函数的this指向的值赋值给tell    
+    </script>
+    <hr>
+    7、console.log(p.name); 张三 console.log(p.name); 李四
+    <script>
+        function person() {
+            this.name = '张三';
+        }
+        person.prototype.name = '李四';
+        var p = new person();
+        console.log(p.name);  //张三  实例一个对象person，person等于张三
+        delete p.name;
+        console.log(p.name);  // 李四 
+        // 写出打印结果
+    </script>
+    <hr>
+    8、
+    function human(name, age) {
+    this.name = name;
+    this.age = age;
+    }
+    human.prototype.eat = function () {
+    console.log(`我叫${this.namee}，会吃饭了`);
+    }
+    human.prototype.tell = function () {
+    console.log(`我叫${this.namee}，今年${this.age}岁`);
+    }
+    human.isHuman = function (obj) {
+    if (obj instanceof human) {
+    console.log('这是一个human的实例');
+    } else {
+    console.log('这不是一个human的实例');
+    }
+    }
+    //请使用class定义一个功能一样的human对象
+    function women(name, age) {
+    this.name = name;
+    this.age = age;
+    }
+    women.prototype.eat = function () {
+    console.log(`我叫${this.name1}，会吃了`);
+    }
+    women.prototype.tell = function () {
+    console.log(`我叫${this.name1}，今年${this.age}岁`);
+    }
+    women.isWomen = function (obj) {
+    if (obj instanceof women) {
+    console.log('这是一个women的实例');
+    } else {
+    console.log('这不是一个women的实例');
+    }
+    }
+</body>
+
+</html>
