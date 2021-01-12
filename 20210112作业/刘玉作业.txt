@@ -1,0 +1,41 @@
+1.。
+const p = new Promise((resolve, reject) => {
+    setTimeout(() => {
+        resolve(333);
+    }, 1000)
+});
+p.then(res => {
+    console.log(res);
+    return "ahhaha";
+}).then(res => {
+    console.log(res)
+})
+2.test() {
+      console.log(this.TextDecoder1())//将打出一个promise对象
+      this.TextDecoder1().then(res => {
+        console.error(res)//6
+      })
+      this.TextDecoder2().then(res => {
+        console.error(res)//undefined
+      })
+    },
+    async TextDecoder1() {
+      return 6
+    },
+    async TextDecoder2() {
+
+    },
+3.==隐式转换，而===是全等，全等就是结构，类型完全相等
+
+4. javascript  使用var会发生变量提升，即脚本开始运行时，变量已经存在了，但是没有值，所以会输出undefined。
+而let不会发生变量提升,这表示在声明它之前，变量是不存在的，这时如果用到它，
+就会抛出一个错误。
+   var 是函数级作用域，let是块级作用域   
+
+5.obj.a = 2,
+6.我今年13，
+我今年12，
+我今年12，
+我今年12，
+7.张三     李四
+8.
