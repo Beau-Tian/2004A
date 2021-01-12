@@ -1,0 +1,103 @@
+1.
+const p = new Promise((resolve, reject) => {
+    setTimeout(() => {
+        resolve(333);
+    }, 1000)
+});
+p.then(res => {
+    console.log(res);
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            resolve('444=====');
+        }, 5000);
+    })
+}).then(res => {
+    console.log(res)
+}）
+2.
+async function r(){
+    try{
+        let content1 = await read('1.txt','utf8');
+        let content2 = await read(content1,'utf8');
+        return content2;
+    }catch(e){ 
+        console.log('err',e)
+    }
+}
+
+r().then(function(data){
+    console.log('data',data);
+},function(err){
+    console.log('err1',err);
+})
+3.
+==是判断等于的意思，返回的是一个布尔值，如：alert(1==1);将返回true，因为1等于1，如果 alert(1=='1');也返回true，虽说后面的1是字符串类型，但是==是不判断类型的，所以还是true，如果：alert(1=='2')就是false了，因为1不等于2;
+===也是判断的，但是它要比==判断的严谨一点，它的判断必须什么都相等，比如说类型，值;如： alert(1===1);将返回true，因为它们都是1，而且都是数字类型，如果：alert(1==='1');将返回false，因为前面的1是数字类型，后面的1是字符串类型。
+4. 两个都是undefind
+5.const obj = {a:1};var b = 1; obj.a = 2;b = 2;  //2
+6.var age = 12;
+var obj = {
+  age: 13,
+  tellMe() {
+    console.log('我今年' + this.age);
+  }
+}
+var obj1 = {
+  age: 15,
+  tellMe: () => {
+    console.log('我今年' + this.age);
+  }
+}
+obj.tellMe();
+obj1.tellMe();
+var tell = obj.tellMe;
+tell();
+tell = obj1.tellMe;
+tell();
+报错obj
+7.
+function person() {
+  this.name = '张三';
+}
+person.prototype.name = '李四';
+var p = new person();
+console.log(p.name); //张三
+delete p.name;
+console.log(p.name); //李四
+
+8.
+function human(name, age) {
+  this.name = name;
+  this.age = age;
+}
+human.prototype.eat = function () {
+  console.log(`我叫${this.namee}，会吃饭了`);
+}
+human.prototype.tell = function () {
+  console.log(`我叫${this.namee}，今年${this.age}岁`);
+}
+human.isHuman = function (obj) {
+  if (obj instanceof human) {
+    console.log('这是一个human的实例');
+  } else {
+    console.log('这不是一个human的实例');
+  }
+}
+class：
+function women(name, age) {
+  this.name = name;
+  this.age = age;
+}
+women.prototype.eat = function () {
+  console.log(`我叫${this.name1}，会吃了`);
+}
+women.prototype.tell = function () {
+  console.log(`我叫${this.name1}，今年${this.age}岁`);
+}
+women.isWomen = function (obj) {
+  if (obj instanceof women) {
+    console.log('这是一个women的实例');
+  } else {
+    console.log('这不是一个women的实例');
+  }
+}
