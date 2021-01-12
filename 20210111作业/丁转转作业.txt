@@ -77,7 +77,14 @@ y();
 (1)for(let i = 0;i<10;i++){ 
       setTimeout(()=>{ console.log(i); },100);
  }
-(2) 
+(2)for(let i = 0;i<10;i++){ 
+   try{
+    throw i;
+   }catch(e){
+  setTimeout(()=>{ console.log(e); },100);
+   }
+ }
+
 var i = 0;
   var timer = setInterval(() => {
     i++
@@ -98,9 +105,9 @@ var i = 0;
   }
 
 7.密码必须为6-15位的数字、字母、_-的组合。请使用正则表达式验证
-/^[0-9a-zA-Z_]{6,15}$/
+/^[0-9a-zA-Z_-]{6,15}$/
 
-/^[0-9a-zA-Z_]{6,15}$/.test('2234asd_')
+/^[0-9a-zA-Z_-]{6,15}$/.test('2234asd_-')
 true
 
 8.原型链
@@ -113,7 +120,7 @@ true
   C.prototype.constructor = C; 
   
    var c1 = new C(); 
-  c1.prototype === C.__proto__.prototype
+  c1.prototype === undefined
   c1.__proto__ === C.prototype 
   c1.__proto__.prototype === c1.prototype
   c1.__proto__.__proto__ === B.prototype
