@@ -61,19 +61,9 @@ function person() {
 }
 person.prototype.name = '李四';
 var p = new person();
-console.log(p.name);
+console.log(p.name); //张三
 delete p.name;
-console.log(p.name);
-报错p 
-正确：
-function Person(){
-}
-Person.prototype.name = '李四'; 
-var person = new Person();
-console.log(person.name); 
-person.name = '张三';
-delete person.name;
-console.log(person.name); // 李四
+console.log(p.name); //李四
 
 8.
 function human(name, age) {
@@ -93,10 +83,21 @@ human.isHuman = function (obj) {
     console.log('这不是一个human的实例');
   }
 }
-打印：ƒ (obj) {
-  if (obj instanceof human) {
-    console.log('这是一个human的实例');
+class：
+function women(name, age) {
+  this.name = name;
+  this.age = age;
+}
+women.prototype.eat = function () {
+  console.log(`我叫${this.name1}，会吃了`);
+}
+women.prototype.tell = function () {
+  console.log(`我叫${this.name1}，今年${this.age}岁`);
+}
+women.isWomen = function (obj) {
+  if (obj instanceof women) {
+    console.log('这是一个women的实例');
   } else {
-    console.log('这不是一个human的实例');
+    console.log('这不是一个women的实例');
   }
 }
