@@ -1,0 +1,155 @@
+******  1  写一个链式调用的Promise
+
+const p = new Promise((resolve, reject) => {
+            setTimeout(() => {
+                resolve(333);
+            }, 1000)
+        });
+        p.then(res => {
+            console.log(res);
+            return new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    resolve('444=====');
+                }, 5000);
+            })
+        }).then(res => {
+            console.log(res)
+        })
+
+-----------------------------------------------------------------------------
+***** 2 使用async await写一个案例
+
+function sleep(duration) {
+            return new Promise(reslove => {
+                setTimeout(reslove, duration);
+            })
+        }
+        async function changeColor(duration, color) {
+            document.getElementById("circle").style.background = color;
+            await sleep(duration);
+            console.log(color);
+        }
+        async function main() {
+            while (true) {
+                await changeColor(3000, "green");
+                await changeColor(1000, "yellow");
+                await changeColor(2000, "red");
+            }
+        }
+        main();
+-----------------------------------------------------------------------------------
+***** 3     ==和===的区别
+
+           ==” 相等 ⽐较两个变量的值是否相等
+        “===” 全等 ⽐较两个变量的值和类型是否都相等
+
+---------------------------------------------------------------------------------------
+
+***** 4  var name='';let name = '';会发生什么事？
+
+var myName = 'Bob';
+        let myName = 'Chris';  
+
+//  报错： Uncaught SyntaxError: Identifier 'myName' has already been declared               
+
+// 在块及作用域里边 let 它不存在 变量提升的问题  这个叫做 暂时性死去
+
+-----------------------------------------------------------------------------------------
+****** 5.const obj = {a:1};var b = 1; obj.a = 2;b = 2; 会发生什么事？
+
+const obj = { a: 1 }; var b = 1; obj.a = 2; b = 2
+        const实际上保证的，并不是变量的值不得改动，而是变量指向的那个内存地址不得改动。对于简单类型的数据（数值、字符串、布尔值），值就保存在变量指向的那个内存地址，因此等同于常量。
+        但对于复合类型的数据（主要是对象和数组），变量指向的内存地址，保存的只是一个指针，const只能保证这个指针是固定的，至于它指向的数据结构是不是可变的，就完全不能控制了
+
+----------------------------------------------------------------------------------
+
+***** 6 
+
+ var age = 12;
+        var obj = {
+            age: 13,
+            tellMe() {
+                console.log('我今年' + this.age);  // this  当前指向为 13
+            }
+        }
+        var obj1 = {
+            age: 15,
+            tellMe: () => {
+                console.log('我今年' + this.age);  // 箭头 函数  指向最远的值 为  12
+            }
+        }
+        obj.tellMe();
+        obj1.tellMe();
+        var tell = obj.tellMe;
+        tell();
+        tell = obj1.tellMe;
+        tell();
+
+        写出运行结果和为什么？
+
+-------------------------------------------------------------------------
+
+****** 7 
+
+function person() {
+            this.name = '张三';
+        }
+        person.prototype.name = '李四';
+        var p = new person();
+        console.log(p.name);     //张三
+        delete p.name;
+        console.log(p.name);    // 李四
+
+--------------------------------------------------------------------------------
+***** 8
+ function human(name, age) {
+            this.name = name;
+            this.age = age;
+        }
+        human.prototype.eat = function () {
+            console.log(`我叫${this.name}，会吃饭了`);
+        }
+        human.prototype.tell = function () {
+            console.log(`我叫${this.name}，今年${this.age}岁`);
+        }
+        human.isHuman = function (obj) {
+            if (obj instanceof human) {
+                console.log('这是一个human的实例');
+            } else {
+                console.log('这不是一个human的实例');
+            }
+        }
+
+      --------------------结果-------------------------class定义一个功能一样的human对象-----------------
+        class human {
+            constructor(name, age) {
+                this.name = name;
+                this.age = age;
+            }
+            tell() {
+                return `我叫${this.name}，今年${this.age}岁`
+            }
+        }
+        class human {
+            constructor(name, age) {
+                this.name = name;
+                this.age = age;
+            }
+            eat() {
+                return `我叫${this.name}，会吃饭了`
+            }
+        }
+
+----------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
