@@ -1,12 +1,47 @@
 1.写一个链式调用的Promise
+let pms = new Promise((resolve, reject) => {
+  setTimeout(() => {
+      if (parseInt(Math.random()*10) > 5) {
+           console.log('随机数大于5，算任务成功了')
+           resolve('还可以传参哦')
+      } else {
+          console.log('随机数< 5，算任务失败了')
+          reject('还可以传参哦< 5')
+      }
+  }, 1500)
+})
+
+pms.then((value) => {
+  console.log('success', value)
+}, (reason) => {
+  console.log('fail', reason)
+})
 
 2.使用async await写一个案例
 
+
+async function asy (str) {
+    const str1 = await new Promise((resolve, reject)=>{
+        setTimeout(()=>{
+            resolve(str);
+            console.log('step1')
+        },1000)
+    })
+    console.log('step2: '+str1);
+    return str1 ;
+}
+asy('sadasdasds').then(res => {
+    console.log('step3: '+res);
+})
+
+
+
 3.==和===的区别
-
+答：==当等号两边的值为相同类型时比较值是否相同，类型不同就会发生类型自动
 4.var name='';let name = '';会发生什么事？
-
+答：name已经被声明过
 5.const obj = {a:1};var b = 1; obj.a = 2;b = 2; 会发生什么事？
+答：值会发生给变，obj.a=2，b=2
 
 6.var age = 12;
 var obj = {
@@ -30,6 +65,9 @@ tell();
 
 写出运行结果和为什么？
 
+答案：我今年13，我今年12，我今年12，我今年12
+原因：obj对象中的tellMe()是普通函数，函数中的this指向的是该对象，所以this.age就指向的是obj中的age=13，下面调用所以obj.tellMe()的值为我今年13，obj1中对象中的应用了箭头函数，执行了ES6中箭头函数的this是定义时绑定，也就是this是继承自父执行上下文的this，而obj1中的箭头函数与tellMe平级，所以箭头函数所在的对象就是obj1，而obj1的父执行上下文为window，因此箭头函数中的this.age实际表示的window.age所以为12，所以obj1.tellme()的返回值为我今年12。var tell=obj.tellMe；因为var了一个全局tall，tall的this指向的window，而tall中obj.tellMe中的this指向的是window下的变量，也就是指向的是window下的age，所以tell()的返回值为我今年12，tell = obj1.tellMe;这个呢，执行了交换。
+
 7.function person() {
   this.name = '张三';
 }
@@ -39,6 +77,8 @@ console.log(p.name);
 delete p.name;
 console.log(p.name);
 写出打印结果
+
+答：张三和李四
 
 8.function human(name, age) {
   this.name = name;
@@ -58,3 +98,17 @@ human.isHuman = function (obj) {
   }
 }
 //请使用class定义一个功能一样的human对象
+
+class human{
+      constructor(){
+          name='';
+          age="";
+      }
+}
+human.isHuman = function (obj) {
+  if (obj instanceof human) {
+    console.log('这是一个human的实例');
+  } else {
+    console.log('这不是一个human的实例');
+  }
+}
