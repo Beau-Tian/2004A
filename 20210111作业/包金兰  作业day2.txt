@@ -1,0 +1,96 @@
+原型链
+实例化一个对象，我们要使用对象的属性或方法，他会先从当前对象进行查找，如果找不到，
+就去当前函数的原型中去查找，如果原型中也不存在就去当前函数的父对象中查找,如果最终
+没有找到这个属性，返回undefined,这种通过原型查找的链条关系，我们就叫做原型链。
+
+2.第二题
+function y(num) {
+            console.log(num); // 2
+            var num = 1;
+            console.log(num);  // 1
+            console.log(fn);  // undefined 
+            var fn = function () {
+                console.log(1); //  没调用呢
+            }
+            console.log(fn);  // 1
+            function fn() {
+                console.log(2); // 没调用
+            }
+            console.log(fn);  // 1
+        }
+        y(2);
+
+
+3 第三题
+function y() {
+            console.log(num); // 5
+            var num = 1;
+            console.log(num); // 1
+            function num() { console.log(3); }  //3
+            function num() { console.log(5); }   // 5
+            console.log(num);  // 1
+        }
+        y();
+
+4 第四题
+    function y() {
+            var num = 1;
+            console.log(num); // 1
+            function num() { console.log(3); }  //3
+            console.log(num);  // 1
+        }
+        y();
+
+5 第五题
+（1）	function bb() {
+            var arr = [];
+            for (var i = 0; i < 10; i++) {
+                (function (j) {
+                    arr[j] = i;
+                }(i));
+            }
+            return arr;
+        }
+        var arr1 = bb();
+        for (var k = 0; k < 10; k++) {
+            document.write(arr1[k] + " ");
+        }
+
+（2）
+	for(var i=0;i<10;i++){
+	console.log(i)
+	}
+
+(3)
+	for（var i = 0; i <10; i ++）{ 
+	setTimeout（（）=> {console.log（i）;}，100）;
+ 	}
+.........................................
+
+6第六题
+
+	^(? ![0 - 9] + $)(?![a - zA - Z] + $)[0 - 9 A - Z a - z]{ 6, 16 } $)
+
+7第七题
+	function A() {}
+	function B() {}
+	B.prototype = Object.create(A.prototype);
+	B.prototype.constructor = B;
+	function C() {}
+	C.prototype = Object.create(B.prototype);
+	C.prototype.constructor = C;
+	var c1 = new C();
+	c1.prototype === C.__proto__.prototype?
+	c1.__proto__ === C.prototype ?
+	c1.__proto__.prototype ===   c1.prototype?
+	c1.__proto__.__proto__ === B.prototype ?
+	c1.__proto__.__proto__.__proto__ ===  A.prototype ?
+	c1.__proto__.constructor === C.prototype?
+	c1.__proto__.constructor.prototype === C.prototype?
+	c1.__proto__.constructor.prototype.constructor ===C ?
+	C.prototype.constructor === C?
+	C.prototype.constructor.prototype === c1.__proto__ ?
+	C.prototype.constructor.prototype.constructor ===  C?
+	C.prototype.__proto__ === B.prototype ?
+
+
