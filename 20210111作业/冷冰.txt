@@ -51,7 +51,13 @@ y();
 第一种：
 for(var i=0;i<10;i++){
 　　((j)=>{
+<<<<<<< HEAD
 　　　　setTimeout(function(){
+=======
+      //指向箭头函数
+　　　　setTimeout(function(){
+              //计时器
+>>>>>>> 0c6a7576c87adc23860cf11e46c6a39cba6dcb8a
 　　　　　　console.log(j)
 　　　　},1000)
 })(i)

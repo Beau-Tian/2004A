@@ -65,12 +65,21 @@ C.prototype = Object.create(B.prototype);
 C.prototype.constructor = C;
 
 var c1 = new C();
+<<<<<<< HEAD
 c1.prototype ===  undefined
 c1.__proto__ ===C.prototype 
 c1.__proto__.prototype === undefined
 c1.__proto__.__proto__ === B.prototype
 c1.__proto__.__proto__.__proto__ === A.prototype
 c1.__proto__.constructor ===C
+=======
+c1.prototype ===  C.__proto__.prototype
+c1.__proto__ ===C.prototype 
+c1.__proto__.prototype ===  B.__proto__.prototype
+c1.__proto__.__proto__ === B.prototype
+c1.__proto__.__proto__.__proto__ === A.prototype
+c1.__proto__.constructor ===C.prototype.constructor 
+>>>>>>> 0c6a7576c87adc23860cf11e46c6a39cba6dcb8a
 c1.__proto__.constructor.prototype === C.prototype
 c1.__proto__.constructor.prototype.constructor ===C 
 C.prototype.constructor === C

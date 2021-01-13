@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 1.写一个链式调用的Promise
 
 2.使用async await写一个案例
@@ -57,4 +58,65 @@ human.isHuman = function (obj) {
     console.log('这不是一个human的实例');
   }
 }
+=======
+1.写一个链式调用的Promise
+
+2.使用async await写一个案例
+
+3.==和===的区别
+
+4.var name='';let name = '';会发生什么事？
+
+5.const obj = {a:1};var b = 1; obj.a = 2;b = 2; 会发生什么事？
+
+6.var age = 12;
+var obj = {
+  age: 13,
+  tellMe() {
+    console.log('我今年' + this.age);
+  }
+}
+var obj1 = {
+  age: 15,
+  tellMe: () => {
+    console.log('我今年' + this.age);
+  }
+}
+obj.tellMe();
+obj1.tellMe();
+var tell = obj.tellMe;
+tell();
+tell = obj1.tellMe;
+tell();
+
+写出运行结果和为什么？
+
+7.function person() {
+  this.name = '张三';
+}
+person.prototype.name = '李四';
+var p = new person();
+console.log(p.name);
+delete p.name;
+console.log(p.name);
+写出打印结果
+
+8.function human(name, age) {
+  this.name = name;
+  this.age = age;
+}
+human.prototype.eat = function () {
+  console.log(`我叫${this.namee}，会吃饭了`);
+}
+human.prototype.tell = function () {
+  console.log(`我叫${this.namee}，今年${this.age}岁`);
+}
+human.isHuman = function (obj) {
+  if (obj instanceof human) {
+    console.log('这是一个human的实例');
+  } else {
+    console.log('这不是一个human的实例');
+  }
+}
+>>>>>>> 0c6a7576c87adc23860cf11e46c6a39cba6dcb8a
 //请使用class定义一个功能一样的human对象
