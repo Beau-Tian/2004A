@@ -1,0 +1,59 @@
+1.
+const {
+	paramz:{
+	feeds:{
+	id:i,
+	category:cate,
+	data:{
+	subject:subject,
+	format:from,
+	changed:change
+	}
+	},
+	PageIndex:index,
+	PageSize:size
+	}
+}={
+  "paramz": {
+    "feeds": 
+      {
+        "id": 299076,
+        "category": "article",
+        "data": {
+          "subject": "荔枝新闻3.0：不止是阅读",
+          "format": "txt",
+          "changed": "2015-09-22 16:01:41"
+        }
+      },
+    "PageIndex": 1,
+    "PageSize": 20
+  }
+}
+consol.log(i,cate,subject,from,change,index,size)
+2.
+//改为同步的方式执行
+async function ab() {
+    //先获取用户
+    await getUser(1).then(c => {
+        //根据用户ID获取角色
+        await getRoleByUser(c).then(d => {
+            //根据角色ID获取权限
+            await getRightsByRole(d).then(c => {
+            });
+        });
+    });
+}
+3.转化为class的方式
+
+class Array{
+	constructor(length) {
+    this.length = length;
+},
+push(arr){}
+pop(){}
+static isArray(arr){}
+}
+4.
+学到老用到老 努力的目地心中对未来充满了期待！！！ 希望可以早点毕业 拿到好的工作和高薪
+指日可待
+学习主要还是要靠平时自己多练练 多问问
