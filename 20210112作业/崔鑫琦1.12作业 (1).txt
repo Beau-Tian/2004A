@@ -1,0 +1,47 @@
+崔鑫琦1.12作业
+1.写一个链式调用的Promise
+const p = new Promise((resolve, reject) => {
+    setTimeout(() => {
+        resolve(333);
+    }, 1000)
+});/
+p.then(res => {
+    console.log(res);
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            resolve('444=====');
+        }, 3000);
+    })
+}).then(res => {
+    console.log(res)
+})
+2.使用async await写一个案例
+
+3.==和===的区别
+==数值相等即可  
+===数值和类型都相等才行
+
+4.var name='';let name = '';会发生什么事？
+报错
+var声明的变量存在变量 提升即变量可以在声明之前调用，值为undefined。
+const不存在变量提升，他们两一起使用则报错，而且const存在暂时性死区
+const在同一作用域不允许重复声明变量以及存在块级作用域
+5.const obj = {a:1};var b = 1; obj.a = 2;b = 2; 会发生什么事？
+第一次打印：输出2
+第二次打印：报错
+首先会存在一个变量的提升也就是var b = 1;
+const不存在变量提升
+然后执行const obj = {a:1};
+最后执行这两个obj.a = 2;b = 2;
+
+7.
+var p = new person();   //张三
+console.log(p.name);   //李四
+delete p.name;
+console.log(p.name);   //undefined
+
+
+
+
+
+
