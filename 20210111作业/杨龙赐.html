@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 1、
+        // 原型
+        // 每个函数都有一个prototype属性，被称为显示原型
+        // 每个实例对象都会有`_ _proto_ _`属性,其被称为隐式原型
+        // 每一个实例对象的隐式原型`_ _proto_ _`属性指向自身构造函数的显式原型prototype
+        // 每个prototype原型都有一个constructor属性，指向它关联的构造函数。
+        // 原型链： 每个实例化对象都有一个__proto__属性，这个属性指向函数的原型，
+        // 当我们访问对象中的属性的时候，先从当前对象找，如果找不到的话，从当前原型中查找，
+        // =》 当前函数的继承对象中查找，最后如果没有找到返回 undefined
+        // 2、
+        // function y(num) {
+        //     console.log(num)//2
+        //     var num = 1
+        //     console.log(num)//1
+
+        //     console.log(fn)//3
+        //     var fn = function () {
+        //         console.log(6)
+        //     }
+        //     console.log(fn)
+        //     function fn() {
+        //         console.log(3)
+        //     }
+        //     console.log(fn)
+        // }
+        // y(2)
+        // 3、
+        // function y() {
+        //     console.log(num)//console.log(5)
+        //     var num = 1
+        //     console.log(num)//1
+        //     var num = 2
+        //     function num() { console.log(3) }
+        //     function num() { console.log(5) }
+        //     console.log(num)//1
+        // }
+        // y()
+        // 4、
+        // function y() {
+        //     var num = 1
+        //     console.log(num)//1
+        //     function num(){
+        //         console.log(3)
+        //     }
+        //     console.log(num)//1
+        // }
+        // y()
+        // 5、
+        // for (let i = 0; i < 10; i++) {
+        //     setTimeout(() => {
+        //         console.log(i)
+        //     }, 100)
+        // }
+
+        // for (let i = 0; i < 10; i++) {
+        //     ((k) => {
+        //         setTimeout(() => {
+        //             console.log(i)
+        //         }, 100)
+        //     })(i)
+        // }
+
+        // for (let i = 0; i < 10; i++) {
+        //     function y() {
+        //         setTimeout(() => {
+        //             console.log(i)
+        //         }, 100)
+        //     } y()
+
+        // }
+        // 6、
+        // /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,15}$/
+        // 7、
+        function aaa() { }
+
+        function bbb() { }
+        bbb.prototype = Object.create(aaa.prototype);
+        bbb.prototype.constructor = bbb;
+
+        function ccc() { }
+        ccc.prototype = Object.create(bbb.prototype);
+        ccc.prototype.constructor = ccc;
+
+        var c1 = new ccc();
+        console.log(c1)
+        console.log(c1.prototype === undefined)
+        console.log(c1.__proto__ === ccc.prototype)
+        console.log(c1.__proto__.prototype === undefined)
+        console.log(c1.__proto__.__proto__ === bbb.prototype)
+        console.log(c1.__proto__.__proto__.__proto__ === aaa.prototype)
+        console.log(c1.__proto__.constructor === ccc.prototype.constructor)
+        console.log(c1.__proto__.constructor.prototype === ccc.prototype)
+        console.log(c1.__proto__.constructor.prototype.constructor === ccc.prototype.constructor)
+        console.log(ccc.prototype.constructor === c1.__proto__.constructor.prototype.constructor)
+        console.log(ccc.prototype.constructor.prototype === c1.__proto__.constructor.prototype)
+        console.log(ccc.prototype.constructor.prototype.constructor === c1.__proto__.constructor.prototype.constructor)
+        console.log(ccc.prototype.__proto__ === bbb.prototype)
+    </script>
+</body>
+
+</html>

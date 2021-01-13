@@ -1,0 +1,134 @@
+    // 1.写一个链式调用的Promise       
+    // new Promise(
+    //     (resolve, reject) => {
+    //         /* resolve 正确时执行 */
+    //         /* reject 错误时执行 */
+    //         setTimeout(
+    //             () => {
+    //                 resolve("正确时执行")
+    //             }, 1000
+    //         )
+    //     }
+    // ).then(//正确时执行
+    //     (res) => {
+    //         console.log(res);
+    //     }
+    // ).catch( //错误时执行
+    //     (res) => {
+    //         console.log(res);
+    //     }
+    // )
+    // 2 .使用async await写一个案例
+    // function fu() {
+    //     setTimeout(
+    //         () => {
+    //             console.log("模拟同步执行");
+    //         }, 20
+    //     )
+    // }
+    // (async () => {
+    //     console.log(1);
+    //     console.log(2);
+    //     console.log(await fu());
+    //     console.log(3);
+    // })()
+
+    // 3.==和===的区别
+    // 两个等于号比较值时会自动转换数据类型
+    //三个等于号必须值和数据类型都相等
+
+    // 4.var name='';let name = '';会发生什么事？
+    // let 声明函数时 函数名不能重复,他拥有暂存性死区,因此会报错
+
+    //5.const obj = {a:1};var b = 1; obj.a = 2;b = 2; 会发生什么事？
+    //const虽然说不可改变数据,但他是针对于基本的数据类型,对于复杂数据类型来说,他只是存储了复杂数据类型的位置,复杂数据类型的数据是可以改变的
+
+
+    //6. var age = 12;
+    // var obj = {
+    //     age: 13,
+    //     tellMe() {
+    //         console.log('我今年obj+' + this.age);
+    //     }
+    // }
+    // var obj1 = {
+    //     age: 15,
+    //     tellMe: () => {
+    //         console.log('我今年obj1+' + this.age);
+    //     }
+    // }
+    // obj.tellMe();
+    // obj1.tellMe();
+    // var tell = obj.tellMe;
+    // tell();
+    // tell = obj1.tellMe;
+    // tell();
+
+    // 写出运行结果和为什么？
+    //打赢结果是
+    // 我今年13
+    // 我今年12
+    // 我今年12
+    // 我今年12
+  
+    //   因为第一个对象中的使用的function命名的函数，他的this指向于当前的对象 所以为13 第二个对象中使用的是箭头函数命名的方法 他的this 指向于全局 为12  往下执行时由于变量的污染此时也变成了12 最后也是12 
+
+
+    // 7
+    function person() {
+        this.name = '张三';
+    }
+    person.prototype.name = '李四';
+    var p = new person();
+    console.log(p.name);
+    delete p.name;
+    console.log(p.name);
+
+
+    //打印结果为
+    // 张三和李四
+    // 第一次打印的是他的属性 ,第二次打印是因为delete 删除了他的name属性 通过原型链的颤沼
+
+
+    //8题
+    function human(name, age) {
+        this.name = name;
+        this.age = age;
+    }
+    human.prototype.eat = function () {
+        console.log(`我叫${this.namee}，会吃饭了`);
+    }
+    human.prototype.tell = function () {
+        console.log(`我叫${this.namee}，今年${this.age}岁`);
+    }
+    human.isHuman = function (obj) {
+        if (obj instanceof human) {
+            console.log('这是一个human的实例');
+        } else {
+            console.log('这不是一个human的实例');
+        }
+    }
+    //请使用class定义一个功能一样的human对象
+    class human {
+        constructor(name, age) {
+            this.name = name;
+            this.age = age;
+        }
+        Say() {
+            human.prototype.eat = function () {
+                console.log(`我叫${this.namee}，会吃饭了`);
+            }
+            human.prototype.tell = function () {
+                console.log(`我叫${this.namee}，今年${this.age}岁`);
+            }
+            human.isHuman = function (obj) {
+                if (obj instanceof human) {
+                    console.log('这是一个human的实例');
+                } else {
+                    console.log('这不是一个human的实例');
+                }
+            }
+        }
+    }
+
+    console.log(new human('阿西', 18));

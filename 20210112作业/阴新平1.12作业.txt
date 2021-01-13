@@ -1,0 +1,104 @@
+1.写一个链式调用的Promise
+let p = new Promise((resolve, reject) => {
+  setTimeout(resolve, 1000, 'success');
+}).then(
+  res => {
+    console.log(res);
+    return new Promise((resolve, reject) => {
+      setTimeout(resolve, 1000, 'success');
+    });
+  }
+).then(
+    res => console.log(res)
+);
+
+
+
+2.使用async await写一个案例
+async function test(){
+    try{
+        let n = await Promise.all([1,2])
+        console.log(n)
+    }catch(error){
+        console.log(error)
+    }
+}
+test()
+
+
+
+3.==和===的区别
+==
+      1在比较的时候，类型不同的会转换为相同的类型在进行比较，2   undefined衍生于null，它两在根上属于一种东西，所以比较会返回true  3 NaN不和任何值进行比较，包括自己本身
+===
+      两者在比较的时候，不仅值相等，而且类型也要相等
+
+
+
+4.var name='';let name = '';会发生什么事？
+会报错，let不能声明已有的变量
+
+
+
+5.const obj = {a:1};
+var b = 1; 
+obj.a = 2;
+b = 2; 会发生什么事？
+obj中属性a会变为2     因为 (const的本质就是引用地址不能变，但对于地址内部的信息是可以修改的，尤其是声明的对象和数组这样引用类型的)
+
+
+
+
+6.var age = 12;
+var obj = {
+  age: 13,
+  tellMe() {
+    console.log('我今年' + this.age);   //13     this当前为对象，obj
+  }
+}
+var obj1 = {
+  age: 15,
+  tellMe: () => {
+    console.log('我今年' + this.age);  //12  箭头函数this默认指向为window
+  }
+}
+obj.tellMe();
+obj1.tellMe();
+var tell = obj.tellMe;
+tell();                                             //12  此时this的指向window
+tell = obj1.tellMe;
+tell();                                            //12   此时this的指向window
+
+写出运行结果和为什么？
+
+
+
+
+7.function person() {
+  this.name = '张三';
+}
+person.prototype.name = '李四';
+var p = new person();
+console.log(p.name);          //张三
+delete p.name;
+console.log(p.name);        //李四
+写出打印结果
+
+8.function human(name, age) {
+  this.name = name;
+  this.age = age;
+}
+human.prototype.eat = function () {
+  console.log(`我叫${this.namee}，会吃饭了`);
+}
+human.prototype.tell = function () {
+  console.log(`我叫${this.namee}，今年${this.age}岁`);
+}
+human.isHuman = function (obj) {
+  if (obj instanceof human) {
+    console.log('这是一个human的实例');
+  } else {
+    console.log('这不是一个human的实例');
+  }
+}
+//请使用class定义一个功能一样的human对象
