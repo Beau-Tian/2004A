@@ -1,0 +1,117 @@
+1、答：
+var a = new Promise((resolve, reject) => {
+    setTimeout(() => {
+        resolve(1);
+    }, 1000)
+});
+a.then(res => {
+    console.log(res);
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            resolve(2);
+        }, 1500);
+    })
+}).then(res => {
+    console.log(res)
+})
+2、答：
+function getUser(){
+    return new Promise((res,rej)=>{
+        setTimeout(()=>{
+            res({name:'',id:1});
+        },1000);
+    });
+}
+async function valid(){
+    console.log('开始')
+    var data = await getUser();
+    console.log(data)
+    console.log('ok');
+}
+valid()
+3、答：
+==值相等，===值和类型都相等
+4、答：
+////////
+var name = 'aaa'
+name
+"aaa"
+let name = 'bbb'
+name
+"bbb"
+////////
+let name = '111'
+name
+"111"
+var name = '222'
+报错
+因为上面已经定义了name
+var允许重复声明变量，let不允许重复声明变量
+5、答：
+const obj = {
+    a:1
+};
+var b = 1;
+obj.a = 2;
+2
+b=2
+2
+obj
+{a: 2}
+b
+2
+6、答：
+var age = 12;
+var obj = {
+    age:13,
+    tellMe(){
+        console.log('我今年'+this.age)
+    }
+}
+var obj1 = {
+    age:15,
+    tellMe:()=>{
+        console.log('我今年'+this.age);
+    }
+}
+obj.tellMe()
+我今年13
+obj1.tellMe()
+我今年12
+var tell = obj.tellMe
+tell()
+我今年12
+tell = obj1.tellMe
+()=>{
+        console.log('我今年'+this.age);
+    }
+tell()
+我今年12
+7、答：
+function person() {
+  this.name = '张三';
+}
+person.prototype.name = '李四';
+var p = new person();
+console.log(p.name);
+delete p.name;
+console.log(p.name);
+张三
+李四
+8、答：
+class Box{
+    constructor(num1,num2){
+        this.num1 = num1;
+        this.num2=num2;
+    }
+    sum(){
+        return num1+num2;
+    }
+}
+var box1=new Box(12,88);
+var box2=new Box(40,60);
+box1.__proto__.sub=function(){
+    return this.num2-this.num1;
+}
+console.log(box1.sub());      //76
+console.log(box2.sub());     //20

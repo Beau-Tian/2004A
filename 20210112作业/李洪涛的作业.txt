@@ -1,0 +1,132 @@
+1.写一个链式调用的Promise
+
+new Promise((resolve, reject) => {
+        setTimeout(() => {
+            resolve({ test: 1 })
+            resolve({ test: 2 })
+            reject({ test: 2 })
+        }, 1000)
+    }).then((data) => {
+        console.log('result1', data)
+    },(data1)=>{
+        console.log('result2',data1)
+    }).then((data) => {
+        console.log('result3', data)
+    })
+  
+
+2.使用async await写一个案例
+
+async remove(id) {
+      console.log(id);
+      const confirmResult = await this.$confirm(
+        "删除该商品，是否继续？",
+        "提示",
+        {
+          confirmButtonText: "确定",
+          cancelButtonText: "取消",
+          type: "warning",
+        }
+      ).catch((err) => err);
+      if (confirmResult !== "confirm") {
+        return this.$message.info("已取消删除");
+      }
+      const { data: res } = await this.$axios.delete("goods/" + id);
+      if (res.meta.status !== 200) {
+        return this.$message.error("删除失败");
+      }
+      this.$message.success("删除成功");
+      this.getGoodList();
+    }
+
+3.==和===的区别
+
+==是比较左右两边是否相等比如"1"==1
+===是全等于包括数据类型  1===1
+
+4.var name='';let name = '';会发生什么事？
+
+会报错，在同一作用域下let不可以重复声明变量
+
+5.const obj = {a:1};var b = 1; obj.a = 2;b = 2; 会发生什么事？
+
+2，const声明的变量如果是基本数据类型就不可以修改，但如果是引用数据类型就可以修改，但仅限于修改值
+
+6.var age = 12;
+var obj = {
+  age: 13,
+  tellMe() {
+    console.log('我今年' + this.age);
+  }
+}
+var obj1 = {
+  age: 15,
+  tellMe: () => {
+    console.log('我今年' + this.age);
+  }
+}
+obj.tellMe();
+obj1.tellMe();
+var tell = obj.tellMe;
+tell();
+tell = obj1.tellMe;
+tell();
+
+写出运行结果和为什么？
+
+第一个是：我今年13岁，普通函数的this指向是谁调用指向谁
+第二个是：我今年12岁，箭头函数的this始终指向父级上下文
+第三个不理解
+第四个是：我今年12岁，箭头函数的this始终指向父级上下文
+
+7.function person() {
+  this.name = '张三';
+}
+person.prototype.name = '李四';
+var p = new person();
+console.log(p.name);
+delete p.name;
+console.log(p.name);
+写出打印结果
+
+第一次是：张三
+第二次是：李四
+
+8.function human(name, age) {
+  this.name = name;
+  this.age = age;
+}
+human.prototype.eat = function () {
+  console.log(`我叫${this.namee}，会吃饭了`);
+}
+human.prototype.tell = function () {
+  console.log(`我叫${this.namee}，今年${this.age}岁`);
+}
+human.isHuman = function (obj) {
+  if (obj instanceof human) {
+    console.log('这是一个human的实例');
+  } else {
+    console.log('这不是一个human的实例');
+  }
+}
+//请使用class定义一个功能一样的human对象
+
+class human {
+    constructor(name = '', age = '') {
+        this.name = name;
+        this.age = age;
+    }
+    eat(){
+        console.log(`我叫${this.namee}，会吃饭了`);
+    }
+    tell(){
+        console.log(`我叫${this.namee}，今年${this.age}岁`);
+    }
+}
+human.isHuman = function (obj) {
+    if (obj instanceof human) {
+      console.log('这是一个human的实例');
+    } else {
+      console.log('这不是一个human的实例');
+    }
+  }

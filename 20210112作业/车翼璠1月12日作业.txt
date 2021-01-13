@@ -1,0 +1,94 @@
+1、        //买笔
+        function buy(){
+            console.log("开始买笔");
+            var p = new Promise(function(resolve,reject){
+                setTimeout(function(){
+                    console.log("买了笔芯");
+                    resolve("数学作业");
+                },1000);
+            });
+            return p;
+        }
+        //写作业
+        function work(data){
+            console.log("开始写作业："+data);
+            var p = new Promise(function(resolve,reject){
+                setTimeout(function(){
+                    console.log("写完作业");
+                    resolve("作业本");
+                },1000);
+            });
+            return p;
+        }
+
+        function out(data){
+            console.log("开始上交："+data);
+            var p = new Promise(function(resolve,reject){
+                setTimeout(function(){
+                    console.log("上交完毕");
+                    resolve("得分：A");
+                },1000);
+            });
+            return p;
+        }
+        buy().then(work).then(out).then(function(data){
+            console.log(data);
+        });
+2、
+let userInfo
+    async function fetchUserInfo() {
+      if (userInfo) {
+        return await userInfo
+      } else {
+        return await new Promise((resolve, reject) => {
+          setTimeout(() => {
+            userInfo = { name: 'nihao' }
+            reject(userInfo)
+          }, 2000)
+        })
+      }
+    }
+
+    async function getUserInfo() {
+      try {
+        const info = await fetchUserInfo()
+        return info
+      } catch (error) {
+        console.log('error', error)
+      }
+    }
+    const info = getUserInfo()
+3、
+==：运算符称作相等，用来检测两个操作数是否相等，这里的相等定义的非常宽松，可以允许进行类型转换
+===：用来检测两个操作数是否严格相等
+4、var name='';let name = '';会发生什么事？
+会发生报错
+5、.const obj = {a:1};var b = 1; obj.a = 2;b = 2; 会发生什么事？
+结果等于2
+6、
+我今年13
+我今年12
+我今年12
+我今年12
+obj对象中的tellMe()是普通函数，函数中的this指向的是该对象，
+所以this.age就指向的是obj中的age=13，下面调用所以obj.tellMe()的值为我今年13，
+obj1中对象中的应用了箭头函数，执行了ES6中箭头函数的this是定义时绑定，
+也就是this是继承自父执行上下文的this，而obj1中的箭头函数与tellMe平级，
+所以箭头函数所在的对象就是obj1，而obj1的父执行上下文为window，
+因此箭头函数中的this.age实际表示的window.age所以为12，
+所以obj1.tellme()的返回值为我今年12。var tell=obj.tellMe；
+因为var了一个全局tall，tall的this指向的window，
+而tall中obj.tellMe中的this指向的是window下的变量，
+也就是指向的是window下的age，
+所以tell()的返回值为我今年12，tell = obj1.tellMe;这个呢，执行了交换
+
+7、张三和李四
+
+8、
+class Coder{
+    name(val){
+        console.log(val);
+    }
+}
+let angle = new Coder;
+angle.name('天使');

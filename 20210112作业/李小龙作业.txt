@@ -1,0 +1,115 @@
+1.写一个链式调用的Promise
+  Promise   //resolve 成功状态      // reject  失败状态
+        new Promise((resolve, reject) => {
+            axios.get('')   //  10秒
+            resolve("a")
+        }).then(c => {
+            console.log('then' + c)
+        }).catch(e => {
+            console.log('error' + e)
+            return 1234
+        }).then(c => {
+            console.log(c)
+            return 099
+        }).then(c => {
+            console.log(c)
+        })
+2.使用async await写一个案例
+// 异步计算
+    function  fn(num) {
+        return new Promise((resolve, reject) => {
+            setTimeout(() => {
+                resolve(2 * num)
+            }, 2000);
+        })
+    }
+async function son() {
+    let first = await fn(30);
+    let second = await fn(50);
+    let third = await fn(30);
+    console.log(first + second + third);
+}
+son();   //  220
+
+
+3.==和===的区别
+==      是判断等于的意思，返回的是一个布尔值，但是不判断数据类型
+===    是判断的，但是它要比==判断的严谨一点，它的判断必须什么都相等 ； 数据类型也要相等
+
+4.var name='';let name = '';会发生什么事？
+会报错  var 可以重复声明 let 不能
+5.const obj = {a:1};var b = 1; obj.a = 2;b = 2; 会发生什么事？
+会输出 2  const 属性可以修改
+6.var age = 12;
+var obj = {
+  age: 13,
+  tellMe() {
+    console.log('我今年' + this.age);
+  }
+}
+var obj1 = {
+  age: 15,
+  tellMe: () => {
+    console.log('我今年' + this.age);
+  }
+}
+obj.tellMe();  
+obj1.tellMe();
+var tell = obj.tellMe;
+tell();
+tell = obj1.tellMe;
+tell();
+
+写出运行结果和为什么？
+我今年13    : 调用自身属性
+我今年12    :箭头函数默认父级的this 而不是使用所在的对象
+我今年12    : 变量接收 this改变 顶层 
+我今年12   ：父级 
+7.function person() {
+  this.name = '张三';
+}
+person.prototype.name = '李四';
+var p = new person();
+console.log(p.name);
+delete p.name;
+console.log(p.name);
+写出打印结果
+张三   李四
+8.function human(name, age) {
+  this.name = name;
+  this.age = age;
+}
+human.prototype.eat = function () {
+  console.log(`我叫${this.namee}，会吃饭了`);
+}
+human.prototype.tell = function () {
+  console.log(`我叫${this.namee}，今年${this.age}岁`);
+}
+human.isHuman = function (obj) {
+  if (obj instanceof human) {
+    console.log('这是一个human的实例');
+  } else {
+    console.log('这不是一个human的实例');
+  }
+}
+
+//请使用class定义一个功能一样的human对象
+ class Person {    // 需要new
+            constructor(name, age) {
+                this.name = name
+                this.age = age
+            }
+            eat() {
+                return `我叫${this.name}，会吃饭了`
+            }
+            tell() {
+                return console.log(`我叫${this.name}，今年${this.age}岁`)
+            }
+            isPerson(obj) {
+                if (obj instanceof Person) {
+                    console.log('这是一个human的实例');
+                } else {
+                    console.log('这不是一个human的实例');
+                }
+            }
+        }
