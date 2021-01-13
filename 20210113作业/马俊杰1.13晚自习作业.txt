@@ -55,11 +55,11 @@ function getRightsByRole(id) {
 
 async function ab() {
     //先获取用户
-    getUser(1).then(c await  => {
+   await  getUser(1).then(c  => {
         //根据用户ID获取角色
-        getRoleByUser(c).then(d await  => {
+        getRoleByUser(c).then(d => {
             //根据角色ID获取权限
-            getRightsByRole(d).then(c await  => {
+            getRightsByRole(d).then(c => {
             });
         });
     });
