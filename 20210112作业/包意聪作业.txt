@@ -1,0 +1,83 @@
+1.写一个链式调用的Promise
+答：
+let p = new Promise(resolve => {
+    setTimeout(() => {
+        console.log('done');
+        resolve('5秒');
+    }, 5000);
+});
+
+p.then(tip => {
+    console.log('then1', tip);
+});
+
+p.then(tip => {
+    console.log('then2', tip);
+});
+
+2.使用async await写一个案例
+答：
+async function test(){
+    let result = await awaitMethod(30);
+    let result1 = await awaitMethod(50);
+    let result2 = await awaitMethod(30);
+    console.log(result+result1+result2 );
+}
+它遇到了里面的await关键字，await代表等待，代码到这里会暂停，它在等什么呢，等待后面的promise对象执行完成，然后拿到promise的返回值，拿到返回值之后它继续往下执行，直到console.log()执行。
+
+
+4.var name='';let name = '';会发生什么事？
+答：会报错   let不允许在相同作用域内，重复声明同一个变量。否则报错
+
+5.const obj = {a:1};var b = 1; obj.a = 2;b = 2; 会发生什么事？
+答：obj里面会修改成2  b也会被赋值成2	
+6.var age = 12;
+var obj = {
+  age: 13,
+  tellMe() {
+    console.log('我今年' + this.age);
+  }
+}
+var obj1 = {
+  age: 15,
+  tellMe: () => {
+    console.log('我今年' + this.age);
+  }
+}
+obj.tellMe();
+obj1.tellMe();
+var tell = obj.tellMe;
+tell();
+tell = obj1.tellMe;
+tell();
+写出运行结果和为什么？
+答：依次是13  12  12  12  以为：哪个对象调用函数，函数里面的this指向哪个对象。在箭头函数里面，没有 this ，箭头函数里面的 this 是继承外面的环境。
+7.function person() {
+  this.name = '张三';
+}
+person.prototype.name = '李四';
+var p = new person();
+console.log(p.name);
+delete p.name;
+console.log(p.name);
+写出打印结果
+答：张三和李四     张三是继承   李四是删除张三后继承来的   应该是这样吧
+
+8.function human(name, age) {
+  this.name = name;
+  this.age = age;
+}
+human.prototype.eat = function () {
+  console.log(`我叫${this.namee}，会吃饭了`);
+}
+human.prototype.tell = function () {
+  console.log(`我叫${this.namee}，今年${this.age}岁`);
+}
+human.isHuman = function (obj) {
+  if (obj instanceof human) {
+    console.log('这是一个human的实例');
+  } else {
+    console.log('这不是一个human的实例');
+  }
+}
+//请使用class定义一个功能一样的human对象

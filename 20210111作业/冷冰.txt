@@ -51,9 +51,7 @@ y();
 第一种：
 for(var i=0;i<10;i++){
 　　((j)=>{
-      //指向箭头函数
 　　　　setTimeout(function(){
-              //计时器
 　　　　　　console.log(j)
 　　　　},1000)
 })(i)

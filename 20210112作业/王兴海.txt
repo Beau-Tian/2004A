@@ -1,0 +1,144 @@
+1.写一个链式调用的Promise
+const p = new Promise((resolve, reject) => {
+    setTimeout(() => {
+        resolve(333);
+    }, 1000)
+});
+p.then(res => {
+    console.log(res);
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            resolve('444');
+        }, 5000);
+    })
+}).then(res => {
+    console.log(res)
+})
+2.使用async await写一个案例
+
+    async getUser(){
+       var res = await this.$http.get("url");
+            console.log(res)   //打印接口数据
+   }
+
+3.==和===的区别
+===比较的判断条件：
+
+如果比较双方的类型不相同，则不相等；
+
+如果都是数字，而且值相同，那么除非其中一个或两个都是NaN时，
+
+比较双方是不相等的，否则，是相等的；
+
+如果都是字符串，而且值相同，则相等；
+
+如果都是布尔类型，而且都为true或false，则相等；
+
+如果比较双方都是引用同一个对象、数组或函数，那么比较双方是相等的。否则，不相等，
+
+即使两个对象有完全相同的属性和方法，或者，数组内容完全相同；
+
+如果都是null或undefined，则相等。
+
+==表示等值的意思，判断比较双方的值是否相等；
+==比较的判断条件：
+
+如果比较双方类型相同，那么就比较他们的等同性，如果等同则相等，反之，不相等；
+
+如果比较双方类型不相同，使用下面规则进行比较判断：
+
+如果一个是数字，一个是字符串，则把字符串转换为数字，再进行比较；
+
+如果一个是数字，一个是布尔值，将true转换为1，false转换为0，再进行比较；
+
+如果一个是字符串，一个是布尔值，将他们都转换为数字，再进行比较；
+
+如果一个是对象，一个是数字或字符串，将对象转换为原始类型的值（valueOf或toString方法），再进行比较；
+
+如果一个是null，一个是undefined，那么他们相等；
+
+其它类型组合比较不相等。
+4.var name='';let name = '';会发生什么事？
+
+结果：报错
+
+5.const obj = {a:1};var b = 1; obj.a = 2;b = 2; 会发生什么事？
+
+结果：2
+
+6.var age = 12;
+var obj = {
+  age: 13,
+  tellMe() {
+    console.log('我今年' + this.age);
+  }
+}
+var obj1 = {
+  age: 15,
+  tellMe: () => {
+    console.log('我今年' + this.age);
+  }
+}
+obj.tellMe();
+obj1.tellMe();
+var tell = obj.tellMe;
+tell();
+tell = obj1.tellMe;
+tell();
+
+写出运行结果和为什么？
+
+结果：我今年13
+          我今年12
+          我今年12
+          我今年12
+          undefined
+
+
+7.function person() {
+  this.name = '张三';
+}
+person.prototype.name = '李四';
+var p = new person();
+console.log(p.name);
+delete p.name;
+console.log(p.name);
+写出打印结果
+
+结果：张三  李四  undefined
+
+8.function human(name, age) {
+  this.name = name;
+  this.age = age;
+}
+human.prototype.eat = function () {
+  console.log(`我叫${this.namee}，会吃饭了`);
+}
+human.prototype.tell = function () {
+  console.log(`我叫${this.namee}，今年${this.age}岁`);
+}
+human.isHuman = function (obj) {
+  if (obj instanceof human) {
+    console.log('这是一个human的实例');
+  } else {
+    console.log('这不是一个human的实例');
+  }
+}	
+//请使用class定义一个功能一样的human对象
+
+    class human {
+        constructor(name, age) {
+            this.name = name;
+            this.age = age;
+        }
+        eat() {
+            return `（我叫${this.name},今天${this.age}岁了）`
+        }
+        isHuman() {
+            if (obj instanceof human) {
+                return `这是一个human实例`
+            } else {
+                return `这不是一个human的实例`
+            }
+        }
+    }
