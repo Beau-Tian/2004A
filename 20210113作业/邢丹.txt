@@ -1,0 +1,55 @@
+1.用解构赋值的方式将 PageIndex,PageSize,id,category,subject,format,changed结构出来
+let res = {
+  "paramz": {
+    "feeds": 
+      {
+        "id": 299076,
+        "category": "article",
+        "data": {
+          "subject": "荔枝新闻3.0：不止是阅读",
+          "format": "txt",
+          "changed": "2015-09-22 16:01:41"
+        }
+      },
+    "PageIndex": 1,
+    "PageSize": 20
+  }
+}
+
+let { paramz:{PageIndex,PageSize}  } = res 
+
+let { feeds: {id,category} } =res.paramz
+
+let {data:{subject,format,changed}} = res.paramz.feeds
+
+2.
+async function ab() {
+    //先获取用户
+ await   getUser(1)( c => {
+        //根据用户ID获取角色
+       await getRoleByUser(c)( d => {
+            //根据角色ID获取权限
+         await   getRightsByRole(d)( c => {
+            }); 
+        });
+    });
+}
+
+3.
+
+class Array{
+    constructor(length){
+        this.length = length;
+    }
+    push(arr){
+
+    }
+    pop(){
+
+    }
+    static isArray(arr){
+}
+}
+
+4.学习目的是为了高薪就业；
+   学习目标：上课认真听讲，多敲，多练，多背
