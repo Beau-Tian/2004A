@@ -1,0 +1,130 @@
+1.用解构赋值的方式将 PageIndex,PageSize,id,category,subject,format,changed结构出来
+=======================================================
+{
+  "paramz": {
+    "feeds": 
+      {
+        "id": 299076,
+        "category": "article",
+        "data": {
+          "subject": "荔枝新闻3.0：不止是阅读",
+          "format": "txt",
+          "changed": "2015-09-22 16:01:41"
+        }
+      },
+    "PageIndex": 1,
+    "PageSize": 20
+  }
+}
+=======================================================
+答：PageIndex,    //let { PageIndex } = res.PageIndex
+PageSize      //let  { PageSize } = res.PageSize
+id,       //let { id } = res.paramz.feeds.id
+category,  //let { category } = es.paramz.category
+subject,    //
+format
+changed
+答案二：let {
+paramz
+} = obj;
+// 
+let {
+paramz: {
+feeds
+}
+} = obj;
+// 
+let {
+paramz: {
+feeds: {
+data
+}
+}
+} = obj;
+console.log(paramz.PageIndex)
+console.log(paramz.PageSize)
+console.log(paramz.feeds.id)
+console.log(paramz.feeds.category)
+console.log(paramz.feeds.data.subject)
+console.log(paramz.feeds.data.subject)
+console.log(paramz.feeds.data.format)
+console.log(paramz.feeds.data.changed)
+=======================================================
+2.//获取用户
+function getUser(id) {
+    return Promise.resolve(id + 1);
+}
+
+//根据用户获取角色
+function getRoleByUser(id) {
+    return Promise.resolve(id + 1);
+}
+
+//根据角色获取权限
+function getRightsByRole(id) {
+    return Promise.resolve(id + 1);
+}
+
+async function ab() {
+    //先获取用户
+
+await  getUser(1).then(c => {
+        //根据用户ID获取角色
+    
+await getRoleByUser(c).then(d => {
+            //根据角色ID获取权限
+          
+await getRightsByRole(d).then(c => {
+            });
+        });
+    });
+}
+//改为同步的方式执行
+=======================================================
+同步执行，异步写法：await
+=======================================================
+3.
+function Array(length) {
+    this.length = length;
+}
+
+Array.prototype.push = function(arr) {
+
+}
+
+Array.prototype.pop = function() {
+
+}
+
+Array.isArray = function(arr) {
+
+}
+
+//转换为class的方式
+=======================================================
+class Array {
+constructor(length) {
+this.length = length;
+}
+push(arr){
+}
+pop(){
+}
+static isArray(arr){
+}
+}
+=======================================================
+4.来这里的学习的目的是什么？学习要达成？要达成目标的规划？
+目的：
+为了有一份满意的薪资，不再荒度余生————（以前想着做挂，刚刚来的哇，就是通宵熬夜没有认识的人，感觉挺好的，没有什么压力，没有什么社交，
+一味地去学习（自学），学的总比老师讲的快，最后都差点废了，去医院了。。。。。。。。。。 后来感觉松懈了不少，有点难啊，而且并没有做网络
+外挂的技能学习，然后学习也就减少了兴趣，信心也没多少了，）
+学习要达成：
+以前很天真，什么黑客，什么产品经理乱七八糟的，但是经过以上的描述，释然了不少，或者感觉有时候总是觉得太笨了，或者明明很努力，
+有些老师也看不到，只看到了负面，甚至觉得自己努力也没什么用了，但是还是不甘，即使谁放弃了你，自己也不能放弃自己，自己对自己都
+两眼想看，那别人更别说了
+要达成目标的规划：
+1.学会了的技能积极去帮助他人 ，同时也能提升自己的水平，
+2，不会的要注意听取别人的意见积极去学习，不要不好意思也不要自己按不做声
+3.没多大的规划，能每天完成理解老师讲的就行
+.....................
