@@ -1,0 +1,36 @@
+1.const {
+    paramz:{
+        feeds:{
+            id,
+            category,
+            data:{
+                subject,
+                format,
+                changed
+            }
+        },
+        PageIndex,
+        PageSize
+    }
+} = obj;
+console.log(PageSize);
+
+
+2.
+
+
+
+
+3.class Array{
+    constructor(length){
+        this.length
+    }
+    push(arr){}
+    pop(){}
+    static isArray(){}
+}
+
+
+
+4.
+想趁年轻多学习学习，换份不一样的工作，改变一下之前一尘不变的生活。
