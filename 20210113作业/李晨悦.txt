@@ -1,0 +1,25 @@
+1、答:
+const {PageIndex,PageSize,feeds:{id,category,data:{subject,format,changed},},} = this.form
+2、答：
+async function ab() {
+    //先获取用户
+    getUser(1).then(c => {
+        //根据用户ID获取角色
+        getRoleByUser(c).then(await d => {
+            //根据角色ID获取权限
+            getRightsByRole(d).then(await c => {
+            });
+        });
+    });
+}
+3、答：
+class Array{
+         constructor(length){
+	this.length = length;
+       }
+       push(arr){}
+       pop(){}
+       static isArray(arr){}
+}
+4、答：
+学习的目的是高薪就业，规划是好好学习
