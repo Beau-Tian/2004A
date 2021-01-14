@@ -1,0 +1,90 @@
+1.写一个链式调用的Promise
+new Promise((resolve,reject)=>{
+            axios.get('');
+            resolve('a')
+        }).then(c=>{
+            console.log('then'+c);
+        }).catch(e=>{
+            console.log('error'+e);
+            return 123;
+        }).then(c=>{
+            console.log('then'+c);
+            return 321;
+        }).then(c=>{
+            console.log(c)
+        })
+2.使用async await写一个案例
+ async function async1() {
+            console.log( '1' )
+            console.log(await async2())
+            console.log( '2' )
+        }
+        async function async2() {
+            console.log( '3' )
+        }
+        async1()
+3.==和===的区别
+ == 是相等 列如 1==1 和 1=='1'  数据类型不是太严格，只要相等就行
+===是相等 属于严格的模式 数据类型必须相等 列如 1===1 列如 1==='1'是错误的 
+4.var name='';let name = '';会发生什么事？
+单个执行的话 都是 name里面没有定义  undefined
+  一起执行的话 let会有暂时性死区   会发生：报错
+5.const obj = {a:1};var b = 1; obj.a = 2;b = 2; 会发生什么事？
+const声明的变量不得改变值，const一旦声明变量就会立即初始化，不能留到以后在赋值
+    2
+6.var age = 12;
+var obj = {
+  age: 13,
+  tellMe() {
+    console.log('我今年' + this.age);
+  }
+}
+var obj1 = {
+  age: 15,
+  tellMe: () => {
+    console.log('我今年' + this.age);
+  }
+}
+obj.tellMe();
+obj1.tellMe();
+var tell = obj.tellMe;
+tell();
+tell = obj1.tellMe;
+tell();
+
+写出运行结果和为什么？
+第一个是用的局部变量，第二个是局部变量 但是有箭头函数 this的话指向调用的是全局变量
+我今年13
+我今年12
+我今年12
+我今年12
+7.function person() {
+  this.name = '张三';
+}
+person.prototype.name = '李四';
+var p = new person();
+console.log(p.name);
+delete p.name;
+console.log(p.name);
+写出打印结果
+第一个是：张三 
+第二个是：李四
+
+8.function human(name, age) {
+  this.name = name;
+  this.age = age;
+}
+human.prototype.eat = function () {
+  console.log(`我叫${this.namee}，会吃饭了`);
+}
+human.prototype.tell = function () {
+  console.log(`我叫${this.namee}，今年${this.age}岁`);
+}
+human.isHuman = function (obj) {
+  if (obj instanceof human) {
+    console.log('这是一个human的实例');
+  } else {
+    console.log('这不是一个human的实例');
+  }
+}
+//请使用class定义一个功能一样的human对象

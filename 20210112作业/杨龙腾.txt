@@ -1,0 +1,108 @@
+1.
+
+var taskList=[];
+var next = function (nextParam) {
+    if(taskList.length>0){
+        var fn = taskList.shift();
+        var result = fn&&fn.call(this,nextParam);
+        //同步调
+        if(!(result instanceof MyPromise)){
+            next(result);
+        };
+    }
+}
+ function MyPromise(fn) {
+     if(fn){
+         fn((a)=>{
+             //异步调
+             setTimeout(()=>{
+                 next(a);
+             },0)
+         })
+     }
+     return this;
+ };
+MyPromise.prototype.then = function (fn) {
+    taskList.push(fn);
+    return this;
+}
+
+ var pro = new MyPromise((resolved)=>{
+     resolved(1);
+ }).then((a)=>{
+     console.log(a);//1
+    return new MyPromise((resolved)=>{
+        setTimeout(()=>{
+            resolved(2);
+        },1000);
+    })
+ }).then((a)=>{
+    console.log(a);//2
+    return 3
+ }).then((a)=>{
+     console.log(a);//3
+ })
+
+2.
+
+ async toReadCard(tit) {
+                let card_no = '';
+                await useCode().then(res=>{
+                    if(tit=='add'){
+                        this.account.owner.cardID = res.data.card_no;//卡号
+                        this.account.owner.bl_card = '00'+this.account.owner.employeeID//卡号展示内容
+                    }
+                    card_no =  res.data.card_no;
+                }).catch(error=>{
+                    this.$Message.error('请先放置卡片！');
+                })
+                return card_no;
+            },
+ 在外部调用这个函数 let  aaa = this.toReadCard();
+
+3.
+== 表示相等 （值相等）
+===表示恒等（类型和值都要相等）
+js在比较的时候如果是 == 会先做类型转换，再判断值得大小，如果是===类型和值必须都相等。
+
+4. 已经声明了标识符‘name'
+
+5.  b是2   ； a 没有被定义
+如果var定义在function外面，则作用域是全局的，如果定义在function里面，var的作用域是function。
+const不可被重新赋值。
+ 在js中，可以在变量定义之前使用变量，因为变量的定义会被提到作用域最顶上（看上去的定义的位置其实只是赋值）。这个过程叫做hoisting。
+
+6.
+ 我今年13
+ 我今年12
+ 我今年12
+ 我今年12
+
+7.function person() {
+  this.name = '张三';
+}
+person.prototype.name = '李四';
+var p = new person();
+console.log(p.name);
+delete p.name;
+console.log(p.name);
+写出打印结果
+ 张三 李四
+
+8.
+class human{
+	constructor(name,age){
+		this.name = name;
+		this.age= age;
+	}
+	eat(){
+		return `（我叫${this.name},今天${this.age}岁了）`    
+	}
+	isHuman(){
+		if(obj instanceof human){
+			return `这是一个human实例`
+		}else{
+			return `这不是一个human的实例`
+		}
+	}
+}
