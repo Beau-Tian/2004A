@@ -1,0 +1,74 @@
+第一题:
+const p = new Promise((resolve, reject) => {
+    setTimeout(() => {
+        resolve(333);
+    }, 1000)
+});
+p.then(res => {
+    console.log(res);
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            resolve('444=====');
+        }, 3000);
+    })
+}).then(res => {
+    console.log(res)
+});
+
+第二题:
+const getData = () => new Promise(resolve => setTimeout(() => resolve("data"), 1000))
+async function test() {
+  const data = await getData()
+  console.log('data: ', data);
+  const data2 = await getData()
+  console.log('data2: ', data2);
+  return 'success'
+}
+1秒后打印data 再过一秒打印data2 最后打印success
+test().then(res => console.log(res))
+
+第三题:
+==是判断值是否相等,
+===是判断值及类型是否完全相等;
+
+第四题:
+会报错,
+因为let的name全局只能出现一次,而上面已经出现一次name,所有会报错;
+let全局只能出现一次name,而var可以出现多个;
+
+第五题:
+正常修改;
+
+第六题:
+打印结果:{
+	我今年13,  (原因是this指向的是当前顶级对象 为13);
+	我今年12,	 (语法错误)
+	我今年12,	 (语法错误)
+	我今年12   (语法错误)
+		};
+
+第七题:
+var p = new person();   //实例一个对象person，person等于张三
+console.log(p.name);   //李四
+delete p.name;
+console.log(p.name);   //undefined;
+
+第八题:
+function women(name, age) {
+  this.name = name;
+  this.age = age;
+}
+women.prototype.eat = function () {
+  console.log(`我叫${this.name1}，会吃了`);
+}
+women.prototype.tell = function () {
+  console.log(`我叫${this.name1}，今年${this.age}岁`);
+}
+women.isWomen = function (obj) {
+  if (obj instanceof women) {
+    console.log('这是一个women的实例');
+  } else {
+    console.log('这不是一个women的实例');
+  }
+};
+
