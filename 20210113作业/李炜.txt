@@ -1,0 +1,112 @@
+1、
+
+​	let {
+
+​      paramz
+
+​    } = obj;
+
+
+
+​    // 
+
+​    let {
+
+​      paramz: {
+
+​        feeds
+
+​      }
+
+​    } = obj;
+
+
+
+​    // 
+
+​    let {
+
+​      paramz: {
+
+​        feeds: {
+
+​          data
+
+​        }
+
+​      }
+
+​    } = obj;
+
+​    console.log(paramz.PageIndex)
+
+​    console.log(paramz.PageSize)
+
+​    console.log(paramz.feeds.id)
+
+​    console.log(paramz.feeds.category)
+
+​    console.log(paramz.feeds.data.subject)
+
+​    console.log(paramz.feeds.data.subject)
+
+​    console.log(paramz.feeds.data.format)
+
+​    console.log(paramz.feeds.data.changed)
+
+2、
+
+function getUser(id) {
+    return Promise.resolve(id + 1);
+}
+
+//根据用户获取角色
+function getRoleByUser(id) {
+    return Promise.resolve(id + 1);
+}
+
+//根据角色获取权限
+function getRightsByRole(id) {
+    return Promise.resolve(id + 1);
+}
+
+async function ab() {
+    //先获取用户
+
+await  getUser(1).then(c => {
+        //根据用户ID获取角色
+    
+await getRoleByUser(c).then(d => {
+            //根据角色ID获取权限
+          
+await getRightsByRole(d).then(c => {
+            });
+        });
+    });
+}
+
+3、class Arr
+
+ay {
+
+​      constructor(length) {
+
+​        this.length = length;
+
+​      }
+
+​      push(arr){
+
+​      }
+
+​      pop(){
+
+​      }
+
+​      static isArray(arr){
+
+​      }
+
+​    }
+
+4、为了赚钱，升班，把学到的牢牢记住
