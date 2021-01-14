@@ -1,0 +1,97 @@
+1.用解构赋值的方式将 PageIndex,PageSize,id,category,subject,format,changed结构出来
+{
+  "paramz": {
+    "feeds": 
+      {
+        "id": 299076,
+        "category": "article",
+        "data": {
+          "subject": "荔枝新闻3.0：不止是阅读",
+          "format": "txt",
+          "changed": "2015-09-22 16:01:41"
+        }
+      },
+    "PageIndex": 1,
+    "PageSize": 20
+  }
+}
+let { paramz:{PageIndex,PageSize , feeds: {id,category ,data:{subject,format,changed}}}  } = res 
+2.
+//获取用户
+function getUser(id) {
+    return Promise.resolve(id + 1);
+}
+
+//根据用户获取角色
+function getRoleByUser(id) {
+    return Promise.resolve(id + 1);
+}
+
+//根据角色获取权限
+function getRightsByRole(id) {
+    return Promise.resolve(id + 1);
+}
+
+async function ab() {
+    //先获取用户
+    getUser(1).then(c => {
+        //根据用户ID获取角色
+        getRoleByUser(c).then(d => {
+            //根据角色ID获取权限
+            getRightsByRole(d).then(c => {
+            });
+        });
+    });
+}
+//改为同步的方式执行
+
+async function ab() {
+    //先获取用户
+   await getUser(1).then(c => {
+        //根据用户ID获取角色
+        getRoleByUser(c).then(d => {
+            //根据角色ID获取权限
+            getRightsByRole(d).then(c => {
+            });
+        });
+    });
+}
+
+3.
+function Array(length) {
+    this.length = length;
+}
+
+Array.prototype.push = function(arr) {
+
+}
+
+Array.prototype.pop = function() {
+
+}
+
+Array.isArray = function(arr) {
+
+}
+
+//转换为class的方式
+Array.prototype.constructor===Array
+class Array{
+	constructor(length){
+		this.length = length;
+	}
+}
+push(arr){
+	
+}
+pop(){
+	
+}
+static  isArray(arr){
+	
+}
+4.来这里的学习的目的是什么？学习要达成？要达成目标的规划？
+目的：（1）：对自己进行锻炼，增强社交与人沟通的能力，增强自信心
+	(2):学习专业技能，拿到一个好的工作岗位和工资，有一技之长为了自己的未来 
+达成：能与组员或者以后 在公司中有良好的沟通和配合完成项目正常运行上线
+目标规划：吸收知识速度比较慢，但会尽自己最大努力去学习，多练多记在理解以后，理论来源于实践，在实践中总结理论。
