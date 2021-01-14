@@ -74,6 +74,9 @@ async function ab() {
             });
         });
     });
+    var aa = await getUser()
+    var bb= await getRoleByUser()
+    var cc= await getRightsByRole()
 }
 //改为同步的方式执行
  
