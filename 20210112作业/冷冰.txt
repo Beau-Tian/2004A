@@ -1,0 +1,89 @@
+1.写一个链式调用的Promise
+function easyPromise (fn) {
+    var that = this
+    // 第一步,定义 then()
+    this.then = function (cb) {
+        //先将 then() 括号里面的参数保存起来
+        that.cb = cb
+    }
+    // 定义一个 resolve
+    this.resolve = function(data) {
+        that.cb(data)
+    }
+    // 将 resolve 作为回调函数,传给fn
+    fn(this.resolve)
+}
+2.使用async await写一个案例
+function resolveAfter2Seconds(x) {
+            return new Promise(resolve => {
+                setTimeout(() => {
+                    resolve(x)
+                },100)
+            });
+        }
+        async function f1() {
+            var x = await resolveAfter2Seconds(10);
+            console.log(x)
+        }
+        f1()
+3.==和===的区别
+==先转换类型再比较，===先判断类型，如果不是同一类型直接为false
+4.var name='';let name = '';会发生什么事？
+单个执行的话由于name未定义所以会出现undefined
+一起执行的话会发生报错
+5.const obj = {a:1};var b = 1; obj.a = 2;b = 2; 会发生什么事？
+不管哪种执行结果都是2
+分开执行和一起执行结果都是2
+6.var age = 12;
+var obj = {
+  age: 13,
+  tellMe() {
+    console.log('我今年' + this.age);
+  }
+}
+var obj1 = {
+  age: 15,
+  tellMe: () => {
+    console.log('我今年' + this.age);
+  }
+}
+obj.tellMe();
+obj1.tellMe();
+var tell = obj.tellMe;
+tell();
+tell = obj1.tellMe;
+tell();
+
+写出运行结果和为什么？
+
+第一个局部变量正常输出13
+第二次中使用了箭头函数这时this的指向window所以函数内部使用了最外层定义的值12，箭头函数不绑定this，会捕获其所在的上下文的this值，作为自己的this值，箭头函数的 this 永远指向其上下文的  this ，任何方法都改变不了其指向，如 call()
+7.function person() {
+  this.name = '张三';
+}
+person.prototype.name = '李四';
+var p = new person();
+console.log(p.name);
+delete p.name;
+console.log(p.name);
+写出打印结果
+先张三后李四
+
+8.function human(name, age) {
+  this.name = name;
+  this.age = age;
+}
+human.prototype.eat = function () {
+  console.log(`我叫${this.namee}，会吃饭了`);
+}
+human.prototype.tell = function () {
+  console.log(`我叫${this.namee}，今年${this.age}岁`);
+}
+human.isHuman = function (obj) {
+  if (obj instanceof human) {
+    console.log('这是一个human的实例');
+  } else {
+    console.log('这不是一个human的实例');
+  }
+}
+//请使用class定义一个功能一样的human对象

@@ -1,0 +1,96 @@
+1.写一个链式调用的Promise
+const p = new Promise((resolve, reject) => {
+    setTimeout(() => {
+        resolve(333);
+    }, 1000)
+});
+p.then(res => {
+    console.log(res);
+    setTimeout(() => {
+        console.log('睡觉睡觉睡觉');
+        return '睡觉睡觉睡觉'
+    }, 4000);
+    console.log('hhh');
+}).then(res => {
+    console.log(res);
+})
+2.使用async await写一个案例
+async function hello(){
+  return 'hello world';
+}
+hello().then(result=>{
+  console.log(result);
+})
+3.==和===的区别
+==是判断等于的意思，他不判断类型，返回值是一个布尔值
+===也是判断类型，但是它比==要更严谨一些，它的判断必须什么都相等。如果:(“1”===1)那么返回的是false，因为数字类型不同
+4.var name='';let name = '';会发生什么事？
+他会报错，因为name已经定义了，所以在let定义了变量之前，千万不要尝试去改变它。因为在块级作用域里面它不存在变量提升问题
+5.const obj = {a:1};var b = 1; obj.a = 2;b = 2; 会发生什么事？
+值会发生改变，obj.a=2,b=2
+6.var age = 12;
+var obj = {
+  age: 13,
+  tellMe() {
+    console.log('我今年' + this.age);
+  }
+}
+var obj1 = {
+  age: 15,
+  tellMe: () => {
+    console.log('我今年' + this.age);
+  }
+}
+obj.tellMe();
+obj1.tellMe();
+var tell = obj.tellMe;
+tell();
+tell = obj1.tellMe;
+tell();
+
+写出运行结果和为什么？
+我今年13，我今年12，我今年12，我今年12
+原因：obj对象中的tellMe()是普通函数，函数中的this指向的是该对象，所以this.age就指向的是obj中的age=13，下面调用所以obj.tellMe()的值为我今年13，obj1中对象中的应用了箭头函数，执行了ES6中箭头函数的this是定义时绑定，也就是this是继承自父执行上下文的this，而obj1中的箭头函数与tellMe平级，所以箭头函数所在的对象就是obj1，而obj1的父执行上下文为window，因此箭头函数中的this.age实际表示的window.age所以为12，所以obj1.tellme()的返回值为我今年12。var tell=obj.tellMe；因为var了一个全局tall，tall的this指向的window，而tall中obj.tellMe中的this指向的是window下的变量，也就是指向的是window下的age，所以tell()的返回值为我今年12，tell = obj1.tellMe;这个呢，执行了交换
+
+7.function person() {
+  this.name = '张三';
+}
+person.prototype.name = '李四';
+var p = new person();
+console.log(p.name);
+delete p.name;
+console.log(p.name);
+写出打印结果
+张三，李四
+8.function human(name, age) {
+  this.name = name;
+  this.age = age;
+}
+human.isHuman = function (obj) {
+  if (obj instanceof human) {
+    console.log('这是一个human的实例');
+  } else {
+    console.log('这不是一个human的实例');
+  }
+}
+//请使用class定义一个功能一样的human对象
+
+class human{
+constructor(){
+name='';
+age="";
+}
+}
+human.prototype.eat=function(){
+console.log(`我叫${this.namee}，会吃饭了`);
+}
+human.prototype.tell = function () {
+  console.log(`我叫${this.namee}，今年${this.age}岁`);
+}
+human.isHuman = function (obj) {
+  if (obj instanceof human) {
+    console.log('这是一个human的实例');
+  } else {
+    console.log('这不是一个human的实例');
+  }
+}

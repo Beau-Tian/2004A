@@ -1,0 +1,175 @@
+1.链式调用promise
+
+
+        function promise1() {
+            return new Promise((resolve) => {
+                console.log(1);
+                resolve();
+            });
+        }
+
+        function promise2() {
+            return new Promise((resolve) => {
+                console.log(2);
+                resolve();
+            });
+        }
+
+        function promise3() {
+            return new Promise((resolve) => {
+                console.log(3);
+                resolve();
+            });
+        }
+
+        promise1().then(() => {
+            return promise2();
+        }).then(() => {
+            return promise3()
+        }).then(() => {
+            console.log('下面是all方法↓');
+        })
+
+        var promiseOne = new Promise(function (resolve, reject) {
+            resolve(1)
+        });
+        var promiseTow = new Promise(function (resolve, reject) {
+            resolve(2)
+        });
+        var promiseThree = new Promise(function (resolve, reject) {
+            resolve(3)
+        });
+
+        Promise.all([promiseOne,promiseTow, promiseThree]).then(function (values) {
+            console.log(values);
+        })
+
+
+
+2 async/await:
+
+实现一个数字在两秒后*2
+	async function testResult() {
+    let result = await seconds(10);
+    console.log(result);
+}
+testResult()
+        function seconds(num) {
+            return new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    resolve(2 * num)
+                }, 2000);
+            })
+        }；
+
+总结：
+async和await基本是组合使用的，async用来声明一个异步方法，
+返回的是一个promise对象，如果要获取到对应的返回值，就需要使用.then方法；
+await只能在async方面的里面使用，
+让后面的执行语句或方法要等待当前await方法的结果后才能再执行。
+
+3 == 和=== 的区别
+
+
+==，两边值类型不同的时候，要先进行类型的转换，再比较。
+
+==，不做类型转换的时候，类型不同的一定不等。
+
+判断两个值是否===相等： 
+1、如果类型不同，就不相等
+
+2、如果两个都是数值，并且是同一个值，那么相等；
+
+3、如果两个都是字符串，每个位置的字符都一样，那么相等；否则不相等。 
+4、如果两个值都是true，或者都是false，那么相等。 
+5、如果两个值都引用同一个对象或函数，那么相等；否则不相等。 
+
+6、如果两个值都是null，或者都是undefined，那么相等。
+
+
+
+判断两个值是否==相等：
+如果两个值类型不同，他们可能相等 
+1、如果一个是null、一个是undefined，那么相等。 
+2、如果一个是字符串，一个是数值，把字符串转换成数值再进行比较。 
+3、如果任一值是 true，把它转换成 1 再比较；如果任一值是 false，把它转换成 0 再比较。 
+
+
+4.var name='';let name = '';会发生什么事？
+
+答:会报错。
+	因为var可以重复声明，let不能重复声明，如果有和let声明相同的变量就会报错（Identifier 'name' has already been declared）
+
+5.const obj = {a:1};var b = 1; obj.a = 2;b = 2; 会发生什么事？
+答：会报错。
+	因为const是定义不可变的量，改变了就会报错。
+
+6.      var age = 12;
+        var obj = {
+            age: 13,
+            tellMe() {
+                console.log('我今年' + this.age);
+            }
+        }
+        var obj1 = {
+            age: 15,
+            tellMe: () => {
+                console.log('我今年' + this.age); 
+            }
+        }
+        obj.tellMe();//13  //正常调用对象中的方法
+        obj1.tellMe();// 12 //箭头函数有指向普通函数中的this:
+			// obj.this总是代表它的直接调用者(js的this是执行上下文), 例如 obj.func ,那么func中的this就是obj
+			// obj1.在默认情况,没找到直接调用者,则this指的是 window 
+			// 箭头函数没有它自己的this值，this总是指向词法作用域，也就是外层调用者obj,即 箭头函数没有自己的this, 它的this是继承而来; 默认指向在定义它时所处的对象(宿主对象),而不是执行时的对象。
+        var tell = obj.tellMe;
+        tell(); //12  因为赋值后是吧方法赋值了，obj中的age和这个方法没有关系了，现在tell()是和window相映射，它会去window（全局作用域中找方法所打印的变量。）
+        tell = obj1.tellMe;
+        tell();// 12因为赋值后是吧方法赋值了，obj1中的age和这个方法没有关系了，现在tell()是和window相映射，它会去window（全局作用域中找方法所打印的变量。）
+
+
+
+7.
+
+
+function person() {
+  this.name = '张三';
+}
+person.prototype.name = '李四';
+var p = new person();
+console.log(p.name);
+delete p.name;
+console.log(p.name);
+
+
+结果：张三 函数里的属性
+      李四 函数原型的属性，实列化后函数内部如果没有（被delete删除后），先从当前函数查找，如果没有就去原型中查找。
+
+8.class Human {
+            constructor(name, age) {
+                this.name = name;
+                this.age = age;
+            }
+            eat() {
+                return console.log(`我叫${this.namee}，会吃饭了`);
+            }
+            tell() {
+                return console.log(`我叫${this.namee}，今年${this.age}岁`);
+            }
+            isHuman(obj) {
+                if (obj instanceof Human) {
+                    console.log('这是一个human的实例');
+                } else {
+                    console.log('这不是一个human的实例');
+                }
+            }
+        }
+   
+
+
+
+
+
+
+
+
