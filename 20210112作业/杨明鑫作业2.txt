@@ -81,3 +81,24 @@ human.isHuman = function (obj) {
   }
 }
 //请使用class定义一个功能一样的human对象
+
+class Human {
+            constructor(name, age) {
+                this.name = name;
+                this.age = age;
+            }
+            eat() {
+                return console.log(`我叫${this.namee}，会吃饭了`);
+            }
+            tell() {
+                return console.log(`我叫${this.namee}，今年${this.age}岁`);
+            }
+            isHuman(obj) {
+                if (obj instanceof Human) {
+                    console.log('这是一个human的实例');
+                } else {
+                    console.log('这不是一个human的实例');
+                }
+            }
+        }
+

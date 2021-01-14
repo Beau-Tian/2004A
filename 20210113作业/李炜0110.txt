@@ -1,73 +1,5 @@
 1.用解构赋值的方式将 PageIndex,PageSize,id,category,subject,format,changed结构出来
-{
-  "paramz": {
-    "feeds": 
-      {
-        "id": 299076,
-        "category": "article",
-        "data": {
-          "subject": "荔枝新闻3.0：` 不止是阅读",
-          "format": "txt",
-          "changed": "2015-09-22 16:01:41"
-        }
-      },
-    "PageIndex": 1,
-    "PageSize": 20
-  }
-}
-
-2.
-//获取用户
-function getUser(id) {
-    return Promise.resolve(id + 1);
-}
-
-//根据用户获取角色
-function getRoleByUser(id) {
-    return Promise.resolve(id + 1);
-}
-
-//根据角色获取权限
-function getRightsByRole(id) {
-    return Promise.resolve(id + 1);
-}
-
-async function ab() {
-    //先获取用户
-    getUser(1).then(c => {
-        //根据用户ID获取角色
-        getRoleByUser(c).then(d => {
-            //根据角色ID获取权限
-            getRightsByRole(d).then(c => {
-            });
-        });
-    });
-}
-//改为同步的方式执行
-
-3.
-function Array(length) {
-    this.length = length;
-}
-
-Array.prototype.push = function(arr) {
-
-}
-
-Array.prototype.pop = function() {
-
-}
-
-Array.isArray = function(arr) {
-
-}
-
-//转换为class的方式
-
-4.来这里的学习的目的是什么？学习要达成？要达成目标的规划？
-
-1.用解构赋值的方式将 PageIndex,PageSize,id,category,subject,format,changed结构出来
-{
+const res = {
   "paramz": {
     "feeds": 
       {
@@ -83,6 +15,7 @@ Array.isArray = function(arr) {
     "PageSize": 20
   }
 }
+let { paramz:{PageIndex,PageSize , feeds: {id,category ,data:{subject,format,changed}}}  } = res
 
 2.
 //获取用户
@@ -102,9 +35,9 @@ function getRightsByRole(id) {
 
 async function ab() {
     //先获取用户
-    getUser(1).then(c => {
+   getUser(1).then(c => {
         //根据用户ID获取角色
-        getRoleByUser(c).then(d => {
+       getRoleByUser(c).then(d => {
             //根据角色ID获取权限
             getRightsByRole(d).then(c => {
             });
@@ -112,7 +45,17 @@ async function ab() {
     });
 }
 //改为同步的方式执行
-
+async function ab() {
+    //先获取用户
+  await  getUser(1).then(c => {
+        //根据用户ID获取角色
+      await  getRoleByUser(c).then(d => {
+            //根据角色ID获取权限
+          await  getRightsByRole(d).then(c => {
+            });
+        });
+    });
+}
 3.
 function Array(length) {
     this.length = length;
@@ -127,10 +70,21 @@ Array.prototype.pop = function() {
 }
 
 Array.isArray = function(arr) {
-
 }
-
 //转换为class的方式
 
+class Array{
+    constructor(length) {
+        this.length = length;
+     }
+},
+push(arr){}
+pop(){}
+static isArray(arr){}
+}
 
 4.来这里的学习的目的是什么？学习要达成？要达成目标的规划？
+   目的：为了找一份好的工作，为家里减少负担，
+   达成：每天的上课认真的听讲，多敲代码，有啥不会的向自己研究，
+   要是自己研究不明白的，在和老师同学请教
+   规划：为了自己目标，努力

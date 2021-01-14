@@ -1,0 +1,118 @@
+1.用解构赋值的方式将 PageIndex,PageSize,id,category,subject,format,changed结构出来{
+ const {
+            paramz:{feeds:{id:id,category:category,data:{subject:subject,format:format,changed:changed}}},
+            PageIndex:PageIndex,PageSize:PageSize
+        } = {
+            "paramz": {
+                "feeds":
+                {
+                    "id": 299076,
+                    "category": "article",
+                    "data": {
+                        "subject": "荔枝新闻3.0：不止是阅读",
+                        "format": "txt",
+                        "changed": "2015-09-22 16:01:41"
+                    }
+                },
+                "PageIndex": 1,
+                "PageSize": 20
+            }
+        }
+        console.log(id)
+
+
+
+2.
+//获取用户
+function getUser(id) {
+    return Promise.resolve(id + 1);
+}
+
+//根据用户获取角色
+function getRoleByUser(id) {
+    return Promise.resolve(id + 1);
+}
+
+//根据角色获取权限
+function getRightsByRole(id) {
+    return Promise.resolve(id + 1);
+}
+
+async function ab() {
+    //先获取用户
+    getUser(1).then(c => {
+        //根据用户ID获取角色
+        getRoleByUser(c).then(d => {
+            //根据角色ID获取权限
+            getRightsByRole(d).then(c => {
+            });
+        });
+    });
+}
+//改为同步的方式执行
+
+
+function getUser(id) {
+    return Promise.resolve(id + 1);
+}
+
+function getRoleByUser(id) {
+    return Promise.resolve(id + 1);
+}
+
+
+function getRightsByRole(id) {
+    return Promise.resolve(id + 1);
+  
+}
+
+同步就是等待结果 他执行完，另一个才能执行
+
+3.
+function Array(length) {
+    this.length = length;
+}
+
+Array.prototype.push = function(arr) {
+
+}
+
+Array.prototype.pop = function() {
+
+}
+
+Array.isArray = function(arr) {
+
+}
+
+//转换为class的方式
+
+
+class Array{
+  
+    constructor (length){
+   
+       this.length = length;
+ 
+
+    }
+
+
+    push(arr){}
+     
+    pop(){}
+
+   isArray(arr){
+  
+       
+
+   }
+    
+
+}
+
+4.来这里的学习的目的是什么？学习要达成？要达成目标的规划？
+
+首先来这里，是因为喜欢编程，对这些东西非常感兴趣,来这里的目的就是学习一门技术，
+为了自己的将来可以更好的生活。
+先结合当前情况，给自己定制一些小目标然后慢慢一步步去实现它

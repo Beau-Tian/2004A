@@ -1,0 +1,87 @@
+## 1.用解构赋值的方式将PageIndex,PageSize,id,category,subject,format,changed结构出来
+
+```
+解构赋值就是把他先分解出来那一个const给他来定义，比如 let  {a,b} = {1,2}但是这个结构必须一样
+
+const {
+	paramz:{
+	feeds:{
+	id:dd,
+	category:aa,
+	data:{
+	subject:jj,
+	format:tt,
+	changed:sj
+	}
+	},
+	PageIndex:index,
+	PageSize:cc
+	}
+}={
+  "paramz": {
+    "feeds": 
+      {
+        "id": 299076,
+        "category": "article",
+        "data": {
+          "subject": "荔枝新闻3.0：不止是阅读",
+          "format": "txt",
+          "changed": "2015-09-22 16:01:41"
+        }
+      },
+    "PageIndex": 1,
+    "PageSize": 20
+  }
+}
+```
+
+## 2.改为同步的方法：
+
+```
+//获取用户
+function getUser(id) {
+    return Promise.resolve(id + 1);
+}
+
+//根据用户获取角色
+function getRoleByUser(id) {
+    return Promise.resolve(id + 1);
+}
+
+//根据角色获取权限
+function getRightsByRole(id) {
+    return Promise.resolve(id + 1);
+}
+
+async function ab() {
+    //先获取用户
+   await  getUser(1).then(c  => {
+        //根据用户ID获取角色
+        getRoleByUser(c).then(d => {
+            //根据角色ID获取权限
+            getRightsByRole(d).then(c => {
+            });
+        });
+    });
+}
+```
+
+## 3.转化为class的方式
+
+```
+class Array{
+	constructor(length) {
+    this.length = length;
+},
+push(arr){}
+pop(){}
+static isArray(arr){}
+}
+```
+
+## 4.总结心得：
+
+```
+来这里学习的目的这个年纪就是为了自己的未来和向着更高的圈子发展，其实现在的努力和汗水未来有一天一定可以实现，学习与努力的目的就是为了自己可以向这更高的平台发展，可以在未来家里人有依靠成为顶梁柱，为了可以让家人和未来的自己过上更好的生活，学习不懂就问，不会就自己想办法解决，达成一个对未来的规划！！
+```
+
