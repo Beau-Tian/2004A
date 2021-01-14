@@ -1,0 +1,42 @@
+1.var  obj = {
+    "paramz": {
+      "feeds":
+      {
+        "id": 299076,
+        "category": "article",
+        "data": {
+          "subject": "荔枝新闻3.0：不止是阅读",
+          "format": "txt",
+          "changed": "2015-09-22 16:01:41"
+        }
+      },
+      "PageIndex": 1,
+      "PageSize": 20
+    }
+  }
+  const {
+    paramz: {
+      feeds:{
+        id,
+        category,
+        data:{
+          subject,
+          format,
+          changed,
+        }
+      },
+      PageIndex,
+      PageSize,
+    }
+  } = obj
+2.
+3.  class array {
+    constructor(length) {
+      this.length = length;
+
+    }
+    push(arr) { }
+    pop() { }
+    static isArray(arr){}
+  }
+4. 使自己更强大 迎娶白富美  月薪2w 每天刻苦学习 蒸蒸日上 成为代码之父 
