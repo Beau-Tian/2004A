@@ -53,7 +53,7 @@ human.prototype.tell = function () {
 human.isHuman = function (obj) {
   if (obj instanceof human) {
     console.log('这是一个human的实例');
-  } else {
+  } else 
     console.log('这不是一个human的实例');
   }
 }
