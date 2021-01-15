@@ -1,0 +1,120 @@
+一题：
+const {
+  paramz:{
+    PageIndex:ind,
+    PageSize:ss,
+    feeds:[{
+      id:i,
+      category:ar,
+      data:{
+        subject:sub,
+        format:fo,
+        changed:sp
+      }
+    }]
+  } 
+}
+
+
+
+
+二题：
+   function exec() {
+            getUser().then(userId => {
+                getRoleByUser().then(roleId => {
+                    getRightsByRole().then(rights => {
+
+                    }, roleId)
+                }, userId)
+            })
+
+            var userId = await getUser()
+            var roleId = await getRoleByUser(userId)
+            var rights = await getRightsByRole(roleId)
+        }
+
+
+
+三题：
+ Numbe.prototype.constructor === Numbe
+        // 山里有个庙，庙里有个和尚  一问和尚住哪儿  ===  住庙
+        class Numbe {
+            constructor(length) {
+                this.length = length;
+            }
+            push(arr) {
+
+            }
+            pop() {
+
+            }
+            static isNumber(arr) {
+
+            }
+        }
+
+
+五题：
+https://segmentfault.com/a/1190000007535316
+
+对async和await的理解：
+async 可以把普通的函数改成异步函数，调用跟普通函数都是一样的，返回的值是一个promise对象。如果配合await使用，它就是一个阻塞式的异步函数，等待所有的异步请求完毕后一起回调。他可以传多个参数，是对promise的进一步优化，代码是从上到下执行的
+
+async/await的优缺点的理解：
+   优点：async 和 await 相比直接使用 Promise 来说，优势在于处理 then 的调用链，能够更清晰准确的写出代码
+  缺点：由于await会阻塞代码，所以之后的异步代码并不依赖于前者，但是任然需要等待前者完成，这样就导致了代码失去了并发性
+
+
+-----------------------------------------------
+不明白async和await到底干了什么呢？？
+-----------------------------------------------------
+
+六题：https://github.com/mqyqingfeng/Blog/issues/3
+作用域是指程序源代码中定义变量的区域。
+
+作用域规定了如何查找变量，也就是确定当前执行代码对变量的访问权限。
+
+JavaScript 采用词法作用域(lexical scoping)，也就是静态作用域。
+
+作用域是指程序源代码中定义变量的区域。
+作用域规定了如何查找变量，也就是确定当前执行代码对变量的访问权限。
+JavaScript 采用词法作用域(lexical scoping)，也就是静态作用域。
+
+因为 JavaScript 采用的是词法作用域，函数的作用域在函数定义的时候就决定了。
+而与词法作用域相对的是动态作用域，函数的作用域是在函数调用的时候才决定的。
+
+var value = 1;
+
+function foo() {
+    console.log(value);
+}
+
+function bar() {
+    var value = 2;
+    foo();
+}
+
+bar();
+
+// 结果是 ???
+假设JavaScript采用静态作用域，让我们分析下执行过程：
+
+执行 foo 函数，先从 foo 函数内部查找是否有局部变量 value，如果没有，就根据书写的位置，查找上面一层的代码，也就是 value 等于 1，所以结果会打印 1。
+
+假设JavaScript采用动态作用域，让我们分析下执行过程：
+
+执行 foo 函数，依然是从 foo 函数内部查找是否有局部变量 value。如果没有，就从调用函数的作用域，也就是 bar 函数内部查找 value 变量，所以结果会打印 2。
+
+前面我们已经说了，JavaScript采用的是静态作用域，所以这个例子的结果是 1。
+------------------------------------------------------------------
+思考题没看懂，这两段代码不是一样的吗？？
+-------------------------------------------------------------------------
+
+
+七题
+静态作用域又叫做词法作用域，采用词法作用域的变量叫词法变量。词法变量有一个在编译时静态确定的作用域。词法变量的作用域可以是一个函数或一段代码，该变量在这段代码区域内可见（visibility）；在这段区域以外该变量不可见（或无法访问）。词法作用域里，取变量的值时，会检查函数定义时的文本环境，捕捉函数定义时对该变量的绑定。
+----------
+箭头函数的理解是：箭头函数的this，始终指向父级的上下文；而普通函数的this谁调用就指向谁
+箭头函数没有原型属性，箭头函数是匿名函数，不能作为构造函数，不能使用new
+----------
+理解的都不是很透彻
