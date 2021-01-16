@@ -1,0 +1,121 @@
+1、var {paramz:{feeds:[{id,category,data:{subject,format,changed}}],pageIndex,pageSize}}=obj
+
+
+
+2、//获取用户
+
+​    function getUser(id) {
+
+​      return Promise.resolve(id + 1);
+
+​    }
+
+
+
+​    //根据用户获取角色
+
+​    function getRoleByUser(id) {
+
+​      return Promise.resolve(id + 1);
+
+​    }
+
+
+
+​    //根据角色获取权限
+
+​    function getRightsByRole(id) {
+
+​      return Promise.resolve(id + 1);
+
+​    }
+
+
+
+​    async function ab() {
+
+​      //先获取用户
+
+​      getUser().then(uid => {
+
+​        //根据用户ID获取角色
+
+​        getRoleByUser().then(roid => {
+
+​          //根据角色ID获取权限
+
+​          getRightsByRole().then(rights => {});
+
+​        }, roid);
+
+​      }, uid);
+
+​    }
+
+
+
+​    var user = await getUser();
+
+​    var role = await getRoleByUser(uid);
+
+​    var by = await getRightsByRole(roid);
+
+3、
+
+class Number {
+
+​      constructor(length) {
+
+​        this.length = length;
+
+​      }
+
+​      push(arr) {
+
+
+
+​      }
+
+​      pop() {
+
+
+
+​      }
+
+​      static inNumber(arr) {
+
+
+
+​      }
+
+​    }
+
+4、
+
+JavaScript采用词法作用域，函数的作用域在函数定义的时候就决定了
+
+因为JavaScript采用静态作用域，如果函数调用函数那么执行函数前，会先去调用的函数内部查找是否有局部变量，没有的话会根据定义位置向上查找，没有的话会报xx is not defined，而不会去调用它的函数内部查找变量
+
+动态作用域不理解！！！
+
+词法作用域是在写代码或者说定义时确定的，而动态作用域是在运行时确定的。 
+词法作用域关注函数在何处声明，而动态作用域关注函数从何处调用。
+
+
+
+5、await只能出现在async函数中，async返回值是一个promise对象，如果返回是一个量async会把这个量通过promise.resolve()封装成一个promise对象，async可以用于快速封装字面量对象或其他对象，将其封装成 Promise 实例。
+
+
+
+await处理promise对象时，可以先把代码暂停然后等promise对象resolve，然后作为await表达式的值
+
+async和await优势在于处理then链，能进一步优化代码量，能更简洁，更方便
+
+
+
+6、this指向调用它的上下文栈
+
+箭头函数的 `this` 指向他的父作用域的 `this`（静态作用域、静态作用域、静态作用域）
+
+
+

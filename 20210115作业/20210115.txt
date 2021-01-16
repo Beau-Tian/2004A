@@ -2,4 +2,11 @@ http://www.woshipm.com/pmd/294180.html
 https://www.jianshu.com/p/72ca5a9ff2c9
 https://zhuanlan.zhihu.com/p/97994403
 
+=======
+﻿http://www.woshipm.com/pmd/294180.html
+async和await的关系懂了，因为await在async中，不会造成阻塞；参数处理太绕了，晕。
+https://www.jianshu.com/p/72ca5a9ff2c9
+静态作用域不太明白
+https://zhuanlan.zhihu.com/p/97994403
+绕，第二题多少还能看懂点，这个完全蒙圈了
 输出感悟

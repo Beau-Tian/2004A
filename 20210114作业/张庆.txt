@@ -1,4 +1,4 @@
-﻿1.用解构赋值的方式将 PageIndex,PageSize,id,category,subject,format,changed解构出来
+1.用解构赋值的方式将 PageIndex,PageSize,id,category,subject,format,changed解构出来
 {
   "paramz": {
     "feeds": 
@@ -15,7 +15,7 @@
     "PageSize": 20
   }
 }
-
+ const { paramz: { PageIndex, PageSize }, feeds: { category }, data: { id, subject, format, changed } } = obj;
 2.
 //获取用户
 function getUser(id) {
@@ -44,6 +44,19 @@ function ab() {
     });
 }
 //改为同步的方式执行
+async function ab() {
+            //先获取用户
+            await getUser(1).then(c => {
+                //根据用户ID获取角色
+                await getRoleByUser(c).then(d => {
+                    //根据角色ID获取权限
+                    await getRightsByRole(d).then(c => {
+                    });
+                });
+            });
+        }
+
+
 
 3.
 function Number(length) {
@@ -63,13 +76,22 @@ Numbe.isNumber = function(arr) {
 }
 
 //转换为class的方式
+class Person{
+ constructor(length){
+      this.length = length;
+  }
+ push(arr){}
+ pop(){}
+ static Person(arr){}
+}
 
-
-5.阅读本篇文章https://segmentfault.com/a/1190000007535316，写出看懂和没看懂的地方。
-async和await的关系懂了，因为await在async中，不会造成阻塞；参数处理太绕了，晕。
+5.阅读本篇文章https://segmentfault.com/a/1190000007535316，写出看懂和没看懂的地方。            没看懂:
+看懂:1.什么是async和await            1. await 到底在等啥 
+        2.async 起什么作用                2.async 起什么作用
+        3.async/await 帮我们干了啥
 
 6.阅读本篇文章https://github.com/mqyqingfeng/Blog/issues/3	 写出看懂和没看懂的地方。
-静动态作用域不太明白
+看懂 ：             没看懂:
+1.作用域          1.静态作用域与动态作用域
 
 7.阅读本篇文章https://learnku.com/articles/50523，写出看懂和没看懂的地方。
-绕，第二题多少还能看懂点，这个完全蒙圈了
