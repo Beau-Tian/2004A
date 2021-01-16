@@ -63,7 +63,15 @@ Array.isArray = function(arr) {
 }
 
 //转换为class的方式
-	我不会啊， 我在看看视频理解一下
+class Array{
+  constutor (length) {
+    this.length = length;
+}
+push(){}
+pop(){}
+static isArray(arr){}
+}
+	
 4.来这里的学习的目的是什么？学习要达成？要达成目标的规划？
 
 月薪过万，迎娶白富美，                            我理论不太好，我会养成自己看文档的习惯
