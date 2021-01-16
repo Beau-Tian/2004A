@@ -1,0 +1,94 @@
+1.用解构赋值的方式将 PageIndex,PageSize,id,category,subject,format,changed结构出来
+{
+  "paramz": {
+    "feeds": 
+      {
+        "id": 299076,
+        "category": "article",
+        "data": {
+          "subject": "荔枝新闻3.0：不止是阅读",
+          "format": "txt",
+          "changed": "2015-09-22 16:01:41"
+        }
+      },
+    "PageIndex": 1,
+    "PageSize": 20
+  }
+}
+
+结构赋值后的：
+{paramz:{ feeds : { id , category , data : {subject , format , changed }}} , pagelndex, pagesize }
+
+
+2.
+//获取用户
+function getUser(id) {
+    return Promise.resolve(id + 1);
+}
+
+//根据用户获取角色
+function getRoleByUser(id) {
+    return Promise.resolve(id + 1);
+}
+
+//根据角色获取权限
+function getRightsByRole(id) {
+    return Promise.resolve(id + 1);
+}
+
+async function ab() {
+  //先获取用户
+    await getUser(1).then(c => {
+        //根据用户ID获取角色
+        await  getRoleByUser(c).then(d => {
+            //根据角色ID获取权限
+        await     getRightsByRole(d).then(c => {
+            });
+        });
+    });
+}
+//改为同步的方式执行
+
+3.
+function Array(length) {
+    this.length = length;
+}
+
+Array.prototype.push = function(arr) {
+
+}
+
+Array.prototype.pop = function() {
+ 
+}
+
+Array.isArray = function(arr) {
+
+}
+
+//转换为class的方式
+	
+class Array{
+	constructor(length) {
+    this.length = length;
+},
+push(arr){}
+pop(){}
+static isArray(arr){}
+}
+
+
+
+5.阅读本篇文章https://segmentfault.com/a/1190000007535316，写出看懂和没看懂的地方。
+	await 等到了要等的，然后呢这里有些模糊，感觉自己懂了，但是还缺少东西，但是不知道少啥
+6.阅读本篇文章https://github.com/mqyqingfeng/Blog/issues/3	 写出看懂和没看懂的地方。
+	动态作用域的使用还是有点蒙圈
+7.阅读本篇文章https://learnku.com/articles/50523，写出看懂和没看懂的地方。
+如果是一般函数,this指向全局对象window;
+对象的方法里调用, 谁调用this指向谁.   
+构造函数里的this,指向创建出来的实例.
+call、apply、bind中的this被强绑定在指定的那个对象上；
+
+箭头函数的this.始终指向父级的上下文,假如没有父级上下文的2时候，直接指向wendow
+箭头函数不能通过call apply bind 方法直接修改的this指向
+看懂了这些，之前老师讲过，有印象的，能说出来
