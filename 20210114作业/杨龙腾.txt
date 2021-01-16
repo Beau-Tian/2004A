@@ -1,0 +1,46 @@
+1、
+let {PageIndex,PageSize,paramz:{feeds:[{id,category,data:{subject,format,changed}}]}} = obj
+2、
+//获取用户
+function getUser(id) {
+    return Promise.resolve(id + 1);
+}
+
+//根据用户获取角色
+function getRoleByUser(id) {
+    return Promise.resolve(id + 1);
+}
+
+//根据角色获取权限
+function getRightsByRole(id) {
+    return Promise.resolve(id + 1);
+}
+
+async function fun() {
+    getUser().then(userId => {
+        getRoleByUser().then(roleId => {
+            getRightsByRole().then(rights => {
+
+            }, roleId)
+        }, userId)
+    })
+}
+var userId = await getUser();
+var roleId = await getRoleByUser(userId);
+var right = await getRightsByRole(roleId)
+3、
+Array.prototype.constructor === Array
+class Number{
+ prototype(length){
+  this.length = length
+}
+push(arr){}
+pop(){}
+static isNumber(arr){}
+}
+
+
+5.  懂的: async 函数返回的是一个Promise对象，在没有await的情况下执行async函数，他会立即执行。
+不懂的： Promise.resolve(undefined)。
+6.懂的：javascript静态作用域  ； 不懂： JavaScript 动态作用域；
+7. 懂的：  看完这个连接懂了 动态作用域   

@@ -1,0 +1,10 @@
+阅读本篇文章https://segmentfault.com/a/1190000007535316，写出看懂和没看懂的地方。
+promise对象有点不知道是啥，async/await不明白干了什么？
+
+阅读本篇文章https://github.com/mqyqingfeng/Blog/issues/3	 写出看懂和没看懂的地方。
+静态作用域不懂
+词法作用域（静态作用域）：函数定义时产生的
+动态作用域：函数调用时产生的
+
+阅读本篇文章https://learnku.com/articles/50523，写出看懂和没看懂的地方。
+代码不理解
