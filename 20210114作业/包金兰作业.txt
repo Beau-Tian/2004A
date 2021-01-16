@@ -1,0 +1,213 @@
+第一道题
+const {
+  paramz:{
+    PageIndex:ind,
+    PageSize:ss,
+    feeds:[{
+      id:i,
+      category:ar,
+      data:{
+        subject:sub,
+        format:fo,
+        changed:sp
+      }
+    }]
+  } 
+} 
+------------------------
+第二道题
+   function exec() {
+            getUser().then(userId => {
+                getRoleByUser().then(roleId => {
+                    getRightsByRole().then(rights => {
+
+                    }, roleId)
+                }, userId)
+            })
+
+            var userId = await getUser()
+            var roleId = await getRoleByUser(userId)
+            var rights = await getRightsByRole(roleId)
+        }
+
+
+第三道题-----------------------
+
+ Numbe.prototype.constructor === Numbe
+        // 山里有个庙，庙里有个和尚  一问和尚住哪儿  ===  住庙
+        class Numbe {
+            constructor(length) {
+                this.length = length;
+            }
+            push(arr) {
+
+            }
+            pop() {
+
+            }
+            static isNumber(arr) {
+
+            }
+        }
+第五道题---------------------------
+(1)理解 async 用于申明一个 function 是异步的，而 await 用于等待一个异步方法执行完成。
+(2)await 只能出现在 async 函数中
+(3)如果需要通过 await 来调用一个 async 函数，那这个调用的外面必须得再包一个 async 函数，然后……进入死循环，永无出头之日……
+ (4)async 起什么作用-----------------------------------------------------------
+async function testAsync() {
+    return "hello async";
+}
+const result = testAsync();
+console.log(result);    // 输出的是一个 Promise 对象。
+(5)如果 async 函数没有返回值，又该如何？很容易想到，它会返回 Promise.resolve(undefined)。
+联想一下 Promise 的特点——无等待，所以在没有 await 的情况下执行 async 函数，它会立即执行，返回一个 Promise 对象，并且，绝不会阻塞后面的语句。这和普通返回 Promise 对象的函数并无二致。
+(6)await 到底在等啥---------------------------------------------------
+await 等待的是一个表达式，这个表达式的计算结果是 Promise 对象或者其它值（换句话说，就是没有特殊限定）。
+async/await 的优势在于处理 then 链
+ (7)await 等到了要等的，然后呢------------------------------------
+如果它等到的不是一个 Promise 对象，那 await 表达式的运算结果就是它等到的东西。
+如果它等到的是一个 Promise 对象，await 就忙起来了，它会阻塞后面的代码，等着 Promise 对象 resolve，然后得到 resolve 的值，作为 await 表达式的运算结果。
+await 阻塞的只是当前路径，并不阻塞其它路径的代码。不然异步就没意义了。
+
+第六道题-------------------作用域和动态作用域-----------------------
+作用域
+作用域是指程序源代码中定义变量的区域。
+
+作用域规定了如何查找变量，也就是确定当前执行代码对变量的访问权限。
+
+JavaScript 采用词法作用域(lexical scoping)，也就是静态作用域。
+
+静态作用域与动态作用域
+因为 JavaScript 采用的是词法作用域，函数的作用域在函数定义的时候就决定了。
+
+而与词法作用域相对的是动态作用域，函数的作用域是在函数调用的时候才决定的。
+
+JavaScript采用动态作用域
+执行 foo 函数，依然是从 foo 函数内部查找是否有局部变量 value。如果没有，就从调用函数的作用域，也就是 bar 函数内部查找 value 变量，所以结果会打印 2。
+var value = 1;
+
+function foo() {
+    console.log(value);
+}
+var value = 2;
+function bar() {
+    
+    foo();
+}
+
+bar();
+
+结果--2。----------------
+JavaScript采用静态作用域
+
+执行 foo 函数，先从 foo 函数内部查找是否有局部变量 value，如果没有，就根据书写的位置，查找上面一层的代码，也就是 value 等于 1，所以结果会打印 1。
+var value = 1;
+
+function foo() {
+    console.log(value);
+}
+
+function bar() {
+    var value = 2;
+    foo();
+}
+
+bar();
+结果是 -- 1 。---------------------------
+
+思考题
+最后，让我们看一个《JavaScript权威指南》中的例子：
+
+var scope = "global scope";
+function checkscope(){
+    var scope = "local scope";
+    function f(){
+        return scope;
+    }
+    return f();
+}
+checkscope();
+var scope = "global scope";
+function checkscope(){
+    var scope = "local scope";
+    function f(){
+        return scope;
+    }
+    return f;
+}
+checkscope()();  //  两段代码都会打印：local scope。
+因为JavaScript采用的是词法作用域，函数的作用域基于函数创建的位置。
+
+而引用《JavaScript权威指南》的回答就是：
+
+JavaScript 函数的执行用到了作用域链，这个作用域链是在函数定义的时候创建的。嵌套的函数 f() 定义在这个作用域链里，其中的变量 scope 一定是局部变量，不管何时何地执行函数 f()，这种绑定在执行 f() 时依然有效。
+
+不懂得点--- 两段代码哪里不同？
+
+第七道题-----------
+只要程序正在执行定义了动态变量的代码段，那么在这段时间内，该变量一直存在；代码段执行结束，该变量便消失。这意味着如果有个函数 f，里面调用了函数 g，那么在执行 g 的时候，f 里的所有局部变量都会被 g 访问到。而在静态作用域的情况下，g 不能访问 f 的变量。动态作用域里，取变量的值时，会由内向外逐层检查函数的调用链，并打印第一次遇到的那个绑定的值。显然，最外层的绑定即是全局状态下的那个值。
+
+this.a =  2
+// this 指向 window
+
+function fun1() {
+  // 这里 this 还是指向 window
+  console.log(this) // window
+  console.log(this.a) // 1
+}
+
+function fun2() {
+  // this 依旧指向 window，不信可以打印看看那
+  console.log(this.a) // 2
+
+  // 这里修改了外边的 this.a
+  this.a = 1
+  // 打印修改后的值
+  console.log(this.a) // 1
+
+  fun1()
+}
+fun2()
+
+--------------------------
+this.n = 1
+
+const fun2 = () =>  {
+  console.log(this.n)
+}
+var a = {
+  n: 2,
+  fun1() {
+    // console.log(this)  // {n: 2, fun1: function}
+    // console.log(this.n) // 2
+    a.fun2()
+    // fun2()
+  },
+  fun2
+}
+
+a.fun1()
+箭头函数中，不管你是 a.fun2 还是直接 fun2，指向的都是 window，因为箭头函数的 this 固定指向他的父作用域，而根据静态作用域的原则，他父作用域是定义时的作用域，也就是 window，所以不管怎么调用，他都是 window。
+----------------------------------
+var n = 1
+var a = () => {
+    console.log(this.n)
+}
+
+var b={
+    n: 2,
+    fun2: {
+        n: 3,
+        fun1:a,
+        fun() {
+            a() // 1
+            console.log(this) // {n: 3,     fun1:function, fun: function}
+            console.log(this.n) // 3
+            this.fun1() // 1
+
+        }
+    }
+}
+b.fun2.fun()
+通过这个你就能发现，箭头函数的 this 并不指向调用他的对象，也不是指向调用他的对象的父作用域，而是指向他定义的位置的父作用域，不管你在哪里调用，都是同一个指向。
+
