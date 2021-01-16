@@ -1,0 +1,65 @@
+1、
+const {
+    paramz: {
+        PageIndex: ind,
+        PageSize: siz,
+        feeds: [
+            {
+                id: ids,
+                category: gory,
+                data: {
+                    subject: ject,
+                    format: mat,
+                    changed: nged
+                }
+            }
+        ]
+    }
+} = {
+    "paramz": {
+        "feeds":
+            [{
+                "id": 299076,
+                "category": "article",
+                "data": {
+                    "subject": "荔枝新闻3.0：不止是阅读",
+                    "format": "txt",
+                    "changed": "2015-09-22 16:01:41"
+                }
+            }],
+        "PageIndex": 1,
+        "PageSize": 20
+    }
+}
+console.log(ind, siz, ids, gory, ject, mat, nged)
+
+2、
+async function ab() {
+    //先获取用户
+    getUser(1).then(c => {
+        //根据用户ID获取角色
+        getRoleByUser(c).then(d => {
+            //根据角色ID获取权限
+            getRightsByRole(d).then(c => {
+            });
+        });
+    });
+
+    var c = await getUser(1);
+    var d = await getRoleByUser(c)
+    var a = await getRightsByRole(d);
+
+    console.log(c, d, a)
+}
+ab()
+
+3、
+class Numbe{
+ constructor(length) {
+    this.length = length;
+},
+push(arr){}
+pop(){}
+static isNumbe(arr){}
+}
+
