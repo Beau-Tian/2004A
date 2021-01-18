@@ -1,2 +1,46 @@
 执行 git pull 出现 Your configuration specifies to merge with the ref 'refs/heads/xxx' ， but no such ref was fetched
 然后再执行 git push --set-upstream origin xxx 即可
+
+
+2，面包屑---当uptated使用数组渲染时陷入死循环的原因：
+updated触发的条件：data的变量发生改变，并且要在页面重新渲染时就会执行
+
+当我们使用updaed,渲染面包屑时，由于data和页面都发生改变，updated就又会执行，就陷入了死循环。我们只需给updated执行时给来一个判断条件，判断是否还在当前页码，在当前页码的话就不往下执行，不在就继续往下执行
+
+代码：
+?```data
+currentPath: "", //此变量用于判断在不在当前页面
+
+...updated钩子
+updated() {
+    let st = this.$route.path.replace("/", "");
+    //----判断在不在当前页面
+    if (st === this.currentPath) { 
+      return;
+    }
+    //-------不在当前页面时执行的代码
+     //如果在判断条件的上面赋值，判断条件会失效。·
+    this.currentPath = st;  
+    for (let item of this.list) {
+      for (let it of item.children) {
+        if (it.path == st) {
+          console.log(item.authName);
+          console.log(it.authName);
+          return this.border.splice(1, 2, item.authName, it.authName);
+        }
+      }
+    }
+  },
+
+````
+
+
+
+
+
+
+
+
+
+
+
