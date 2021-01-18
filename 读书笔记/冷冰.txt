@@ -1,0 +1,163 @@
+JavaScript是一门用来与网页交互的脚本语言，包含以下三个组成部分
+
+ECMAScript：由ECMA-262定义并提供核心功能。
+文档对象模型（DOM）：提供与网页内容交互的方法和接口。
+浏览器对象模型（BOM）：提供与浏览器交互的方法和接口。
+JavaScript的这三个部分得到了五大Web浏览器（IE、Firefox、
+Chrome、Safari和Opera）不同程度的支持。所有浏览器基本上对
+ES5（ECMAScript 5）提供了完善的支持，而对ES6（ECMAScript 6和ES7（ECMAScript 7）的支持度也在不断提升。这些浏览器对DOM
+的支持各不相同，但对Level 3的支持日益趋于规范。HTML5中收录的
+BOM会因浏览器而异
+标识符
+概念：所谓标识符，就是变量、函数、属性或函数参数的名称。标识符 可以由一或多个下列字符组成
+格式:
+1.第一个字符必须是一个字母、下划线（ _ ）或美元符号 （ $ ）；
+2.剩下的其他字符可以是字母、下划线、美元符号或数字。
+注：
+关键字、保留字、 true 、 false 和 null 不能作为标识符
+注释
+包括单行注释和块注释
+单行注释：
+块注释以一个斜杠和一个星号（ /* ）开头，以它们的反向组合 （ */ ）结尾，
+如： /* 这是多行 注释 *
+多行注释：
+/* 这是多行 注释 */
+语句
+ECMAScript中的语句以分号结尾。
+保留字和关键字
+保留的关键字不能用作标识符或属性名。
+变量
+有3 个关键字可以声明变量： var 、 const 和 let 。其中， var 在 ECMAScript的所有版本中都可以使用，而 const 和 let 只能在 ECMAScript 6及更晚的版本中使用。
+Var关键字
+要定义变量，可以使用 var 操作符（注意 var 是一个关键 字），后跟变量名（即标识符，如前所述）： var message;
+作用：
+1.var 声明作用域
+2.var 声明提升
+let声明
+let 跟 var 的作用差不多，但有着非常重要的区别。最明显的 区别是， let 声明的范围是块作用域，而 var 声明的范围是函数作 用域。
+区别：
+1.let 与 var 的另一个重要的区别，就是 let 声明的变量不会 在作用域中被提升。
+2.与 var 关键字不同，使用 let 在全局作用域中声明的变量不会 成为 window 对象的属性（ var 声明的变量则会）。
+3.在使用 var 声明变量时，由于声明会被提升，JavaScript引擎会 自动将多余的声明在作用域顶部合并为一个声明。因为 let 的 作用域是块，所以不可能检查前面是否已经使用 let 声明过同 名变量，同时也就不可能在没有声明的情况下声明它。
+4.在 let 出现之前， for 循环定义的迭代变量会渗透到循环体外部，改成使用 let 之后，这个问题就消失了，因为迭代变量的作用 域仅限于 for 循环块内部
+Const声明
+const 的行为与 let 基本相同，唯一一个重要的区别是用它声 明变量时必须同时初始化变量，且尝试修改 const 声明的变量会导 致运行时错误。
+数据类型
+ECMAScript有6种简单数据类型（也称为原始类型）： Undefined 、 Null 、 Boolean 、 Number 、 String 和 Symbol 。 Symbol （符号）是ECMAScript 6新增的。还有一种复 杂数据类型叫 Object （对象）。 Object 是一种无序名值对的集 合。
+Typeof操作符
+对一个值使 用 typeof 操作符会返回下列字符串之一：
+1."undefined" 表示值未定义； 
+2."boolean" 表示值为布尔值； 
+3."string" 表示值为字符串； 
+4."number" 表示值为数值； 
+5."object" 表示值为对象（而不是函数）或 null ； 
+6."function" 表示值为函数； 
+7."symbol" 表示值为符号。
+Undefined类型
+Undefined 类型只有一个值，就是特殊值 undefined
+例子：
+let message; // 这个变量被声明了，只是值为 undefined 
+// 确保没有声明过这个变量 
+// let age 
+console.log(message); // "undefined" 
+console.log(age); // 报错
+Null类型
+Null 类型同样只有一个值，即特殊值 null
+let car = null;
+console.log(typeof car); // "object"
+Boolean类型
+Boolean （布尔值）类型是ECMAScript中使用最频繁的类型之 一，有两个字面值： true 和 false 。
+例子：
+let found = true; 
+let lost = false;
+注意：布尔值字面量 true 和 false 是区分大小写的，因此 True 和 False （及其他大小混写形式）是有效的标识符，但不是 布尔值。
+Number类型
+最基本的数值字面量格式是十进制整数
+例子：
+let intNum = 55; // 整数
+String类型
+String （字符串）数据类型表示零或多个16位Unicode字符序 列。字符串可以使用双引号（"）、单引号（'）或反引号（`）标示
+字符串的特点
+ECMAScript中的字符串是不可变的（immutable），意思是一旦 创建，它们的值就不能变了。要修改某个变量中的字符串值，必 须先销毁原始的字符串，然后将包含新值的另一个字符串保存到 该变量
+转换为字符串
+首先是使用几乎所有值都有 的 toString() 方法
+Symbol类型
+Symbol （符号）是ECMAScript 6新增的数据类型。符号是原始 值，且符号实例是唯一、不可变的。
+1.符号的基本用法
+符号需要使用 Symbol() 函数初始化。因为符号本身是原始类 型，所以 typeof 操作符对符号返回 symbol 。
+2.使用全局符号注册表
+如果运行时的不同部分需要共享和重用符号实例，那么可以用一 个字符串作为键，在全局符号注册表中创建并重用符号。 为此，需要使用 Symbol.for() 方法
+3.使用符号作为属性
+凡是可以使用字符串或数值作为属性的地方，都可以使用符号。
+4.常用内置符号
+ECMAScript 6也引入了一批常用内置符号（well-known symbol），用于暴露语言内部行为，开发者可以直接访问、重写 或模拟这些行为。
+5.Symbol.asyncIterator
+6.Symbol.hasInstance
+7.Symbol.isConcatSpreadable
+8.Symbol.iterator
+9.Symbol.match
+10.Symbol.replace
+11.Symbol.search
+12.Symbol.species
+13.Symbol.split
+14.Symbol.toPrimitive
+15.Symbol.toStringTag
+16.Symbol.unscopables
+操作符
+一元操作符：
+只操作一个值的操作符叫一元操作符（unary operator）。一元操 作符是ECMAScript中最简单的操作符。
+递增/递减操作符：
+递增和递减操作符直接照搬自C语言，但有两个版本：前缀版和 后缀版。
+1.++
+2.–
+一元加和减
+加：一元加由一个加号 （ + ）表示，放在变量前头，对数值没有任何影响
+减：一元减由一个减号（ - ）表示，放在变量前头，主要用于把数值 变成负值
+布尔操作符
+逻辑非：!
+逻辑与：&&
+逻辑或：||
+除法操作符：/
+取模操作符: %
+减法操作符:  -
+关系操作符: ，包括小于（ < ）、大于 （ > ）、小于等于（ <= ）和大于等于（ >= ），
+相等操作符:  1. 等于和不等于  2. 全等和不全等
+条件操作符
+赋值操作符: 
+乘后赋值（ *= ）
+ 除后赋值（ /= ）
+ 取模后赋值（ %= ） 
+加后赋值（ += ） 
+减后赋值（ -= ） 
+左移后赋值（ <<= ） 
+右移后赋值（ >>= ） 
+无符号右移后赋值（ >>>= ）
+语句
+if 语句:
+这里的条件（ condition ）可以是任何表达式，并且求值结果 不一定是布尔值。ECMAScript会自动调用 Boolean() 函数将这个表 达式的值转换为布尔值。如果条件求值为 true ，则执行语句 statement1 ；如果条件求值为 false ，则执行语句 statement2 。这里的语句可能是一行代码，也可能是一个代码块 （即包含在一对花括号中的多行代码）。
+do-while 语句:
+do-while 语句是一种后测试循环语句，即循环体中的代码执 行后才会对退出条件进行求值。
+while 语句:
+while 语句是一种先测试循环语句，即先检测退出条件，再执 行循环体内的代码。
+for 语句:
+for 语句也是先测试语句，只不过增加了进入循环之前的初始 化代码，以及循环执行后要执行的表达式，
+for-in 语句:
+for-in 语句是一种严格的迭代语句，用于枚举对象中的非符号 键属性，
+for-of 语句:
+for-of 语句是一种严格的迭代语句，用于遍历可迭代对象的元 素，
+with 语句:
+with 语句的用途是将代码作用域设置为特定的对象
+switch 语句:
+switch 语句是与 if 语句紧密相关的一种流控制语句，从其他 语言借鉴而来。
+函数
+function 关键字声明，后跟一组参数，然后是函数体。
+例如：
+function functionName(arg0, arg1,...,argN) { 
+statements 
+}
+注：除了 return 语句之外没有任何特殊声明表明该函数有返回值
+严格模式对函数也有一些限制：
+函数不能以 eval 或 arguments 作为名称； 
+函数的参数不能叫 eval 或 arguments ；
+两个函数的参数不能叫同一个名称。
+如果违反上述规则，则会导致语法错误，代码也不会执行。
