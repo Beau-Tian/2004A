@@ -1,5 +1,5 @@
 1.用解构赋值的方式将 PageIndex,PageSize,id,category,subject,format,changed解构出来
-{
+var data = {
   "paramz": {
     "feeds": 
       [{
@@ -44,7 +44,6 @@ function ab() {
     });
 }
 //改为同步的方式执行
-
 3.
 function Number(length) {
     this.length = length;
@@ -63,7 +62,6 @@ Numbe.isNumber = function(arr) {
 }
 
 //转换为class的方式
-
 
 5.阅读本篇文章https://segmentfault.com/a/1190000007535316，写出看懂和没看懂的地方。
 
