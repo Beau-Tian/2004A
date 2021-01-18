@@ -1,0 +1,50 @@
+1、
+let {PageIndex,PageSize,paramz:{feeds:[{id,category,data:{subject,format,changed}}]}} = obj
+2、
+//获取用户
+function getUser(id) {
+    return Promise.resolve(id + 1);
+}
+
+//根据用户获取角色
+function getRoleByUser(id) {
+    return Promise.resolve(id + 1);
+}
+
+//根据角色获取权限
+function getRightsByRole(id) {
+    return Promise.resolve(id + 1);
+}
+
+async function fun() {
+    getUser().then(userId => {
+        getRoleByUser().then(roleId => {
+            getRightsByRole().then(rights => {
+
+            }, roleId)
+        }, userId)
+    })
+}
+var userId = await getUser();
+var roleId = await getRoleByUser(userId);
+var right = await getRightsByRole(roleId)
+3、
+Array.prototype.constructor === Array
+class Number{
+	prototype(length){
+		this.length = length
+}
+push(arr){}
+pop(){}
+static isNumber(arr){}
+}
+4、
+明白：async/await解决promise的then链
+问题：promise.resolve（）？？？
+5、
+明白：JavaScript采用的是静态作用域，函数的作用域在函数定义的时候就决定了。
+问题：执行上下文栈？？？
+6、
+明白：词法作用域和动态作用域的区别：词法作用域是在代码解析定义的时候确定的，关注的是函数在何处定义，并从定义处向上查找作用域。
+动态作用域是在代码运行的时候确定的，关注的是代码在何处调用，并从调用栈向上查找作用域。
+问题：new 会创建一个新的对象？？？

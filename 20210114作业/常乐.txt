@@ -1,10 +1,5 @@
-<<<<<<< HEAD
 1.用解构赋值的方式将 PageIndex,PageSize,id,category,subject,format,changed解构出来
-var data = {
-=======
-﻿1.用解构赋值的方式将 PageIndex,PageSize,id,category,subject,format,changed解构出来
 {
->>>>>>> 2a052038f0604fdcaf689c1e2c21a3df3849ebb9
   "paramz": {
     "feeds": 
       [{
@@ -20,7 +15,7 @@ var data = {
     "PageSize": 20
   }
 }
-
+{paramz:{ feeds : 【 id , category , data : {subject , format , changed 】}} , pagelndex, pagesize }
 2.
 //获取用户
 function getUser(id) {
@@ -49,6 +44,7 @@ function ab() {
     });
 }
 //改为同步的方式执行
+
 3.
 function Number(length) {
     this.length = length;
@@ -67,12 +63,18 @@ Numbe.isNumber = function(arr) {
 }
 
 //转换为class的方式
+		不会啊
 
 5.阅读本篇文章https://segmentfault.com/a/1190000007535316，写出看懂和没看懂的地方。
-async和await的关系懂了，因为await在async中，不会造成阻塞；参数处理太绕了，晕。
+		在文章上我理解的是 
+			async 会将普通函数变成异步函数， async接收的是一个pami 
+			await 等待着接收着一个表达式或者是pai 的  如果是 破迷的 
+				将阻塞下边的代码			
 
 6.阅读本篇文章https://github.com/mqyqingfeng/Blog/issues/3	 写出看懂和没看懂的地方。
-静动态作用域不太明白
+
+		作用域知道，但是说静态还有动态就不是很明白了
 
 7.阅读本篇文章https://learnku.com/articles/50523，写出看懂和没看懂的地方。
-绕，第二题多少还能看懂点，这个完全蒙圈了
+
+		这两个都是一样的啊
