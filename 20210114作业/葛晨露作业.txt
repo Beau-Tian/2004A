@@ -1,10 +1,5 @@
-<<<<<<< HEAD
 1.用解构赋值的方式将 PageIndex,PageSize,id,category,subject,format,changed解构出来
 var data = {
-=======
-﻿1.用解构赋值的方式将 PageIndex,PageSize,id,category,subject,format,changed解构出来
-{
->>>>>>> 2a052038f0604fdcaf689c1e2c21a3df3849ebb9
   "paramz": {
     "feeds": 
       [{
@@ -21,6 +16,24 @@ var data = {
   }
 }
 
+const {
+        paramz: {
+            feeds:[{
+                id,
+                category,
+                data:{
+                    subject,
+                    format,
+                    changed,
+                }
+            }],
+            PageIndex,
+            PageSize,
+        }
+    } = data
+    console.log(changed)
+
+---------------------------------------------------------------------------------------------------
 2.
 //获取用户
 function getUser(id) {
@@ -49,6 +62,7 @@ function ab() {
     });
 }
 //改为同步的方式执行
+----------------------------------------------------------------------------------------------------
 3.
 function Number(length) {
     this.length = length;
@@ -68,11 +82,25 @@ Numbe.isNumber = function(arr) {
 
 //转换为class的方式
 
+
+Number.prototype.constructor === Number;
+    class Number{
+        constructor(length){
+            this.length = length;
+        }
+        push(arr){
+
+        }
+        pop(){
+
+        }
+        static isNumber(arr){
+
+        }
+    }
+--------------------------------------------------------------------------------------------------------
 5.阅读本篇文章https://segmentfault.com/a/1190000007535316，写出看懂和没看懂的地方。
-async和await的关系懂了，因为await在async中，不会造成阻塞；参数处理太绕了，晕。
 
 6.阅读本篇文章https://github.com/mqyqingfeng/Blog/issues/3	 写出看懂和没看懂的地方。
-静动态作用域不太明白
 
 7.阅读本篇文章https://learnku.com/articles/50523，写出看懂和没看懂的地方。
-绕，第二题多少还能看懂点，这个完全蒙圈了
