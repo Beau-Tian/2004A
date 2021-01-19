@@ -1,0 +1,161 @@
+要掌握
+
+原型 还有原型链
+，原型
+1.  每个函数都有一个prototype属性，被称为显示原型 
+2.  每个实例对象都会有`_ _proto_ _`属性,其被称为隐式原型
+3.  每一个实例对象的隐式原型`_ _proto_ _`属性指向自身构造函数的显式原型prototype
+4.  每个prototype原型都有一个constructor属性，指向它关联的构造函数。
+
+11.原型链
+原型链： 每个实例化对象都有一个__proto__属性，这个属性指向函数的原型，
+当我们访问对象中的属性的时候，先从当前对象找，如果找不到的话，从当前原型中查找，
+=》 当前函数的继承对象中查找，最后如果没有找到返回 undefined
+
+正则表达式
+/^[]规则/
+
+
+promise
+	是异步的解决方案
+	解决了地狱回调的问题
+	也可以说她是个对象
+	
+promise 有三个状态
+pending 进行中  fulfilled（已经成功）rejected（已经失败）
+只有异步操作的结果可以决定当前是哪一种状态，其他任何操作都无法改变这个状态
+promise 状态一旦改变，就不会在变了
+1. all的方法是并行执行异步操作，等所有异步操作完成后才会执行回调
+2.  （瑞思） race方法是只要有一个异步操作执行完毕，就会马上进行回调
+
+async和await
+asayc的用法，它作为一个关键字放到函数前面，这样普通函数就变为了异步函数
+异步async函数调用，跟普通函数的使用方式一样
+异步async函数返回一个promise对象
+async函数配合await关键字使用
+是异步方法，但是阻塞式的
+Async 和 await 是一种同步的写法，但还是异步的操作，两个内容还是必须同时去写才会生效不然的话也是不会好使
+而且 await 的话有一个不错的作用就是可以等到你的数据加载过来以后才会去运行下边的 js 内容
+而且 await 接收的对象必须还是个 promise 对象
+
+模板字符
+··
+ es6 的 ProxyAPI 对数据代理。
+
+
+防抖 
+    scrollToTop() {
+      clearTimeout(this.tiemID);
+      this.tiemID = setTimeout(() => {
+        this.$cg('成功')
+      }, 1000);
+    },
+
+封装方法，挂载到vue上
+在 main .js 引入   import './xx/index'
+
+import vue from 'vue'
+import { Message } from 'element-ui'
+
+vue.prototype.$cg = (mas) => {
+    Message({
+        message:mas,
+        type: 'success'
+    })
+}
+
+自定义指令 拖拽
+export default{
+
+    inserted: function(el) {
+        
+        el.onmousedown = (e) => {
+            let disx = e.pageX - el.offsetLeft;
+            let disy = e.pageY - el.offsetTop;
+        
+            document.onmousemove = function(e) {
+              let x = e.pageX - disx;
+              let y = e.pageY - disy;
+         
+              let maxX =
+                document.body.clientWidth -
+                parseInt(window.getComputedStyle(el).width);
+              let maxY =
+                document.body.clientHeight -
+                parseInt(window.getComputedStyle(el).height);
+             
+              if (x < 0) {
+                x = 0;
+              } else if (x > maxX) {
+                x = maxX;
+              }
+      
+              if (y < 0) {
+                y = 0;
+              } else if (y > maxY) {
+                y = maxY;
+              }
+              
+              el.style.left = x + "px";
+              el.style.top = y+"px";
+            };
+            document.onmouseup = function() {
+              document.onmousemove = document.onmouseup = null;
+            };
+        }
+    },
+    // 随机位置
+    bind(el) {
+        el.style.left = Math.random() * 500 + "px"; //水平方向随机距离
+        el.style.top = Math.random() * 300 + "px"; //数值方向随机距离
+      },
+}
+
+
+防抖封装的方法
+
+var delayEvents = [];
+
+export function Debounce(fn, name = 'default', milSeconds = 500) {
+    let event = delayEvents[name];
+    if (!event) {
+        delayEvents[name] = event = {};
+    }
+    clearTimeout(event.id);
+    event.id = setTimeout(fn, milSeconds);
+}
+
+页面写的
+
+ Debounce(
+        function () {
+          console.log(1);
+        },
+        "scrollToTop",
+        500
+      );
+
+
+ECMAScript有6种简单数据类型（也称为原始类型）：
+Undefined 、 Null 、 Boolean 、 Number 、 String 和 Symbol 。 
+Symbol （符号）是ECMAScript 6新增的。还有一种复
+杂数据类型叫 Object （对象）。
+
+一元表达式
+++	 自增
+--	自减
+
+逻辑与 ||
+逻辑或 $$
+逻辑非 ! 取反
+
+
+if语句是最常用的
+可以解决在什么情况下执行什么条件
+
+do-while 是用来测试循环的
+
+for语句可以循环数组对象
+从而获取相应的数据
+for-in 语句
+for-of语句
