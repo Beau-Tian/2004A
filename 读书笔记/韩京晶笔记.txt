@@ -1,0 +1,21 @@
+书后总结
+第一章
+JS是一门用来网页交互的脚本语言。
+有三组成部分：ECMAScript、文档对象模型（DOM）、浏览器对象模型（BOM）
+第二章	HTML中的JavaScript
+JavaScript是通过script元素插入到HTML页面中的。
+第三章	语言基础
+ECMAScript中一切都区分大小写，他的标识符使用驼峰大小写模式。
+注意：关键字、保留字、true、false和null不能作为标识符。
+定义多个变量，可以用逗号分隔开每个变量
+暂时性死区
+数据类型：undefined.null.boolean.number.string.symbol。还有一种object
+object的属性和方法：constructor.hasOwnProperty.isPrototypeof.propertyIsEnumerable.toLocaleString.toString.valueOf。
+一元操作符
+只操作一个值得操作符叫一元操作符，它是ECMAScript中最简单的操作符。
+ECMAScript包含所有基本语法、操作符、数据类型和对象，能完成基本的计算任务，但没提供获得输入和产生输出的机制。
+严格模式为这门语言中某些容易出错的部分施加了限制。
+不指定返回值的函数实际上会返回特殊值 undefined
+
+
+
