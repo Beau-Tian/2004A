@@ -953,6 +953,1599 @@ ECMA-262描述了一些语句（也称为流控制语句），而
 ECMAScript中的大部分语法都体现在语句中。语句通常使用一或多个
 关键字完成既定的任务。语句可以简单，也可以复杂。简单的如告诉
 函数退出，复杂的如列出一堆要重复执行的指令。
+30、函数
+函数对任何语言来说都是核心组件，因为它们可以封装语句，然
+后在任何地方、任何时间执行。ECMAScript中的函数使用
+function 关键字声明，后跟一组参数，然后是函数体。
+下面是一个例子：
+function sayHi(name, message) {
+console.log("Hello " + name + ", " + message);
+}
+可以通过函数名来调用函数，要传给函数的参数放在括号里（如
+果有多个参数，则用逗号隔开）。下面是调用函数 sayHi() 的示
+例：
+sayHi("Nicholas", "how are you today?");
+调用这个函数的输出结果是 "Hello Nicholas, how are
+you today?" 。参数 name 和 message 在函数内部作为字符串被
+拼接在了一起，最终通过 console.log 输出到控制台。
+ECMAScript中的函数不需要指定是否返回值。任何函数在任何时
+间都可以使用 return 语句来返回函数的值，用法是后跟要返回的
+值。
+函数 sum() 会将两个值相加并返回结果。注意，除了 return
+语句之外没有任何特殊声明表明该函数有返回值。然后就可以这样调用它：
+const result = sum(5, 10);
+要注意的是，只要碰到 return 语句，函数就会立即停止执行并
+退出。因此， return 语句后面的代码不会被执行。比如：
+function sum(num1, num2) {
+return num1 + num2;
+console.log("Hello world"); // 不会执行
+}
+在这个例子中， console.log 不会执行，因为它在 return
+语句后面。
+一个函数里也可以有多个 return 语句，像这样：
+function diff(num1, num2) {
+if (num1 < num2) {
+return num2 - num1;
+} else {
+return num1 - num2;
+}
+}
+这个 diff() 函数用于计算两个数值的差。如果第一个数值小于
+第二个，则用第二个减第一个；否则，就用第一个减第二个。代码中
+每个分支都有自己的 return 语句，返回正确的差值。
+return 语句也可以不带返回值。这时候，函数会立即停止执行
+并返回 undefined 。这种用法最常用于提前终止函数执行，并不是为了返回值。比如在下面的例子中， console.log 不会执行：
+function sayHi(name, message) {
+return;
+console.log("Hello " + name + ", " + message);
+// 不会执行
+}
+注意 最佳实践是函数要么返回值，要么不返回值。只在某个条件
+下返回值的函数会带来麻烦，尤其是调试时。
+严格模式对函数也有一些限制：
+函数不能以 eval 或 arguments 作为名称；
+函数的参数不能叫 eval 或 arguments ；
+两个函数的参数不能叫同一个名称
+31、小结
+ECMAScript中的基本元素。
+ECMAScript中的基本数据类型包括 Undefined 、 Null 、
+Boolean 、 Number 、 String 和 Symbol 。与其他语言不同，ECMAScript不区分整数和浮点值，只有
+Number 一种数值数据类型。
+Object 是一种复杂数据类型，它是这门语言中所有对象的基
+类。
+严格模式为这门语言中某些容易出错的部分施加了限制。
+ECMAScript提供了C语言和类C语言中常见的很多基本操作符，
+包括数学操作符、布尔操作符、关系操作符、相等操作符和赋值
+操作符等。
+这门语言中的流控制语句大多是从其他语言中借鉴而来的，比如
+if 语句、 for 语句和 switch 语句等。
+ECMAScript中的函数与其他语言中的函数不一样。
+不需要指定函数的返回值，因为任何函数可以在任何时候返回任
+何值。
+不指定返回值的函数实际上会返回特殊值 undefined 。
+32、原始值与引用值
+ECMAScript变量可以包含两种不同类型的数据：原始值和引用
+值。原始值（primitive value）就是最简单的数据，引用值（reference
+value）则是由多个值构成的对象。
+在把一个值赋给变量时，JavaScript引擎必须确定这个值是原始值
+还是引用值。上一章讨论了6种原始值： Undefined 、 Null 、
+Boolean 、 Number 、 String 和 Symbol 。保存原始值的变量
+是按值（by value）访问的，因为我们操作的就是存储在变量中的实际
+值。
+33、动态属性
+原始值和引用值的定义方式很类似，都是创建一个变量，然后给
+它赋一个值。不过，在变量保存了这个值之后，可以对这个值做什
+么，则大有不同。对于引用值而言，可以随时添加、修改和删除其属
+性和方法。
+注意，原始类型的初始化可以只使用原始字面量形式。如果使用
+的是 new 关键字，则JavaScript会创建一个 Object 类型的实例，但
+其行为类似原始值。
+34、复制值
+除了存储方式不同，原始值和引用值在通过变量复制时也有所不
+同。在通过变量把一个原始值赋值到另一个变量时，原始值会被复制
+到新变量的位置。请看下面的例子：
+let num1 = 5;
+let num2 = num1;
+这里， num1 包含数值5。当把 num2 初始化为 num1 时，
+num2 也会得到数值5。这个值跟存储在 num1 中的5是完全独立的，
+因为它是那个值的副本。
+这两个变量可以独立使用，互不干扰。
+35、传递参数
+ECMAScript中所有函数的参数都是按值传递的。这意味着函数外
+的值会被复制到函数内部的参数中，就像从一个变量复制到另一个变
+量一样。如果是原始值，那么就跟原始值变量的复制一样，如果是引
+用值，那么就跟引用值变量的复制一样。对很多开发者来说，这一块
+可能会不好理解，毕竟变量有按值和按引用访问，而传参则只有按值
+传递。
+在按值传递参数时，值会被复制到一个局部变量（即一个命名参
+数，或者用ECMAScript的话说，就是 arguments 对象中的一个槽位）。在按引用传递参数时，值在内存中的位置会被保存在一个局部
+变量，这意味着对本地变量的修改会反映到函数外部。（这在
+ECMAScript中是不可能的。）
+
+
+function addTen(num) {
+num += 10;
+return num;
+}
+let count = 20;
+let result = addTen(count);
+console.log(count); // 20，没有变化
+console.log(result); // 30
+这里，函数 addTen() 有一个参数 num ，它其实是一个局部变
+量。在调用时，变量 count 作为参数传入。 count 的值是20，这
+个值被复制到参数 num 以便在 addTen() 内部使用。在函数内部，
+参数num的值被加上了10，但这不会影响函数外部的原始变量
+count 。参数 num 和变量 count 互不干扰，它们只不过碰巧保存
+了一样的值。如果 num 是按引用传递的，那么 count 的值也会被修
+改为30。这个事实在使用数值这样的原始值时是非常明显的。但是，
+如果变量中传递的是对象，就没那么清楚了
+36、确定类型
+typeof 虽然对原始值很有用，但它对引用值的用处不大。我们
+通常不关心一个值是不是对象，而是想知道它是什么类型的对象。为了解决这个问题，ECMAScript提供了 instanceof 操作符，语法如
+下：
+result = variable instanceof constructor
+如果变量是给定引用类型（由其原型链决定，将在第8章详细介
+绍）的实例，则 instanceof 操作符返回 true 。来看下面的例
+子：
+console.log(person instanceof Object); // 变量
+persion是Object吗？
+console.log(colors instanceof Array); // 变量
+colors是Array吗？
+console.log(pattern instanceof RegExp); // 变量
+pattern是RegExp吗？
+按照定义，所有引用值都是 Object 的实例，因此通过
+instanceof 操作符检测任何引用值和 Object 构造函数都会返
+回 true 。类似地，如果用 instanceof 检测原始值，则始终会返
+回 false ，因为原始值不是对象。
+37、执行上下文与作用域
+执行上下文（以下简称“上下文”）的概念在JavaScript中是颇为重
+要的。变量或函数的上下文决定了它们可以访问哪些数据，以及它们
+的行为。每个上下文都有一个关联的变量对象（variable object），而
+这个上下文中定义的所有变量和函数都存在于这个对象上。虽然无法
+通过代码访问变量对象，但后台处理数据会用到它。
+全局上下文是最外层的上下文。根据ECMAScript实现的宿主环
+境，表示全局上下文的对象可能不一样。在浏览器中，全局上下文就
+是我们常说的 window 对象（第12章会详细介绍），因此所有通过
+var 定义的全局变量和函数都会成为 window 对象的属性和方法。
+使用 let 和 const 的顶级声明不会定义在全局上下文中，但在作用
+域链解析上效果是一样的。上下文在其所有代码都执行完毕后会被销
+毁，包括定义在它上面的所有变量和函数（全局上下文在应用程序退
+出前才会被销毁，比如关闭网页或退出浏览器）。
+每个函数调用都有自己的上下文。当代码执行流进入函数时，函
+数的上下文被推到一个上下文栈上。在函数执行完之后，上下文栈会
+弹出该函数上下文，将控制权返还给之前的执行上下文。ECMAScript
+程序的执行流就是通过这个上下文栈进行控制的。
+上下文中的代码在执行的时候，会创建变量对象的一个作用域链
+（scope chain）。这个作用域链决定了各级上下文中的代码在访问变
+量和函数时的顺序。代码正在执行的上下文的变量对象始终位于作用
+域链的最前端。如果上下文是函数，则其活动对象（activation
+object）用作变量对象。活动对象最初只有一个定义变量：
+arguments 。（全局上下文中没有这个变量。）作用域链中的下一
+个变量对象来自包含上下文，再下一个对象来自再下一个包含上下
+文。以此类推直至全局上下文；全局上下文的变量对象始终是作用域
+链的最后一个变量对象。代码执行时的标识符解析是通过沿作用域链逐级搜索标识符名称
+完成的。搜索过程始终从作用域链的最前端开始，然后逐级往后，直
+到找到标识符。
+38、作用域链增强
+虽然执行上下文主要有全局上下文和函数上下文两种（ eval()
+调用内部存在第三种上下文），但有其他方式来增强作用域链。某些
+语句会导致在作用域链前端临时添加一个上下文，这个上下文在代码
+执行后会被删除。通常在两种情况下会出现这个现象，即代码执行到
+下面任意一种情况时：
+try / catch 语句的 catch 块
+with 语句
+这两种情况下，都会在作用域链前端添加一个变量对象。对
+with 语句来说，会向作用域链前端添加指定的对象；对 catch 语句而言，则会创建一个新的变量对象，这个变量对象会包含要抛出的
+错误对象的声明。
+39、变量声明
+ES6之后，JavaScript的变量声明经历了翻天覆地的变化。直到
+ECMAScript 5.1， var 都是声明变量的唯一关键字。ES6不仅增加了
+let 和 const 两个关键字，而且还让这两个关键字压倒性地超越
+var 成为首选。
+1. 使用 var 的函数作用域声明
+在使用 var 声明变量时，变量会被自动添加到最接近的上下
+文。在函数中，最接近的上下文就是函数的局部上下文。在
+with 语句中，最接近的上下文也是函数上下文。如果变量未经
+声明就被初始化了，那么它就会自动被添加到全局上下文，如下
+面的例子所示：
+function add(num1, num2) {
+var sum = num1 + num2;
+return sum;
+}
+let result = add(10, 20); // 30
+console.log(sum); // 报错：sum在这里不是
+有效变量
+2. 使用 let 的块级作用域声明
+ES6新增的 let 关键字跟 var 很相似，但它的作用域是块级
+的，这也是JavaScript中的新概念。块级作用域由最近的一对包含
+花括号 {} 界定。换句话说， if 块、 while 块、 function
+块，甚至连单独的块也是 let 声明变量的作用域。
+if (true) {
+let a;}
+console.log(a); // ReferenceError: a没有定义
+while (true) {
+let b;
+}
+console.log(b); // ReferenceError: b没有定义
+function foo() {
+let c;
+}
+console.log(c); // ReferenceError: c没有定义
+// 这没什么可奇怪的
+// var声明也会导致报错
+// 这不是对象字面量，而是一个独立的块
+// JavaScript解释器会根据其中内容识别出它来
+{
+let d;
+}
+console.log(d); // ReferenceError: d没有定义
+let 与 var 的另一个不同之处是在同一作用域内不能声明两
+次。重复的 var 声明会被忽略，而重复的 let 声明会抛出
+SyntaxError 。
+3. 使用 const 的常量声明
+除了 let ，ES6同时还增加了 const 关键字。使用 const 声
+明的变量必须同时初始化为某个值。一经声明，在其生命周期的
+任何时候都不能再重新赋予新值。
+const a; // SyntaxError: 常量声明时没有初始化
+const b = 3;console.log(b); // 3
+b = 4; // TypeError: 给常量赋值
+const 除了要遵循以上规则，其他方面与 let 声明是一样的
+4. 标识符查找
+当在特定上下文中为读取或写入而引用一个标识符时，必须通过
+搜索确定这个标识符表示什么。搜索开始于作用域链前端，以给
+定的名称搜索对应的标识符。如果在局部上下文中找到该标识
+符，则搜索停止，变量确定；如果没有找到变量名，则继续沿作用域链搜索。（注意，作用域链中的对象也有一个原型链，因此
+搜索可能涉及每个对象的原型链。）这个过程一直持续到搜索至
+全局上下文的变量对象。如果仍然没有找到标识符，则说明其未
+声明。
+40、垃圾回收
+JavaScript是使用垃圾回收的语言，也就是说执行环境负责在代码
+执行时管理内存。在C和C++等语言中，跟踪内存使用对开发者来说是
+个很大的负担，也是很多问题的来源。JavaScript为开发者卸下了这个
+负担，通过自动内存管理实现内存分配和闲置资源回收。基本思路很
+简单：确定哪个变量不会再使用，然后释放它占用的内存。这个过程
+是周期性的，即垃圾回收程序每隔一定时间（或者说在代码执行过程
+中某个预定的收集时间）就会自动运行。垃圾回收过程是一个近似且
+不完美的方案，因为某块内存是否还有用，属于“不可判定的”问题，
+意味着靠算法是解决不了的。
+我们以函数中局部变量的正常生命周期为例。函数中的局部变量
+会在函数执行时存在。此时，栈（或堆）内存会分配空间以保存相应
+的值。函数在内部使用了变量，然后退出。此时，就不再需要那个局
+部变量了，它占用的内存可以释放，供后面使用。这种情况下显然不
+再需要局部变量了，但并不是所有时候都会这么明显。垃圾回收程序
+必须跟踪记录哪个变量还会使用，以及哪个变量不会再使用，以便回
+收内存。如何标记未使用的变量也许有不同的实现方式。不过，在浏
+览器的发展史上，用到过两种主要的标记策略：标记清理和引用计
+数。
+41、标记清理
+JavaScript最常用的垃圾回收策略是标记清理（mark-and
+sweep）。当变量进入上下文，比如在函数内部声明一个变量时，这个变量会被加上存在于上下文中的标记。而不在上下文中的变量，逻辑
+上讲，永远不应该释放它们的内存，因为只要上下文中的代码在运
+行，就有可能用到它们。当变量离开上下文时，也会被加上离开上下
+文的标记。
+给变量加标记的方式有很多种。比如，当变量进入上下文时，反
+转某一位；或者可以维护“在上下文中”和“不在上下文中”两个变量列
+表，可以把变量从一个列表转移到另一个列表。标记过程的实现并不
+重要，关键是策略。
+垃圾回收程序运行的时候，会标记内存中存储的所有变量（记
+住，标记方法有很多种）。然后，它会将所有在上下文中的变量，以
+及被在上下文中的变量引用的变量的标记去掉。在此之后再被加上标
+记的变量就是待删除的了，原因是任何在上下文中的变量都访问不到
+它们了。随后垃圾回收程序做一次内存清理，销毁带标记的所有值并
+收回它们的内存。
+到了2008年，IE、Firefox、Opera、Chrome和Safari都在自己的
+JavaScript实现中采用标记清理（或其变体），只是在运行垃圾回收的
+频率上有所差异。
+42、引用计数
+另一种没那么常用的垃圾回收策略是引用计数（reference
+counting）。其思路是对每个值都记录它被引用的次数。声明变量并给
+它赋一个引用值时，这个值的引用数为1。如果同一个值又被赋给另一
+个变量，那么引用数加1。类似地，如果保存对该值引用的变量被其他
+值给覆盖了，那么引用数减1。当一个值的引用数为0时，就说明没办
+法再访问到这个值了，因此可以安全地收回其内存了。垃圾回收程序
+下次运行的时候就会释放引用数为0的值的内存。
+引用计数最早由Netscape Navigator 3.0采用，但很快就遇到了严重
+的问题：循环引用。所谓循环引用，就是对象A有一个指针指向对象B，而对象B也引用了对象A。
+43、性能
+垃圾回收程序会周期性运行，如果内存中分配了很多变量，则可
+能造成性能损失，因此垃圾回收的时间调度很重要。尤其是在内存有
+限的移动设备上，垃圾回收有可能会明显拖慢渲染的速度和帧速率。
+开发者不知道什么时候运行时会收集垃圾，因此最好的办法是在写代
+码时就要做到：无论什么时候开始收集垃圾，都能让它尽快结束工
+作。
+现代垃圾回收程序会基于对JavaScript运行时环境的探测来决定何
+时运行。探测机制因引擎而异，但基本上都是根据已分配对象的大小
+和数量来判断的。比如，根据V8团队2016年的一篇博文的说法：“在
+一次完整的垃圾回收之后，V8的堆增长策略会根据活跃对象的数量外
+加一些余量来确定何时再次垃圾回收。”
+由于调度垃圾回收程序方面的问题会导致性能下降，IE曾饱受诟
+病。它的策略是根据分配数，比如分配了256个变量、4096个对象/数
+组字面量和数组槽位（slot），或者64KB字符串。只要满足其中某个
+条件，垃圾回收程序就会运行。这样实现的问题在于，分配那么多变
+量的脚本，很可能在其整个生命周期内始终需要那么多变量，结果就
+会导致垃圾回收程序过于频繁地运行。由于对性能的严重影响，IE7最
+终更新了垃圾回收程序。
+IE7发布后，JavaScript引擎的垃圾回收程序被调优为动态改变分
+配变量、字面量或数组槽位等会触发垃圾回收的阈值。IE7的起始阈值
+都与IE6的相同。如果垃圾回收程序回收的内存不到已分配的15%，这
+些变量、字面量或数组槽位的阈值就会翻倍。如果有一次回收的内存
+达到已分配的85%，则阈值重置为默认值。这么一个简单的修改，极
+大地提升了重度依赖JavaScript的网页在浏览器中的性能。
+44、内存管理
+在使用垃圾回收的编程环境中，开发者通常无须关心内存管理。
+不过，JavaScript运行在一个内存管理与垃圾回收都很特殊的环境。分
+配给浏览器的内存通常比分配给桌面软件的要少很多，分配给移动浏
+览器的就更少了。这更多出于安全考虑而不是别的，就是为了避免运
+行大量JavaScript的网页耗尽系统内存而导致操作系统崩溃。这个内存
+限制不仅影响变量分配，也影响调用栈以及能够同时在一个线程中执
+行的语句数量。
+将内存占用量保持在一个较小的值可以让页面性能更好。优化内
+存占用的最佳手段就是保证在执行代码时只保存必要的数据。如果数
+据不再必要，那么把它设置为 null ，从而释放其引用。这也可以叫
+作解除引用。这个建议最适合全局变量和全局对象的属性。局部变量
+在超出作用域后会被自动解除引用
+不过要注意，解除对一个值的引用并不会自动导致相关内存被回
+收。解除引用的关键在于确保相关的值已经不在上下文里了，因此它
+在下次垃圾回收时会被回收。
+1. 通过 const 和 let 声明提升性能
+ES6增加这两个关键字不仅有助于改善代码风格，而且同样有助
+于改进垃圾回收的过程。因为 const 和 let 都以块（而非函
+数）为作用域，所以相比于使用 var ，使用这两个新关键字可
+能会更早地让垃圾回收程序介入，尽早回收应该回收的内存。在
+块作用域比函数作用域更早终止的情况下，这就有可能发生。
+2. 隐藏类和删除操作
+根据JavaScript所在的运行环境，有时候需要根据浏览器使用的
+JavaScript引擎来采取不同的性能优化策略。截至2017年，Chrome
+是最流行的浏览器，使用V8 JavaScript引擎。V8在将解释后的
+JavaScript代码编译为实际的机器码时会利用“隐藏类”。如果你的
+代码非常注重性能，那么这一点可能对你很重要。
+运行期间，V8会将创建的对象与隐藏类关联起来，以跟踪它们的
+属性特征。能够共享相同隐藏类的对象性能会更好，V8会针对这
+种情况进行优化，但不一定总能够做到。比如下面的代码：function Article() {
+this.title = 'Inauguration Ceremony
+Features Kazoo Band';
+}
+let a1 = new Article();
+let a2 = new Article();
+V8会在后台配置，让这两个类实例共享相同的隐藏类，因为这两
+个实例共享同一个构造函数和原型。假设之后又添加了下面这行
+代码：
+a2.author = 'Jake';
+此时两个 Article 实例就会对应两个不同的隐藏类。根据这种
+操作的频率和隐藏类的大小，这有可能对性能产生明显影响。
+当然，解决方案就是避免JavaScript的“先创建再补充”（ready-fire
+aim）式的动态属性赋值，并在构造函数中一次性声明所有属性，
+如下所示：
+function Article(opt_author) {
+this.title = 'Inauguration Ceremony
+Features Kazoo Band';
+this.author = opt_author;
+}
+let a1 = new Article();
+let a2 = new Article('Jake');这样，两个实例基本上就一样了（不考虑 hasOwnProperty 的
+返回值），因此可以共享一个隐藏类，从而带来潜在的性能提
+升。不过要记住，使用 delete 关键字会导致生成相同的隐藏类
+片段。看一下这个例子：
+function Article() {
+this.title = 'Inauguration Ceremony
+Features Kazoo Band';
+this.author = 'Jake';
+}
+let a1 = new Article();
+let a2 = new Article();
+delete a1.author;
+在代码结束后，即使两个实例使用了同一个构造函数，它们也不
+再共享一个隐藏类。动态删除属性与动态添加属性导致的后果一
+样。最佳实践是把不想要的属性设置为 null 。这样可以保持隐
+藏类不变和继续共享，同时也能达到删除引用值供垃圾回收程序
+回收的效果。比如：
+function Article() {
+this.title = 'Inauguration Ceremony
+Features Kazoo Band';
+this.author = 'Jake';
+}
+let a1 = new Article();let a2 = new Article();
+a1.author = null;
+3. 内存泄漏
+写得不好的JavaScript可能出现难以察觉且有害的内存泄漏问题。
+在内存有限的设备上，或者在函数会被调用很多次的情况下，内
+存泄漏可能是个大问题。JavaScript中的内存泄漏大部分是由不合
+理的引用导致的。
+意外声明全局变量是最常见但也最容易修复的内存泄漏问题。下
+面的代码没有使用任何关键字声明变量
+4. 静态分配与对象池
+为了提升JavaScript性能，最后要考虑的一点往往就是压榨浏览器
+了。此时，一个关键问题就是如何减少浏览器执行垃圾回收的次
+数。开发者无法直接控制什么时候开始收集垃圾，但可以间接控
+制触发垃圾回收的条件。理论上，如果能够合理使用分配的内
+存，同时避免多余的垃圾回收，那就可以保住因释放内存而损失
+的性能。
+浏览器决定何时运行垃圾回收程序的一个标准就是对象更替的速
+度。如果有很多对象被初始化，然后一下子又都超出了作用域，那么浏览器就会采用更激进的方式调度垃圾回收程序运行，这样
+当然会影响性能。看一看下面的例子，这是一个计算二维矢量加
+法的函数
+45、基本引用类型
+引用值（或者对象）是某个特定引用类型的实例。在ECMAScript中，
+引用类型是把数据和功能组织到一起的结构，经常被人错误地称作“类”。虽
+然从技术上讲JavaScript是一门面向对象语言，但ECMAScript缺少传统的面
+向对象编程语言所具备的某些基本结构，包括类和接口。引用类型有时候也
+被称为对象定义，因为它们描述了自己的对象应有的属性和方法。
+46、Date
+TC，Universal Time Coordinated）时间1970年1月1日午夜（零时）至今
+所经过的毫秒数。使用这种存储格式， Date 类型可以精确表示1970年1月
+1日之前及之后285 616年的日期。
+要创建日期对象，就使用 new 操作符来调用 Date 构造函数：
+let now = new Date();
+在不给 Date 构造函数传参数的情况下，创建的对象将保存当前日期
+和时间。要基于其他日期和时间创建日期对象，必须传入其毫秒表示
+（UNIX纪元1970年1月1日午夜之后的毫秒数）。ECMAScript为此提供了两
+个辅助方法： Date.parse() 和 Date.UTC() 。
+Date.parse() 方法接收一个表示日期的字符串参数，尝试将这个字
+符串转换为表示该日期的毫秒数。ECMA-262第5版定义了
+Date.parse() 应该支持的日期格式，填充了第3版遗留的空白。所有实
+现都必须支持下列日期格式：
+“月/日/年”，如 "5/23/2019" ；
+“月名 日, 年”，如 "May 23, 2019" ；
+“周几 月名 日 年 时:分:秒 时区”，如 "Tue May 23 2019 00:00:00
+GMT-0700" ；
+ISO 8601扩展格式“YYYY-MM-DDTHH:mm:ss.sssZ”，如 2019-05-
+23T00:00:00 （只适用于兼容ES5的实现）。
+47、继承的方法
+与其他类型一样， Date 类型重写了 toLocaleString() 、
+toString() 和 valueOf() 方法。但与其他类型不同，重写后这些方法
+的返回值不一样。 Date 类型的 toLocaleString() 方法返回与浏览器
+运行的本地环境一致的日期和时间。这通常意味着格式中包含针对时间的
+AM（上午）或PM（下午），但不包含时区信息（具体格式可能因浏览器而
+不同）。 toString() 方法通常返回带时区信息的日期和时间，而时间也
+是以24小时制（0~23）表示的。下面给出了 toLocaleString() 和
+toString() 返回的2019年2月1日零点的示例（地区为 "en-US" 的
+PST，即Pacific Standard Time，太平洋标准时间）：
+toLocaleString() - 2/1/2019 12:00:00 AM
+toString() - Thu Feb 1 2019 00:00:00 GMT-0800
+(Pacific Standard Time)
+现代浏览器在这两个方法的输出上已经趋于一致。在比较老的浏览器
+上，每个方法返回的结果可能在每个浏览器上都是不同的。这些差异意味
+着 toLocaleString() 和 toString() 可能只对调试有用，不能用于
+显示
+48、日期格式化方法
+Date 类型有几个专门用于格式化日期的方法，它们都会返回字符
+串：
+toDateString() 显示日期中的周几、月、日、年（格式特定于实
+现）；
+toTimeString() 显示日期中的时、分、秒和时区（格式特定于实
+现）；
+toLocaleDateString() 显示日期中的周几、月、日、年（格式特
+定于实现和地区）；
+toLocaleTimeString() 显示日期中的时、分、秒（格式特定于实
+现）；
+toUTCString() 显示完整的UTC日期（格式特定于实现）。
+这些方法的输出与 toLocaleString() 和 toString() 一样，会
+因浏览器而异。因此不能用于在用户界面上一致地显示日期。
+49、日期/时间组件方法
+Date 类型剩下的方法（见下表）直接涉及取得或设置日期值的特定
+部分。注意表中“UTC日期”，指的是没有时区偏移（将日期转换为GMT）时
+的日期。
+
+
+
+
+
+
+
+50、RegExp
+ECMAScript通过 RegExp 类型支持正则表达式。正则表达式使用类似
+Perl的简洁语法来创建：
+let expression = /pattern/flags;
+这个正则表达式的 pattern （模式）可以是任何简单或复杂的正则表
+达式，包括字符类、限定符、分组、向前查找和反向引用。每个正则表达式
+可以带零个或多个 flags （标记），用于控制正则表达式的行为。下面给
+出了表示匹配模式的标记。
+g ：全局模式，表示查找字符串的全部内容，而不是找到第一个匹配
+的内容就结束。
+i ：不区分大小写，表示在查找匹配时忽略 pattern 和字符串的大
+小写。
+m ：多行模式，表示查找到一行文本末尾时会继续查找。
+y ：粘附模式，表示只查找从 lastIndex 开始及之后的字符串。
+u ：Unicode模式，启用Unicode匹配。
+s ： dotAll 模式，表示元字符 . 匹配任何字符（包括 \n 或
+\r ）。
+使用不同模式和标记可以创建出各种正则表达式
+
+51、RegExp 实例属性
+每个 RegExp 实例都有下列属性，提供有关模式的各方面信息。
+global ：布尔值，表示是否设置了 g 标记。
+ignoreCase ：布尔值，表示是否设置了 i 标记。
+unicode ：布尔值，表示是否设置了 u 标记。
+sticky ：布尔值，表示是否设置了 y 标记。
+lastIndex ：整数，表示在源字符串中下一次搜索的开始位置，始
+终从0开始。
+multiline ：布尔值，表示是否设置了 m 标记。
+dotAll ：布尔值，表示是否设置了 s 标记。
+source ：正则表达式的字面量字符串（不是传给构造函数的模式字
+符串），没有开头和结尾的斜杠。
+flags ：正则表达式的标记字符串。始终以字面量而非传入构造函数
+的字符串模式形式返回（没有前后斜杠）。
+通过这些属性可以全面了解正则表达式的信息，不过实际开发中用得并
+不多，因为模式声明中包含这些信息。
+52、RegExp 实例方法
+RegExp 实例的主要方法是 exec() ，主要用于配合捕获组使用。这
+个方法只接收一个参数，即要应用模式的字符串。如果找到了匹配项，则返
+回包含第一个匹配信息的数组；如果没找到匹配项，则返回 null 。返回
+的数组虽然是 Array 的实例，但包含两个额外的属性： index 和
+input 。 index 是字符串中匹配模式的起始位置， input 是要查找的
+字符串。这个数组的第一个元素是匹配整个模式的字符串，其他元素是与表
+达式中的捕获组匹配的字符串。如果模式中没有捕获组，则数组只包含一个
+元素。
+52、RegExp 构造函数属性
+为静态属性。）这些属性适用于作用域中的所有正则表达式，而且会根据
+最后执行的正则表达式操作而变化。这些属性还有一个特点，就是可以通过
+两种不同的方式访问它们。换句话说，每个属性都有一个全名和一个简写。
+下表列出了 RegExp 构造函数的属性。
+
+通过这些属性可以提取出与 exec() 和 test() 执行的操作相关的信
+息。
+不同属性包含的内容如下。
+input 属性中包含原始的字符串。
+leftConext 属性包含原始字符串中 "short" 之前的内容，
+rightContext 属性包含 "short" 之后的内容。
+lastMatch 属性包含匹配整个正则表达式的上一个字符串，
+即 "short" 。
+lastParen 属性包含捕获组的上一次匹配，即 "s" 。
+53、模式局限
+虽然ECMAScript对正则表达式的支持有了长足的进步，但仍然缺少Perl
+语言中的一些高级特性。下列特性目前还没有得到ECMAScript的支持（想
+要了解更多信息，可以参考Regular-Expressions.info网站）：
+\A 和 \Z 锚（分别匹配字符串的开始和末尾）
+联合及交叉类
+原子组
+x （忽略空格）匹配模式
+条件式匹配
+正则表达式注释
+虽然还有这些局限，但ECMAScript的正则表达式已经非常强大，可以
+用于大多数模式匹配任务。
+54、原始值包装类型
+为了方便操作原始值，ECMAScript提供了3种特殊的引用类型：
+Boolean 、 Number 和 String 。这些类型具有本章介绍的其他引用类
+型一样的特点，但也具有与各自原始类型对应的特殊行为。每当用到某个原始值的方法或属性时，后台都会创建一个相应原始包装类型的对象，从而暴
+露出操作原始值的各种方法。
+
+我们知道，原始值本身不是对象，因此逻辑上不应该有方法。而实际上这个例子又确实按照预期运行了。这是因为后台进行了很多处理，从而实现了上述操
+作。具体来说，当第二行访问 s1 时，是以读模式访问的，也就是要从内存
+中读取变量保存的值。在以读模式访问字符串值的任何时候，后台都会执行
+以下3步：
+(1) 创建一个 String 类型的实例；
+(2) 调用实例上的特定方法；
+(3) 销毁实例。
+可以把这3步想象成执行了如下3行ECMAScript代码：
+let s1 = new String("some text");
+let s2 = s1.substring(2);
+s1 = null;
+55、Boolean
+Boolean 是对应布尔值的引用类型。要创建一个 Boolean 对象，就
+使用 Boolean 构造函数并传入 true 或 false ，如下例所示：
+let booleanObject = new Boolean(true);
+Boolean 的实例会重写 valueOf() 方法，返回一个原始值 true
+或 false 。 toString() 方法被调用时也会被覆盖，返回字符
+串 "true" 或 "false" 。不过， Boolean 对象在ECMAScript中用得很
+少。不仅如此，它们还容易引起误会，尤其是在布尔表达式中使用
+Boolean 对象时
+56、Number
+Number 是对应数值的引用类型。要创建一个 Number 对象，就使
+用 Number 构造函数并传入一个数值，如下例所示：
+let numberObject = new Number(10);
+与 Boolean 类型一样， Number 类型重写了 valueOf() 、
+toLocaleString() 和 toString() 方法。 valueOf() 方法返回
+Number 对象表示的原始数值，另外两个方法返回数值字符串。
+toString() 方法可选地接收一个表示基数的参数，并返回相应基数形式
+的数值字符串
+57、String
+String 是对应字符串的引用类型。要创建一个 String 对象，使
+用 String 构造函数并传入一个数值，如下例所示：
+let stringObject = new String("hello world");
+String 对象的方法可以在所有字符串原始值上调用。3个继承的方
+法 valueOf() 、 toLcaleString() 和 toString() 都返回对象的原
+始字符串值。
+每个 String 对象都有一个 length 属性，表示字符串中字符的数
+量。
+1. JavaScript字符JavaScript字符串由16位码元（code unit）组成。对多数字符来说，每16
+位码元对应一个字符。换句话说，字符串的 length 属性表示字符串
+包含多少16位码元：
+2. normalize() 方法
+某些Unicode字符可以有多种编码方式。有的字符既可以通过一个BMP
+字符表示，也可以通过一个代理对表示。比如：
+// U+00C5：上面带圆圈的大写拉丁字母A
+console.log(String.fromCharCode(0x00C5));
+// Å
+// U+212B：长度单位“埃”
+console.log(String.fromCharCode(0x212B));
+// Å
+// U+004：大写拉丁字母A
+// U+030A：上面加个圆圈
+console.log(String.fromCharCode(0x0041, 0x030A));
+// Å
+比较操作符不在乎字符看起来是什么样的，因此这3个字符互不相等。
+3. 字符串操作方法
+本节介绍几个操作字符串值的方法。首先是 concat() ，用于将一个
+或多个字符串拼接成一个新字符串。来看下面的例子：
+let stringValue = "hello ";
+let result = stringValue.concat("world");
+console.log(result); // "hello world"
+console.log(stringValue); // "hello"
+在这个例子中，对 stringValue 调用 concat() 方法的结果是得
+到 "hello world" ，但 stringValue 的值保持不变。
+concat() 方法可以接收任意多个参数，因此可以一次性拼接多个字
+符串
+4. 字符串位置方法
+有两个方法用于在字符串中定位子字符串： indexOf() 和
+lastIndexOf() 。这两个方法从字符串中搜索传入的字符串，并返
+回位置（如果没找到，则返回 -1 ）。两者的区别在于，
+indexOf() 方法从字符串开头开始查找子字符串，而lastIndexOf() 方法从字符串末尾开始查找子字符串。
+5. 字符串包含方法
+ECMAScript 6增加了3个用于判断字符串中是否包含另一个字符串的方
+法： startsWith() 、 endsWith() 和 includes() 。这些方法
+都会从字符串中搜索传入的字符串，并返回一个表示是否包含的布尔
+值。它们的区别在于， startsWith() 检查开始于索引0的匹配项，
+endsWith() 检查开始于索引 (string.length -
+substring.length) 的匹配项，而 includes() 检查整个字符
+串：
+6. trim() 方法
+ECMAScript在所有字符串上都提供了 trim() 方法。这个方法会创建
+字符串的一个副本，删除前、后所有空格符，再返回结果。比如：
+let stringValue = " hello world ";
+let trimmedStringValue = stringValue.trim();
+console.log(stringValue); // " hello
+world "
+console.log(trimmedStringValue); // "hello
+world"
+由于 trim() 返回的是字符串的副本，因此原始字符串不受影响，即
+原本的前、后空格符都会保留。
+另外， trimeLeft() 和 trimRight() 方法分别用于从字符串开始
+和末尾清理空格符。
+7. repeat() 方法
+ECMAScript在所有字符串上都提供了 repeat() 方法。这个方法接收
+一个整数参数，表示要将字符串复制多少次，然后返回拼接所有副本后
+的结果。
+let stringValue = "na ";
+console.log(stringValue.repeat(16) + "batman");
+// na na na na na na na na na na na na na na na
+na batman
+8. padStart() 和 padEnd() 方法
+padStart() 和 padEnd() 方法会复制字符串，如果小于指定长
+度，则在相应一边填充字符，直至满足长度条件。这两个方法的第一个
+参数是长度，第二个参数是可选的填充字符串，默认为空格
+（U+0020）
+9. 字符串迭代与解构
+字符串的原型上暴露了一个 @@iterator 方法，表示可以迭代字符串
+的每个字符。可以像下面这样手动使用迭代器：let message = "abc";
+let stringIterator = message[Symbol.iterator]();
+console.log(stringIterator.next()); // {value:
+"a", done: false}
+console.log(stringIterator.next()); // {value:
+"b", done: false}
+console.log(stringIterator.next()); // {value:
+"c", done: false}
+console.log(stringIterator.next()); // {value:
+undefined, done: true}
+在 for-of 循环中可以通过这个迭代器按序访问每个字符：
+10. 字符串大小写转换
+下一组方法涉及大小写转换，包括4个方法： toLowerCase() 、
+toLocaleLowerCase() 、 toUpperCase() 和
+toLocaleUpperCase() 。 toLowerCase() 和
+toUpperCase() 方法是原来就有的方法，与 java.lang.String
+中的方法同名。 toLocaleLowerCase() 和
+toLocaleUpperCase() 方法旨在基于特定地区实现。在很多地
+区，地区特定的方法与通用的方法是一样的。但在少数语言中（如土耳
+其语），Unicode大小写转换需应用特殊规则，要使用地区特定的方法
+才能实现正确转换。下面是几个例子：
+let stringValue = "hello world";
+console.log(stringValue.toLocaleUpperCase()); //
+"HELLO WORLD"
+console.log(stringValue.toUpperCase()); //
+"HELLO WORLD"
+console.log(stringValue.toLocaleLowerCase()); //
+"hello world"
+console.log(stringValue.toLowerCase()); //
+"hello world"
+这里， toLowerCase() 和 toLocaleLowerCase() 都返回
+hello world ，而 toUpperCase() 和
+toLocaleUpperCase() 都返回 HELLO WORLD 。通常，如果不知
+道代码涉及什么语言，则最好使用地区特定的转换方法。
+11. 字符串模式匹配方法
+String 类型专门为在字符串中实现模式匹配设计了几个方法。第一
+个就是 match() 方法，这个方法本质上跟 RegExp 对象的 exec()
+方法相同。 match() 方法接收一个参数，可以是一个正则表达式字符
+串，也可以是一个 RegExp 对象。
+
+12. localeCompare() 方法
+最后一个方法是 localeCompare() ，这个方法比较两个字符串，返
+回如下3个值中的一个。
+如果按照字母表顺序，字符串应该排在字符串参数前头，则返回负
+值。（通常是 -1 ，具体还要看与实际值相关的实现。）
+如果字符串与字符串参数相等，则返回 0 。
+如果按照字母表顺序，字符串应该排在字符串参数后头，则返回正
+值。（通常是 1 ，具体还要看与实际值相关的实现。）
+13. HTML方法
+早期的浏览器开发商认为使用JavaScript动态生成HTML标签是一个需
+求。因此，早期浏览器扩展了规范，增加了辅助生成HTML标签的方
+法。下表总结了这些HTML方法。不过，这些方法基本上已经没有人使
+用了，因为结果通常不是语义化的标记。
+
+58、单例内置对象
+ECMA-262对内置对象的定义是“任何由ECMAScript实现提供、与宿主
+环境无关，并在ECMAScript程序开始执行时就存在的对象”。这就意味着，
+开发者不用显式地实例化内置对象，因为它们已经实例化好了。前面我们已
+经接触了大部分内置对象，包括 Object 、 Array 和 String 。本节介
+绍ECMA-262定义的另外两个单例内置对象： Global 和 Math 。
+59、Global
+Global 对象是ECMAScript中最特别的对象，因为代码不会显式地访
+问它。ECMA-262规定 Global 对象为一种兜底对象，它所针对的是不属于
+任何对象的属性和方法。事实上，不存在全局变量或全局函数这种东西。在
+全局作用域中定义的变量和函数都会变成 Global 对象的属性 。本书前面
+介绍的函数，包括 isNaN() 、 isFinite() 、 parseInt() 和
+parseFloat() ，实际上都是 Global 对象的方法。除了这些，
+Global 对象上还有另外一些方法。
+1. URL编码方法
+encodeURI() 和 encodeURIComponent() 方法用于编码统一资
+源标识符（URI），以便传给浏览器。有效的URI不能包含某些字符，比如空格。使用URI编码方法来编码URI可以让浏览器能够理解它们，
+同时又以特殊的UTF-8编码替换掉所有无效字符。
+ecnodeURI() 方法用于对整个URI进行编码，比
+如 "www.wrox.com/illegal value.js" 。而
+encodeURIComponent() 方法用于编码URI中单独的组件，比如前
+面URL中的 "illegal value.js" 。这两个方法的主要区别是，
+encodeURI() 不会编码属于URL组件的特殊字符，比如冒号、斜
+杠、问号、井号，而 encodeURIComponent() 会编码它发现的所有
+非标准字符
+2. eval() 方法
+最后一个方法可能是整个ECMAScript语言中最强大的了，它就是
+eval() 。这个方法就是一个完整的ECMAScript解释器，它接收一个
+参数，即一个要执行的ECMAScript（JavaScript）字符串。来看一个例
+子：
+eval("console.log('hi')");
+上面这行代码的功能与下一行等价：
+console.log("hi");
+当解释器发现 eval() 调用时，会将参数解释为实际的ECMAScript语
+句，然后将其插入到该位置。通过 eval() 执行的代码属于该调用所
+在上下文，被执行的代码与该上下文拥有相同的作用域链。这意味着定
+义在包含上下文中的变量可以在 eval() 调用内部被引用
+3. Global 对象属性
+Global 对象有很多属性，其中一些前面已经提到过了。像
+undefined 、 NaN 和 Infinity 等特殊值都是 Global 对象的属
+性。此外，所有原生引用类型构造函数，比如 Object 和
+Function ，也都是 Global 对象的属性。下表列出了所有这些属
+性。
+
+4. window 对象
+虽然ECMA-262没有规定直接访问 Global 对象的方式，但浏览器将
+window 对象实现为 Global 对象的代理。因此，所有全局作用域中
+声明的变量和函数都变成了 window 的属性。
+60、Math
+ECMAScript提供了 Math 对象作为保存数学公式、信息和计算的地
+方。 Math 对象提供了一些辅助计算的属性和方法。
+1. Math 对象属性
+Math 对象有一些属性，主要用于保存数学中的一些特殊值。下表列
+出了这些属性。
+
+2. min() 和 max() 方法
+Math 对象也提供了很多辅助执行简单或复杂数学计算的方法。
+min() 和 max() 方法用于确定一组数值中的最小值和最大值。这两
+个方法都接收任意多个参数
+3. 舍入方法
+接下来是用于把小数值舍入为整数的4个方法： Math.ceil() 、
+Math.floor() 、 Math.round() 和 Math.fround() 。这几个
+方法处理舍入的方式如下所述。
+Math.ceil() 方法始终向上舍入为最接近的整数。
+Math.floor() 方法始终向下舍入为最接近的整数。
+Math.round() 方法执行四舍五入。
+Math.fround() 方法返回数值最接近的单精度（32位）浮点值
+表示
+4. random() 方法
+Math.random() 方法返回一个0~1范围内的随机数，其中包含0但不
+包含1。对于希望显示随机名言或随机新闻的网页，这个方法是非常方
+便的。可以基于如下公式使用 Math.random() 从一组整数中随机选
+择一个数
+5. 其他方法
+Math 对象还有很多涉及各种简单或高阶数运算的方法。讨论每种方
+法的具体细节或者它们的适用场景超出了本书的范畴。不过，下表还是
+总结了 Math 对象的其他方法
+
+61、Object
+到目前为止，大多数引用值的示例使用的是 Object 类型。
+Object 是ECMAScript中最常用的类型之一。虽然 Object 的实例没有
+多少功能，但很适合存储和在应用程序间交换数据。
+显式地创建 Object 的实例有两种方式。第一种是使用 new 操作符
+和 Object 构造函数，如下所示：
+let person = new Object();
+person.name = "Nicholas";
+person.age = 29;
+另一种方式是使用对象字面量（object literal）表示法。对象字面量是
+对象定义的简写形式，目的是为了简化包含大量属性的对象的创建。比
+如，下面的代码定义了与前面示例相同的 person 对象，但使用的是对象
+字面量表示法：
+let person = {
+name: "Nicholas",
+age: 29
+}
+62、Array
+除了 Object ， Array 应该就是ECMAScript中最常用的类型了。
+ECMAScript数组跟其他编程语言的数组有很大区别。跟其他语言中的数组
+一样，ECMAScript数组也是一组有序的数据，但跟其他语言不同的是，数
+组中每个槽位可以存储任意类型的数据。这意味着可以创建一个数组，它
+的第一个元素是字符串，第二个元素是数值，第三个是对象。ECMAScript
+数组也是动态大小的，会随着数据添加而自动增长。
+63、创建数组
+有几种基本的方式可以创建数组。一种是使用 Array 构造函数，比
+如：
+let colors = new Array();
+如果知道数组中元素的数量，那么可以给构造函数传入一个数值，然
+后 length 属性就会被自动创建并设置为这个值。比如，下面的代码会创
+建一个初始 length 为20的数组：
+let colors = new Array(20);
+也可以给 Array 构造函数传入要保存的元素。比如，下面的代码会
+创建一个包含3个字符串值的数组：
+let colors = new Array("red", "blue", "green");
+64、数组空位
+使用数组字面量初始化数组时，可以使用一串逗号来创建空位
+（hole）。ECMAScript会将逗号之间相应索引位置的值当成空位，ES6规
+范重新定义了该如何处理这些空位。
+可以像下面这样创建一个空位数组：
+const options = [,,,,,]; // 创建包含5个元素的数组
+console.log(options.length); // 5console.log(options); // [,,,,,]
+65、数组索引
+要取得或设置数组的值，需要使用中括号并提供相应值的数字索引，
+如下所示：
+let colors = ["red", "blue", "green"]; // 定义一个字
+符串数组
+alert(colors[0]); // 显示第一项colors[2] = "black"; // 修改第三项
+colors[3] = "brown"; // 添加第四项
+在中括号中提供的索引表示要访问的值。如果索引小于数组包含的元
+素数，则返回存储在相应位置的元素，就像示例中 colors[0] 显
+示 "red" 一样。设置数组的值方法也是一样的，就是替换指定位置的
+值。如果把一个值设置给超过数组最大索引的索引，就像示例中的
+colors[3] ，则数组长度会自动扩展到该索引值加1（示例中设置的索
+引3，所以数组长度变成了4）。
+66、检测数组
+一个经典的ECMAScript问题是判断一个对象是不是数组。在只有一个
+网页（因而只有一个全局作用域）的情况下，使用 instanceof 操作符
+就足矣：
+if (value instanceof Array){
+// 操作数组
+}
+67、迭代器方法
+在ES6中， Array 的原型上暴露了3个用于检索数组内容的方法：
+keys() 、 values() 和 entries() 。 keys() 返回数组索引的迭
+代器， values() 返回数组元素的迭代器，而 entries() 返回索引/值
+对的迭代器：
+const a = ["foo", "bar", "baz", "qux"];
+// 因为这些方法都返回迭代器，所以可以将它们的内容
+// 通过Array.from()直接转换为数组实例
+const aKeys = Array.from(a.keys());
+const aValues = Array.from(a.values());
+const aEntries = Array.from(a.entries());
+console.log(aKeys); // [0, 1, 2, 3]
+console.log(aValues); // ["foo", "bar", "baz",
+"qux"]
+console.log(aEntries); // [[0, "foo"], [1, "bar"],
+[2, "baz"], [3, "qux"]]
+68、复制和填充方法
+ES6新增了两个方法：批量复制方法 fill() ，以及填充数组方法
+copyWithin() 。这两个方法的函数签名类似，都需要指定既有数组实
+例上的一个范围，包含开始索引，不包含结束索引。使用这个方法创建的
+数组不能缩放。
+使用 fill() 方法可以向一个已有的数组中插入全部或部分相同的
+值。开始索引用于指定开始填充的位置，它是可选的。如果不提供结束索
+引，则一直填充到数组末尾。负值索引从数组末尾开始计算。也可以将负
+索引想象成数组长度加上它得到的一个正索引：
+const zeroes = [0, 0, 0, 0, 0];
+// 用5填充整个数组
+zeroes.fill(5);
+console.log(zeroes); // [5, 5, 5, 5, 5]
+zeroes.fill(0); // 重置// 用6填充索引大于等于3的元素
+zeroes.fill(6, 3);
+console.log(zeroes); // [0, 0, 0, 6, 6]
+zeroes.fill(0); // 重置
+// 用7填充索引大于等于1且小于3的元素
+zeroes.fill(7, 1, 3);
+console.log(zeroes); // [0, 7, 7, 0, 0];
+zeroes.fill(0); // 重置
+// 用8填充索引大于等于1且小于4的元素
+// (-4 + zeroes.length = 1)
+// (-1 + zeroes.length = 4)
+zeroes.fill(8, -4, -1);
+console.log(zeroes); // [0, 8, 8, 8, 0];
+69、转换方法
+前面提到过，所有对象都有 toLocaleString() 、 toString()
+和 valueOf() 方法。其中， valueOf() 返回的还是数组本身。而
+toString() 返回由数组中每个值的等效字符串拼接而成的一个逗号分
+隔的字符串。也就是说，对数组的每个值都会调用其 toString() 方
+法，以得到最终的字符串。来看下面的例子：
+let colors = ["red", "blue", "green"]; // 创建一个包含
+3个字符串的数组
+alert(colors.toString()); // red,blue,green
+alert(colors.valueOf()); // red,blue,green
+alert(colors); // red,blue,green
+70、栈方法
+ECMAScript给数组提供几个方法，让它看起来像是另外一种数据结
+构。数组对象可以像栈一样，也就是一种限制插入和删除项的数据结构。
+栈是一种后进先出（LIFO，Last-In-First-Out）的结构，也就是最近添加的
+项先被删除。数据项的插入（称为推入，push）和删除（称为弹出，pop）
+只在栈的一个地方发生，即栈顶。ECMAScript数组提供了 push() 和
+pop() 方法，以实现类似栈的行为。
+push() 方法接收任意数量的参数，并将它们添加到数组末尾，返回
+数组的最新长度。 pop() 方法则用于删除数组的最后一项，同时减少数
+组的 length 值，返回被删除的项。
+71、队列方法
+就像栈是以LIFO形式限制访问的数据结构一样，队列以先进先出
+（FIFO，First-In-First-Out）形式限制访问。队列在列表末尾添加数据，但
+从列表开头获取数据。因为有了在数据末尾添加数据的 push() 方法，所
+以要模拟队列就差一个从数组开头取得数据的方法了。这个数组方法叫
+shift() ，它会删除数组的第一项并返回它，然后数组长度减1。使用
+shift() 和 push() ，可以把数组当成队列来使用：
+let colors = new Array(); // 创建一个
+数组
+let count = colors.push("red", "green"); // 推入两项
+alert(count); // 2
+count = colors.push("black"); // 再推入一项
+alert(count); // 3
+let item = colors.shift(); // 取得第一项alert(item); // red
+alert(colors.length); /
+72、排序方法
+数组有两个方法可以用来对元素重新排序： reverse() 和
+sort() 。顾名思义， reverse() 方法就是将数组元素反向排列。比
+如：
+let values = [1, 2, 3, 4, 5];
+values.reverse();
+alert(values); // 5,4,3,2,1
+这里，数组 values 的初始状态为 [1,2,3,4,5] 。通过调用
+reverse() 反向排序，得到了 [5,4,3,2,1] 。这个方法很直观，但
+不够灵活，所以才有了 sort() 方法。
+73、操作方法
+对于数组中的元素，我们有很多操作方法。比如， concat() 方法
+可以在现有数组全部元素基础上创建一个新数组。它首先会创建一个当前
+数组的副本，然后再把它的参数添加到副本末尾，最后返回这个新构建的
+数组。如果传入一个或多个数组，则 concat() 会把这些数组的每一项
+都添加到结果数组。如果参数不是数组，则直接把它们添加到结果数组末
+尾。
+let colors = ["red", "green", "blue"];
+let colors2 = colors.concat("yellow", ["black",
+"brown"]);
+console.log(colors); // ["red", "green","blue"]
+console.log(colors2); // ["red", "green", "blue",
+"yellow", "black", "brown"]
+这里先创建一个包含3个值的数组 colors 。然后 colors 调用
+concat() 方法，传入字符串 "yellow" 和一个包
+含 "black" 和 "brown" 的数组。保存在 colors2 中的结果就是
+["red", "green", "blue", "yellow", "black",
+"brown"] 。原始数组 colors 保持不变。
+打平数组参数的行为可以重写，方法是在参数数组上指定一个特殊的
+符号： Symbol.isConcatSpreadable 。这个符号能够阻止
+concat() 打平参数数组。相反，把这个值设置为 true 可以强制打平
+类数组对象：
+let colors = ["red", "green", "blue"];
+let newColors = ["black", "brown"];
+let moreNewColors = {
+[Symbol.isConcatSpreadable]: true,
+length: 2,0: "pink",
+1: "cyan"
+};
+newColors[Symbol.isConcatSpreadable] = false;
+// 强制不打平数组
+let colors2 = colors.concat("yellow", newColors);
+// 强制打平类数组对象
+let colors3 = colors.concat(moreNewColors);
+console.log(colors); // ["red", "green", "blue"]
+console.log(colors2); // ["red", "green", "blue",
+"yellow", ["black", "brown"]]
+console.log(colors3); // ["red", "green", "blue",
+"pink", "cyan"]
+或许最强大的数组方法就属 splice() 了，使用它的方式可以有很
+多种。 splice() 的主要目的是在数组中间插入元素，但有 3 种不同的
+方式使用这个方法。
+删除。需要给 splice() 传2个参数：要删除的第一个元素的位置和
+要删除的元素数量。可以从数组中删除任意多个元素，比如
+splice(0, 2) 会删除前两个元素。
+插入。需要给 splice() 传3个参数：开始位置、0（要删除的元素
+数量）和要插入的元素，可以在数组中指定的位置插入元素。第三个
+参数之后还可以传第四个、第五个参数，乃至任意多个要插入的元
+素。比如， splice(2, 0, "red", "green") 会从数组位置2开
+始插入字符串 "red" 和 "green" 。
+替换。 splice() 在删除元素的同时可以在指定位置插入新元素，
+同样要传入3个参数：开始位置、要删除元素的数量和要插入的任意多个元素。要插入的元素数量不一定跟删除的元素数量一致。比如，
+splice(2, 1, "red", "green") 会在位置2删除一个元素，然
+后从该位置开始向数组中插入 "red" 和 "green" 。
+74、搜索和位置方法
+ECMAScript提供两类搜索数组的方法：按严格相等搜索和按断言函数
+搜索。
+1. 严格相等
+ECMAScript提供了3个严格相等的搜索方法： indexOf() 、
+lastIndexOf() 和 includes() 。其中，前两个方法在所有版本
+中都可用，而第三个方法是ECMAScript 7新增的。这些方法都接收两
+个参数：要查找的元素和一个可选的起始搜索位置。 indexOf()
+和 includes() 方法从数组前头（第一项）开始向后搜索，而
+lastIndexOf() 从数组末尾（最后一项）开始向前搜索。
+indexOf() 和 lastIndexOf() 都返回要查找的元素在数组中的
+位置，如果没找到则返回-1。 includes() 返回布尔值，表示是否
+至少找到一个与指定元素匹配的项。在比较第一个参数跟数组每一项
+时，会使用全等（ === ）比较，也就是说两项必须严格相等。下面
+来看一些例子：
+let numbers = [1, 2, 3, 4, 5, 4, 3, 2, 1];
+alert(numbers.indexOf(4)); // 3
+alert(numbers.lastIndexOf(4)); // 5
+alert(numbers.includes(4)); // truealert(numbers.indexOf(4, 4)); // 5
+alert(numbers.lastIndexOf(4, 4)); // 3
+alert(numbers.includes(4, 7)); // false
+let person = { name: "Nicholas" };
+let people = [{ name: "Nicholas" }];
+let morePeople = [person];
+alert(people.indexOf(person)); // -1
+alert(morePeople.indexOf(person)); // 0
+alert(people.includes(person)); // false
+alert(morePeople.includes(person)); // true
+2. 断言函数
+ECMAScript也允许按照定义的断言函数搜索数组，每个索引都会调用
+这个函数。断言函数的返回值决定了相应索引的元素是否被认为匹
+配。
+断言函数接收3个参数：元素、索引和数组本身。其中元素是数组中
+当前搜索的元素，索引是当前元素的索引，而数组就是正在搜索的数
+组。断言函数返回真值，表示是否匹配。
+find() 和 findIndex() 方法使用了断言函数。这两个方法都从
+数组的最小索引开始。 find() 返回第一个匹配的元素，
+findIndex() 返回第一个匹配元素的索引。这两个方法也都接收第
+二个可选的参数，用于指定断言函数内部 this 的值。
+75、迭代方法
+ECMAScript为数组定义了5个迭代方法。每个方法接收两个参数：以
+每一项为参数运行的函数，以及可选的作为函数运行上下文的作用域对象
+（影响函数中 this 的值）。传给每个方法的函数接收3个参数：数组元
+素、元素索引和数组本身。因具体方法而异，这个函数的执行结果可能会
+也可能不会影响方法的返回值。数组的5个迭代方法如下。
+every() ：对数组每一项都运行传入的函数，如果对每一项函数都
+返回 true ，则这个方法返回 true 。
+filter() ：对数组每一项都运行传入的函数，函数返回 true 的
+项会组成数组之后返回。
+forEach() ：对数组每一项都运行传入的函数，没有返回值。
+map() ：对数组每一项都运行传入的函数，返回由每次函数调用的
+结果构成的数组。
+some() ：对数组每一项都运行传入的函数，如果有一项函数返回
+true ，则这个方法返回 true 。
+这些方法都不改变调用它们的数组。
+在这些方法中， every() 和 some() 是最相似的，都是从数组中搜
+索符合某个条件的元素。对 every() 来说，传入的函数必须对每一项都
+返回 true ，它才会返回 true ；否则，它就返回 false 。而对
+some() 来说，只要有一项让传入的函数返回 true ，它就会返回
+true 。
+76、归并方法
+ECMAScript为数组提供了两个归并方法： reduce() 和
+reduceRight() 。这两个方法都会迭代数组的所有项，并在此基础上
+构建一个最终返回值。 reduce() 方法从数组第一项开始遍历到最后一
+项。而 reduceRight() 从最后一项开始遍历至第一项。
+这两个方法都接收两个参数：对每一项都会运行的归并函数，以及可
+选的以之为归并起点的初始值。传给 reduce() 和 reduceRight() 的
+函数接收4个参数：上一个归并值、当前项、当前项的索引和数组本身。
+这个函数返回的任何值都会作为下一次调用同一个函数的第一个参数。如
+果没有给这两个方法传入可选的第二个参数（作为归并起点值），则第一次迭代将从数组的第二项开始，因此传给归并函数的第一个参数是数组的
+第一项，第二个参数是数组的第二项
+77、定型数组
+定型数组（typed array）是ECMAScript新增的结构，目的是提升向原
+生库传输数据的效率。实际上，JavaScript并没有“TypedArray”类型，它所
+指的其实是一种特殊的包含数值类型的数组。为理解如何使用定型数组，
+有必要先了解一下它的用途。
+78、历史
+随着浏览器的流行，不难想象人们会满怀期待地通过它来运行复杂的
+3D应用程序。早在2006年，Mozilla、Opera等浏览器提供商就实验性地在
+浏览器中增加了用于渲染复杂图形应用程序的编程平台，无须安装任何插
+件。其目标是开发一套JavaScript API，从而充分利用3D图形API和GPU加
+速，以便在 <canvas> 元素上渲染复杂的图形。
+1. WebGL
+最后的JavaScript API是基于OpenGL ES（OpenGL for Embedded
+Systems）2.0规范的。OpenGL ES是OpenGL专注于2D和3D计算机图形
+的子集。这个新API被命名为WebGL（Web Grapics Library），于2011
+年发布1.0版。有了它，开发者就能够编写涉及复杂图形的应用程序，
+它会被兼容WebGL的浏览器原生解释执行。
+在WebGL的早期版本中，因为JavaScript数组与原生数组之间不匹配，
+所以出现了性能问题。图形驱动程序API通常不需要以JavaScript默认
+双精度浮点格式传递给它们的数值，而这恰恰是JavaScript数组在内存
+中的格式。因此，每次WebGL与JavaScript运行时之间传递数组时，
+WebGL绑定都需要在目标环境分配新数组，以其当前格式迭代数组，
+然后将数值转型为新数组中的适当格式，而这些要花费很多时间。
+2. 定型数组
+这当然是难以接受的，Mozilla为解决这个问题而实现了
+CanvasFloatArray 。这是一个提供JavaScript接口的、C语言风格
+的浮点值数组。JavaScript运行时使用这个类型可以分配、读取和写入
+数组。这个数组可以直接传给底层图形驱动程序API，也可以直接从底层获取到。最终， CanvasFloatArray 变成了
+Float32Array ，也就是今天定型数组中可用的第一个“类型”。
+79、ArrayBuffer
+Float32Array 实际上是一种“视图”，可以允许JavaScript运行时访
+问一块名为 ArrayBuffer 的预分配内存。 ArrayBuffer 是所有定型
+数组及视图引用的基本单位。
+ArrayBuffer 某种程度上类似于C++的 malloc() ，但也有几个
+明显的区别。
+malloc() 在分配失败时会返回一个 null 指针。 ArrayBuffer
+在分配失败时会抛出错误。malloc() 可以利用虚拟内存，因此最大可分配尺寸只受可寻址系
+统内存限制。 ArrayBuffer 分配的内存不能超过
+Number.MAX_SAFE_INTEGER （）字节。
+malloc() 调用成功不会初始化实际的地址。声明 ArrayBuffer
+则会将所有二进制位初始化为0。
+通过 malloc() 分配的堆内存除非调用 free() 或程序退出，否则
+系统不能再使用。而通过声明 ArrayBuffer 分配的堆内存可以被当
+成垃圾回收，不用手动释放。
+不能仅通过对 ArrayBuffer 的引用就读取或写入其内容。要读取或
+写入 ArrayBuffer ，就必须通过视图。视图有不同的类型，但引用的都
+是 ArrayBuffer 中存储的二进制数据。
+80、DataView
+第一种允许你读写 ArrayBuffer 的视图是 DataView 。这个视图
+专为文件I/O和网络I/O设计，其API支持对缓冲数据的高度控制，但相比于
+其他类型的视图性能也差一些。 DataView 对缓冲内容没有任何预设，
+也不能迭代。
+必须在对已有的 ArrayBuffer 读取或写入时才能创建 DataView
+实例。这个实例可以使用全部或部分 ArrayBuffer ，且维护着对该缓冲
+实例的引用，以及视图在缓冲中开始的位置。
+要通过 DataView 读取缓冲，还需要几个组件。
+• 首先是要读或写的字节偏移量。可以看成 DataView 中的某种“地
+址”。
+• DataView 应该使用 ElementType 来实现JavaScript的 Number
+类型到缓冲内二进制格式的转换。
+• 最后是内存中值的字节序。默认为大端字节序。
+1. ElementType
+DataView 对存储在缓冲内的数据类型没有预设。它暴露的API强制
+开发者在读、写时指定一个 ElementType ，然后 DataView 就会
+忠实地为读、写而完成相应的转换。
+ECMAScript 6支持8种不同的 ElementType （见下表）。
+
+
+
+2. 字节序前面例子中的缓冲有意回避了字节序的问题。“字节序”指的是计算系
+统维护的一种字节顺序的约定。 DataView 只支持两种约定：大端
+字节序和小端字节序。大端字节序也称为“网络字节序”，意思是最高
+有效位保存在第一个字节，而最低有效位保存在最后一个字节。小端
+字节序正好相反，即最低有效位保存在第一个字节，最高有效位保存
+在最后一个字节。
+JavaScript运行时所在系统的原生字节序决定了如何读取或写入字节，
+但 DataView 并不遵守这个约定。对一段内存而言， DataView 是
+一个中立接口，它会遵循你指定的字节序。 DataView 的所有API方
+法都以大端字节序作为默认值，但接收一个可选的布尔值参数，设置
+为 true 即可启用小端字节序。
+3. 边界情形
+DataView 完成读、写操作的前提是必须有充足的缓冲区，否则就
+会抛出 RangeError ：
+const buf = new ArrayBuffer(6);
+const view = new DataView(buf);// 尝试读取部分超出缓冲范围的值
+view.getInt32(4);
+// RangeError
+// 尝试读取超出缓冲范围的值
+view.getInt32(8);
+// RangeError
+// 尝试读取超出缓冲范围的值
+view.getInt32(-1);
+// RangeError
+// 尝试写入超出缓冲范围的值
+view.setInt32(4, 123);
+// RangeError
+81、定型数组
+定型数组是另一种形式的 ArrayBuffer 视图。虽然概念上与
+DataView 接近，但定型数组的区别在于，它特定于一种
+ElementType 且遵循系统原生的字节序。相应地，定型数组提供了适用
+面更广的API和更高的性能。设计定型数组的目的就是提高与WebGL等原
+生库交换二进制数据的效率。由于定型数组的二进制表示对操作系统而言
+是一种容易使用的格式，JavaScript引擎可以重度优化算术运算、按位运算
+和其他对定型数组的常见操作，因此使用它们速度极快。
+创建定型数组的方式包括读取已有的缓冲、使用自有缓冲、填充可迭
+代结构，以及填充基于任意类型的定型数组。另外，通过
+<ElementType>.from() 和 <ElementType>.of() 也可以创建定型
+数组
+1. 定型数组行为
+从很多方面看，定型数组与普通数组都很相似。定型数组支持如下操
+作符、方法和属性：
+[]
+copyWithin()
+entries()
+every()
+fill()
+filter()
+find()findIndex()
+forEach()
+indexOf()
+join()
+keys()
+lastIndexOf()
+length
+map()
+reduce()
+reduceRight()
+reverse()
+slice()
+some()
+sort()
+toLocaleString()
+toString()
+values()
+其中，返回新数组的方法也会返回包含同样元素类型（element type）
+的新定型数组
+2. 合并、复制和修改定型数组
+定型数组同样使用数组缓冲来存储数据，而数组缓冲无法调整大小。
+因此，下列方法不适用于定型数组：
+concat()
+pop()
+push()
+shift()
+splice()
+unshift()
+不过，定型数组也提供了两个新方法，可以快速向外或向内复制数
+据： set() 和 subarray() 。
+set() 从提供的数组或定型数组中把值复制到当前定型数组中指定
+的索引位置：
+3. 下溢和上溢
+定型数组中值的下溢和上溢不会影响到其他索引，但仍然需要考虑数
+组的元素应该是什么类型。定型数组对于可以存储的每个索引只接受
+一个相关位，而不考虑它们对实际数值的影响。以下代码演示了如何
+处理下溢和上溢：
+82、Map
+ECMAScript 6以前，在JavaScript中实现“键/值”式存储可以使用
+Object 来方便高效地完成，也就是使用对象属性作为键，再使用属性来
+引用值。但这种实现并非没有问题，为此TC39委员会专门为“键/值”存储定
+义了一个规范。
+作为ECMAScript 6的新增特性， Map 是一种新的集合类型，为这门
+语言带来了真正的键/值存储机制。 Map 的大多数特性都可以通过Object 类型实现，但二者之间还是存在一些细微的差异。具体实践中使
+用哪一个，还是值得细细甄别。
+83、基本API
+使用 new 关键字和 Map 构造函数可以创建一个空映射：
+const m = new Map();
+如果想在创建的同时初始化实例，可以给 Map 构造函数传入一个可
+迭代对象，需要包含键/值对数组。可迭代对象中的每个键/值对都会按照
+迭代顺序插入到新映射实例中：
+84、顺序与迭代
+与 Object 类型的一个主要差异是， Map 实例会维护键值对的插入
+顺序，因此可以根据插入顺序执行迭代操作。
+映射实例可以提供一个迭代器（ Iterator ），能以插入顺序生成
+[key, value] 形式的数组。可以通过 entries() 方法（或者
+Symbol.iterator 属性，它引用 entries() ）取得这个迭代器
+85、选择 Object 还是 Map
+对于多数Web开发任务来说，选择 Object 还是 Map 只是个人偏好
+问题，影响不大。不过，对于在乎内存和性能的开发者来说，对象和映射
+之间确实存在显著的差别。
+1. 内存占用
+Object 和 Map 的工程级实现在不同浏览器间存在明显差异，但存
+储单个键/值对所占用的内存数量都会随键的数量线性增加。批量添加
+或删除键/值对则取决于各浏览器对该类型内存分配的工程实现。不同
+浏览器的情况不同，但给定固定大小的内存， Map 大约可以比
+Object 多存储50%的键/值对。
+2. 插入性能
+向 Object 和 Map 中插入新键/值对的消耗大致相当，不过插入
+Map 在所有浏览器中一般会稍微快一点儿。对这两个类型来说，插
+入速度并不会随着键/值对数量而线性增加。如果代码涉及大量插入操
+作，那么显然 Map 的性能更佳。
+3. 查找速度
+与插入不同，从大型 Object 和 Map 中查找键/值对的性能差异极
+小，但如果只包含少量键/值对，则 Object 有时候速度更快。在把
+Object 当成数组使用的情况下（比如使用连续整数作为属性），浏
+览器引擎可以进行优化，在内存中使用更高效的布局。这对 Map 来
+说是不可能的。对这两个类型而言，查找速度不会随着键/值对数量增
+加而线性增加。如果代码涉及大量查找操作，那么某些情况下可能选
+择 Object 更好一些。4. 删除性能
+使用 delete 删除 Object 属性的性能一直以来饱受诟病，目前在
+很多浏览器中仍然如此。为此，出现了一些伪删除对象属性的操作，
+包括把属性值设置为 undefined 或 null 。但很多时候，这都是一
+种讨厌的或不适宜的折中。而对大多数浏览器引擎来说， Map 的
+delete() 操作都比插入和查找更快。如果代码涉及大量删除操
+作，那么毫无疑问应该选择 Map 。
+86、WeakMap
+ECMAScript 6新增的“弱映射”（ WeakMap ）是一种新的集合类型，
+为这门语言带来了增强的键/值对存储机制。 WeakMap 是 Map 的“兄
+弟”类型，其API也是 Map 的子集。 WeakMap 中的“weak”（弱），描述
+的是JavaScript垃圾回收程序对待“弱映射”中键的方式。
+87、基本API
+可以使用 new 关键字实例化一个空的 WeakMap ：
+const wm = new WeakMap();
+弱映射中的键只能是 Object 或者继承自 Object 的类型，尝试使
+用非对象设置键会抛出 TypeError 。值的类型没有限制。
+如果想在初始化时填充弱映射，则构造函数可以接收一个可迭代对
+象，其中需要包含键/值对数组。可迭代对象中的每个键/值都会按照迭代
+顺序插入新实例中：
+88、弱键
+WeakMap 中“weak”表示弱映射的键是“弱弱地拿着”的。意思就是，
+这些键不属于正式的引用，不会阻止垃圾回收。但要注意的是，弱映射中
+值的引用可不是“弱弱地拿着”的。只要键存在，键/值对就会存在于映射
+中，并被当作对值的引用，因此就不会被当作垃圾回收。
+来看下面的例子：
+const wm = new WeakMap();
+wm.set({}, "val");
+set() 方法初始化了一个新对象并将它用作一个字符串的键。因为
+没有指向这个对象的其他引用，所以当这行代码执行完成后，这个对象键
+就会被当作垃圾回收。然后，这个键/值对就从弱映射中消失了，使其成为
+一个空映射。在这个例子中，因为值也没有被引用，所以这对键/值被破坏
+以后，值本身也会成为垃圾回收的目标。
+89、不可迭代键
+因为 WeakMap 中的键/值对任何时候都可能被销毁，所以没必要提供
+迭代其键/值对的能力。当然，也用不着像 clear() 这样一次性销毁所有
+键/值的方法。 WeakMap 确实没有这个方法。因为不可能迭代，所以也
+不可能在不知道对象引用的情况下从弱映射中取得值。即便代码可以访问
+WeakMap 实例，也没办法看到其中的内容。
+WeakMap 实例之所以限制只能用对象作为键，是为了保证只有通过
+键对象的引用才能取得值。如果允许原始值，那就没办法区分初始化时使
+用的字符串字面量和初始化之后使用的一个相等的字符串了。
+90、使用弱映射
+WeakMap 实例与现有JavaScript对象有着很大不同，可能一时不容易
+说清楚应该怎么使用它。这个问题没有唯一的答案，但已经出现了很多相
+关策略。
+1. 私有变量
+弱映射造就了在JavaScript中实现真正私有变量的一种新方式。前提很
+明确：私有变量会存储在弱映射中，以对象实例为键，以私有成员的
+字典为值。
+下面是一个示例实现：const wm = new WeakMap();
+class User {
+constructor(id) {
+this.idProperty = Symbol('id');
+this.setId(id);
+}
+setPrivate(property, value) {
+const privateMembers = wm.get(this) || {};
+privateMembers[property] = value;
+wm.set(this, privateMembers);
+}
+getPrivate(property) {
+return wm.get(this)[property];
+}
+setId(id) {
+this.setPrivate(this.idProperty, id);
+}
+getId() {
+return this.getPrivate(this.idProperty);
+}
+}
+const user = new User(123);
+alert(user.getId()); // 123
+user.setId(456);alert(user.getId()); // 456
+// 并不是真正私有的
+alert(wm.get(user)[user.idProperty]); // 456
+2. DOM节点元数据
+因为 WeakMap 实例不会妨碍垃圾回收，所以非常适合保存关联元数
+据。来看下面这个例子，其中使用了常规的 Map ：
+const m = new Map();
+const loginButton =
+document.querySelector('#login');
+// 给这个节点关联一些元数据
+m.set(loginButton, {disabled: true});假设在上面的代码执行后，页面被JavaScript改变了，原来的登录按钮
+从DOM树中被删掉了。但由于映射中还保存着按钮的引用，所以对应
+的DOM节点仍然会逗留在内存中，除非明确将其从映射中删除或者等
+到映射本身被销毁。
+91、Set
+ECMAScript 6新增的 Set 是一种新集合类型，为这门语言带来集合
+数据结构。 Set 在很多方面都像是加强的 Map ，这是因为它们的大多数
+API和行为都是共有的。
+92、基本API
+使用 new 关键字和 Set 构造函数可以创建一个空集合：
+const m = new Set();
+如果想在创建的同时初始化实例，则可以给 Set 构造函数传入一个
+可迭代对象，其中需要包含插入到新集合实例中的元素：
+93、顺序与迭代
+Set 会维护值插入时的顺序，因此支持按顺序迭代。
+集合实例可以提供一个迭代器（ Iterator ），能以插入顺序生成
+集合内容。可以通过 values() 方法及其别名方法 keys() （或者
+Symbol.iterator 属性，它引用 values() ）取得这个迭代器
+94、定义正式集合操作
+从各方面来看， Set 跟 Map 都很相似，只是API稍有调整。唯一需
+要强调的就是集合的API只支持自引用操作。很多开发者都喜欢使用 Set
+操作，但需要手动实现：或者是子类化 Set ，或者是定义一个实用函数
+库。要把两种方式合二为一，可以在子类上实现静态方法，然后在实例方
+法中使用这些静态方法。在实现这些操作时，需要考虑几个地方。
+某些 Set 操作是有关联性的，因此最好让实现的方法能支持处理任
+意多个集合实例。
+Set 保留插入顺序，所有方法返回的集合必须保证顺序。
+尽可能高效地使用内存。扩展操作符的语法很简洁，但尽可能避免集
+合和数组间的相互转换能够节省对象初始化成本。
+不要修改已有的集合实例。 union(a, b) 或 a.union(b) 应该返
+回包含结果的新集合实例。
+class XSet extends Set {
+union(...sets) {
+return XSet.union(this, ...sets)
+}
+intersection(...sets) {
+return XSet.intersection(this, ...sets);
+}
+difference(set) {
+return XSet.difference(this, set);
+}
+symmetricDifference(set) {return XSet.symmetricDifference(this, set);
+}
+cartesianProduct(set) {
+return XSet.cartesianProduct(this, set);
+}
+powerSet() {
+return XSet.powerSet(this);
+}
+// 返回两个或更多集合的并集
+static union(a, ...bSets) {
+const unionSet = new XSet(a);
+for (const b of bSets) {
+for (const bValue of b) {
+unionSet.add(bValue);
+}
+}
+return unionSet;
+}
+// 返回两个或更多集合的交集
+static intersection(a, ...bSets) {
+const intersectionSet = new XSet(a);
+for (const aValue of intersectionSet) {
+for (const b of bSets) {
+if (!b.has(aValue)) {
+intersectionSet.delete(aValue);
+}}
+}
+return intersectionSet;
+}
+// 返回两个集合的差集
+static difference(a, b) {
+const differenceSet = new XSet(a);
+for (const bValue of b) {
+if (a.has(bValue)) {
+differenceSet.delete(bValue);
+}
+}
+return differenceSet;
+}
+// 返回两个集合的对称差集
+static symmetricDifference(a, b) {
+// 按照定义，对称差集可以表达为
+return a.union(b).difference(a.intersection(b));
+}
+// 返回两个集合（数组对形式）的笛卡儿积
+// 必须返回数组集合，因为笛卡儿积可能包含相同值的对
+static cartesianProduct(a, b) {
+const cartesianProductSet = new XSet();
+for (const aValue of a) {
+for (const bValue of b) {
+cartesianProductSet.add([aValue, bValue]);
+}}
+return cartesianProductSet;
+}
+// 返回一个集合的幂集
+static powerSet(a) {
+const powerSet = new XSet().add(new XSet());
+for (const aValue of a) {
+for (const set of new XSet(powerSet)) {
+powerSet.add(new XSet(set).add(aValue));
+}
+}
+return powerSet;
+}
+}
+95、WeakSet
+ECMAScript 6新增的“弱集合”（ WeakSet ）是一种新的集合类型，
+为这门语言带来了集合数据结构。 WeakSet 是 Set 的“兄弟”类型，其
+API也是 Set 的子集。 WeakSet 中的“weak”（弱），描述的是JavaScript
+垃圾回收程序对待“弱集合”中值的方式。
+96、基本API
+可以使用 new 关键字实例化一个空的 WeakSet ：
+const ws = new WeakSet();
+弱集合中的值只能是 Object 或者继承自 Object 的类型，尝试使
+用非对象设置值会抛出 TypeError 。如果想在初始化时填充弱集合，则构造函数可以接收一个可迭代对
+象，其中需要包含有效的值。可迭代对象中的每个值都会按照迭代顺序插
+入到新实例中
+97、弱值
+WeakSet 中“weak”表示弱集合的值是“弱弱地拿着”的。意思就是，
+这些值不属于正式的引用，不会阻止垃圾回收。
+来看下面的例子：
+const ws = new WeakSet();
+ws.add({});
+add() 方法初始化了一个新对象，并将它用作一个值。因为没有指
+向这个对象的其他引用，所以当这行代码执行完成后，这个对象值就会被
+当作垃圾回收。然后，这个值就从弱集合中消失了，使其成为一个空集
+合。
+98、不可迭代值
+因为 WeakSet 中的值任何时候都可能被销毁，所以没必要提供迭代
+其值的能力。当然，也用不着像 clear() 这样一次性销毁所有值的方
+法。 WeakSet 确实没有这个方法。因为不可能迭代，所以也不可能在不
+知道对象引用的情况下从弱集合中取得值。即便代码可以访问 WeakSet
+实例，也没办法看到其中的内容。
+WeakSet 之所以限制只能用对象作为值，是为了保证只有通过值对
+象的引用才能取得值。如果允许原始值，那就没办法区分初始化时使用的
+字符串字面量和初始化之后使用的一个相等的字符串了。
+99、使用弱集合
+相比于 WeakMap 实例， WeakSet 实例的用处没有那么大。不过，
+弱集合在给对象打标签时还是有价值的。
+来看下面的例子，这里使用了一个普通 Set ：
+const disabledElements = new Set();
+const loginButton =
+document.querySelector('#login');
+// 通过加入对应集合，给这个节点打上“禁用”标签
+disabledElements.add(loginButton);
+这样，通过查询元素在不在 disabledElements 中，就可以知道它
+是不是被禁用了。不过，假如元素从DOM树中被删除了，它的引用却仍然保存在 Set 中，因此垃圾回收程序也不能回收它
+100、迭代与扩展操作
+ECMAScript 6新增的迭代器和扩展操作符对集合引用类型特别有用。
+这些新特性让集合类型之间相互操作、复制和修改变得异常方便。
+注意 第7章会更详细地介绍迭代器和生成器。
+如本章前面所示，有4种原生集合类型定义了默认迭代器：
+Array
+所有定型数组
+Map
+Set
+很简单，这意味着上述所有类型都支持顺序迭代，都可以传入 for-
+of 循环
+101、小结
+JavaScript中的对象是引用值，可以通过几种内置引用类型创建特定类
+型的对象。
+引用类型与传统面向对象编程语言中的类相似，但实现不同。
+Object 类型是一个基础类型，所有引用类型都从它继承了基本的行
+为。
+Array 类型表示一组有序的值，并提供了操作和转换值的能力。定型数组包含一套不同的引用类型，用于管理数值在内存中的类型。
+Date 类型提供了关于日期和时间的信息，包括当前日期和时间以及
+计算。
+RegExp 类型是ECMAScript支持的正则表达式的接口，提供了大多
+数基本正则表达式以及一些高级正则表达式的能力。
+JavaScript比较独特的一点是，函数其实是 Function 类型的实例，
+这意味着函数也是对象。由于函数是对象，因此也就具有能够增强自身行
+为的方法。
+因为原始值包装类型的存在，所以JavaScript中的原始值可以拥有类似
+对象的行为。有3种原始值包装类型： Boolean 、 Number 和
+String 。它们都具有如下特点。
+每种包装类型都映射到同名的原始类型。
+在以读模式访问原始值时，后台会实例化一个原始值包装对象，通过
+这个对象可以操作数据。
+涉及原始值的语句只要一执行完毕，包装对象就会立即销毁。
+JavaScript还有两个在一开始执行代码时就存在的内置对象：
+Global 和 Math 。其中， Global 对象可以在大多数ECMAScript实现
+中访问。不过浏览器将 Global 实现为 window 对象。所有全局变量和
+函数都是 Global 对象的属性。 Math 对象包含辅助完成复杂数学计算
+的属性和方法。
+ECMAScript 6新增了一批引用类型： Map 、 WeakMap 、 Set 和
+WeakSet 。这些类型为组织应用程序数据和简化内存管理提供了新能
+力
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
