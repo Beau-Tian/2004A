@@ -15,7 +15,7 @@
     "PageSize": 20
   }
 }
-{paramz:{ feeds : 【 id , category , data : {subject , format , changed 】}} , pagelndex, pagesize }
+{paramz:{ feeds : [ id , category , data : {subject , format , changed ] }} , pagelndex, pagesize }
 2.
 //获取用户
 function getUser(id) {
