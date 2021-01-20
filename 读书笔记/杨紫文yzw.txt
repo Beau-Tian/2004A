@@ -137,3 +137,507 @@ SyntaxError
 
 
 
+5.0
+
+基本引用类型
+
+引用类型：引用类型有时候也被称为对象定义，因为它们描述了自己的对象应有的属性和方法。
+
+注：注意 引用类型虽然有点像类，但跟类并不是一个概念。
+对象被认为是某个特定引用类型的实例。新对象通过使用 new 操作符
+后跟一个构造函数（constructor）来创建。比如：let now = new Date();
+
+
+一：
+Date：
+1.Date 类型可以精确表示1970年1月 1日之前及之后285 616年的日期。
+要创建日期对象，就使用 new 操作符来调用 Date 构造函数：let now = new Date();
+
+在不给 Date 构造函数传参数的情况下，创建的对象将保存当前日期
+和时间。要基于其他日期和时间创建日期对象，必须传入其毫秒表示
+。ECMAScript为此提供了两个辅助方法： Date.parse() 和 Date.UTC() 。
+比如，要创建一个表示“2019年5月23日”的日期对象，可以使用以下代码
+let someDate = new Date(Date.parse("May 23, 2019"));
+
+2.继承的方法
+与其他类型一样， Date 类型重写了 toLocaleString() 、toString() 和 valueOf() 方法。
+3.日期格式化方法
+Date 类型有几个专门用于格式化日期的方法，它们都会返回字符串：toDateString() 显示日期中的周几、月、日、年（格式特定于实
+现）；
+toTimeString() 显示日期中的时、分、秒和时区（格式特定于实
+现）；
+toLocaleDateString() 显示日期中的周几、月、日、年（格式特
+定于实现和地区）；
+toLocaleTimeString() 显示日期中的时、分、秒（格式特定于实
+现）；
+toUTCString() 显示完整的UTC日期（格式特定于实现）
+4.
+日期/时间组件方法
+
+ 日期格式化方法
+
+
+Date 类型有几个专门用于格式化日期的方法，它们都会返回字符
+
+
+串：
+
+
+toDateString() 显示日期中的周几、月、日、年
+
+
+
+
+
+
+toTimeString() 显示日期中的时、分、秒和时区
+
+
+toLocaleDateString() 显示日期中的周几、月、日、年
+
+
+toLocaleTimeString() 显示日期中的时、分、秒
+
+
+toUTCString() 显示完整的UTC日期
+
+
+5.1.3 日期/时间组件方法
+
+
+Date 类型剩下的方法（见下表）直接涉及取得或设置日期值的特定
+
+
+部分
+
+
+getTime()返回日期的毫秒
+
+
+setTime(milliseconds)设置日期的毫秒表示，从而修改设置日期的毫秒数
+
+
+getFullYear() 返回4位数
+
+
+getUTCFullYear()返回UTC日期 的4位数
+
+
+setFullYear(year)设置日期的年（ year 必须是4位数）
+
+
+
+
+
+
+setUTCFullYear(year)设置UTC日期的年（ year 必须 是4位数）
+
+
+getMonth()返回日期的月（0表示1月，11表示12月）
+
+
+getUTCMonth()返回UTC日期的月（0表示1月，11表示12月）
+
+
+setMonth(month)设置日期的月（ month 为大于0的数值，大于11加年）
+
+
+setUTCMonth(month)设置UTC日期的月（ month 为大于0的数值，大于11加年）
+
+
+
+
+
+
+getDate()返回日期中的日（1~31）
+
+
+getUTCDate()返回UTC日期中的日（1~31）
+
+
+setDate(date)设置日期中的日（如果 date 大于该月天数，则加月）
+
+
+setUTCDate(date)设置UTC日期中的日（如果date 大于该月天数，则加月）
+
+
+getDay()返回日期中表示周几的数值（0表示周日，6表示周六）
+
+
+getUTCDay()返回UTC日期中表示周几的数值（0表示周日，6表示周六）
+
+
+getHours()返回日期中的时（0~23）
+
+
+getUTCHours()返回UTC日期中的时（0~23）
+
+
+setHours(hours)设置日期中的时（如果 hours大于23，则加日）
+
+
+setUTCHours(hours)设置UTC日期中的时（如果
+
+
+hours 大于23，则加日）
+
+
+getMinutes()返回日期中的分（0~59）
+
+
+getUTCMinutes()返回UTC日期中的分（0~59）
+
+
+setMinutes(minutes)设置日期中的分（如果
+
+
+minutes 大于59，则加时）
+
+
+setUTCMinutes(minutes)设置UTC日期中的分（如果
+
+
+minutes 大于59，则加时）
+
+
+getSeconds()返回日期中的秒（0~59）
+
+
+getUTCSeconds()返回UTC日期中的秒（0~59）
+
+
+setSeconds(seconds)设置日期中的秒（如果
+
+
+seconds 大于59，则加分）
+
+
+setUTCSeconds(seconds)设置UTC日期中的秒（如果
+
+
+seconds 大于59，则加分）
+
+
+getMilliseconds()返回日期中的毫秒
+
+
+getUTCMilliseconds()返回UTC日期中的毫秒
+
+
+setMilliseconds(milliseconds)设置日期中的毫秒
+
+
+setUTCMilliseconds(milliseconds)设置中的毫秒 UTC日期
+
+
+
+
+
+
+getTimezoneOffset()返回以分钟计的UTC与本地时区的偏移量（如美国EST即“东部标准时间”返回300，进
+
+
+入夏令时的地区可能有所差异）
+
+
+RegExp
+
+
+ECMAScript通过 RegExp 类型支持正则表达式。正则表达式使用类似
+
+
+Perl的简洁语法来创建：
+
+
+let expression = /pattern/flags;
+
+
+g ：全局模式
+
+
+i ：不区分大小写
+
+
+m ：多行模式
+
+
+y ：粘附模式
+
+
+u ：Unicode模式
+
+
+s ： dotAll 模式
+
+
+
+
+
+
+ RegExp 实例属性
+
+
+每个 RegExp 实例都有下列属性
+
+
+global ：布尔值，表示是否设置了 g 标记
+
+
+ignoreCase ：布尔值，表示是否设置了 i 标记
+
+
+unicode ：布尔值，表示是否设置了 u 标记。
+
+
+sticky ：布尔值，表示是否设置了 y 标记。
+
+
+lastIndex ：整数表示在源字符串中下一次搜索的开始位置，始终从0开始
+
+
+multiline ：布尔值，表示是否设置了 m 标记。
+
+
+dotAll ：布尔值，表示是否设置了 s 标记
+
+
+source ：正则表达式的字面量字符串没有凯头和结尾的斜杠
+
+
+flags ：正则表达式的标记字符串
+
+
+RegExp 实例方法
+
+
+RegExp 实例的主要方法是 exec() ，主要用于配合捕获组使用。这
+
+
+个方法只接收一个参数，即要应用模式的字符串
+
+
+例：
+let text = "mom and dad and baby";
+
+
+let pattern = /mom( and dad( and baby)?)?/gi;
+
+
+let matches = pattern.exec(text);
+
+
+console.log(matches.index); // 0
+
+
+console.log(matches.input); // "mom and dad and
+
+
+baby"console.log(matches[0]); // "mom and dad and
+
+
+baby"
+
+
+console.log(matches[1]); // " and dad and baby"
+
+
+console.log(matches[2]); // " and baby"
+
+
+ RegExp 构造函数属性
+
+
+RegExp 构造函数本身也有几个属性。
+
+
+这些属性适用于作用域中的所有正则表达式，而且会根据
+
+
+最后执行的正则表达式操作而变化。这些属性还有一个特点，就是可以通过
+
+
+两种不同的方式访问它们。
+
+
+模式局限
+
+
+虽然ECMAScript对正则表达式的支持有了长足的进步，但仍然缺少Perl
+
+
+语言中的一些高级特性
+
+
+\A 和 \Z 锚（分别匹配字符串的开始和末尾）联合及交叉类原子组
+
+
+x （忽略空格）匹配模式条件式匹配正则表达式注释
+
+
+ 原始值包装类型
+
+
+为了方便操作原始值，ECMAScript提供了3种特殊的引用类型：
+
+
+Boolean 、 Number 和 String
+
+
+例：
+let s1 = "some text";
+
+
+let s2 = s1.substring(2);
+
+
+s1 是一个包含字符串的变量，它是一个原始值。第二行紧接
+
+
+着在 s1 上调用了 substring() 方法，并把结果保存在 s2 中
+
+
+(1) 创建一个 String 类型的实例；
+
+
+(2) 调用实例上的特定方法；
+
+
+(3) 销毁实例
+
+
+let s1 = new String("some text");
+
+
+let s2 = s1.substring(2);
+
+
+s1 = null;
+
+
+
+
+
+
+
+
+ Boolean
+
+
+Boolean 是对应布尔值的引用类型要创建一个 Boolean 对象，就使用 Boolean 构造函数并传入 true 或 false
+
+
+例如let booleanObject = new Boolean(true);
+
+
+Boolean 的实例会重写 valueOf() 方法，返回一个原始值 true
+
+
+或 false 。
+
+
+ Number
+
+
+Number 是对应数值的引用类型。要创建一个 Number 对象，就使用 Number 构造函数并传入一个数值，如下例所示：
+
+
+let numberObject = new Number(10);
+
+
+与 Boolean 类型一样， Number 类型重写了 valueOf() 、toLocaleString() 和 toString() 方法。
+
+
+String
+
+
+String 是对应字符串的引用类型。要创建一个 String 对象，使
+
+
+用 String 构造函数并传入一个数值，如下例所示：
+
+
+let stringObject = new String("hello world");
+
+
+String 对象的方法可以在所有字符串原始值上调用。3个继承的方
+
+
+法 valueOf() 、 toLcaleString() 和 toString() 都返回对象的原
+
+
+始字符串值。
+
+
+每个 String 对象都有一个 length 属性，表示字符串中字符的数
+
+
+量。
+
+
+String 类型提供了很多方法来解析和操作字符串。
+
+
+1. JavaScript字符 
+JavaScript字符串由16位码元（code unit）组成。
+
+2. normalize() 方法
+
+
+些Unicode字符可以有多种编码方式。有的字符既可以通过一个BMP
+
+
+字符表示，也可以通过一个代理对表示
+
+
+ 
+比如：
+
+
+// U+00C5：上面带圆圈的大写拉丁字母A
+
+
+console.log(String.fromCharCode(0x00C5));
+// Å
+
+
+// U+212B：长度单位“埃”
+
+
+console.log(String.fromCharCode(0x212B));
+// Å
+
+
+// U+004：大写拉丁字母A
+
+
+// U+030A：上面加个圆圈
+
+
+console.log(String.fromCharCode(0x0041, 0x030A));
+
+
+// Å
+
+
+ 
+3. 字符串操作方法
+
+
+ 
+concat() ，用于将一个
+
+
+或多个字符串拼接成一个新字符串。
+
+
+ 
+例子：
+
+
+let stringValue = "hello ";
+
+
+let result = stringValue.concat("world");
+
+
+console.log(result);
