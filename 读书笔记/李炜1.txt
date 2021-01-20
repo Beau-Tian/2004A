@@ -1,3 +1,114 @@
+Date：Date 对象用于处理日期和时间。
+是世界时间1970年1月1日午夜（零时）至今所经过的毫秒数。
+ECMAScript为此提供了两个辅助方法： Date.parse() 和 Date.UTC() 。
+Date.parse()方法接收一个表示日期的字符串参数，尝试将这个字符串转换为表示该日期的毫秒数。
+Date.UTC() 方法也返回日期的毫秒表示，但使用的是跟Date.parse() 不同的信息来生成这个值。传给 Date.UTC() 的参数是年、零起点月数（1月是0，2月是1，以此类推）、日（1~31）、时（0~23）、分、秒和毫秒。这些参数中，只有前两个（年和月）是必需的。如果不提供日，那么默认为1日。其他参数的默认值都是0。
+日期格式化方法：toDateString()，toTimeString()，toLocaleDateString()，toLocaleTimeString()，toUTCString()
+日期/时间组件方法：
+getDate()	返回当日的日期和时间。
+getDate()从 Date 对象返回一个月中的某一天 (1 ~ 31)。
+getDay()从 Date 对象返回一周中的某一天 (0 ~ 6)。0是周一，以此类推
+getMonth()从 Date 对象返回月份 (0 ~ 11)。0是1月，以此类推
+getFullYear()从 Date 对象以四位数字返回年份。
+getHours()返回 Date 对象的小时 (0 ~ 23)。
+getMinutes()返回 Date 对象的分钟 (0 ~ 59)。
+getSeconds()返回 Date 对象的秒数 (0 ~ 59)。
+getMilliseconds()返回 Date 对象的毫秒(0 ~ 999)。
+getTime()	返回 1970 年 1 月 1 日至今的毫秒数。
+getTimezoneOffset()	返回本地时间与格林威治标准时间 (GMT) 的分钟差。
+getUTCDate()根据世界时从 Date 对象返回月中的一天 (1 ~ 31)。
+getUTCDay()根据世界时从 Date 对象返回周中的一天 (0 ~ 6)。
+getUTCMonth()根据世界时从 Date 对象返回月份 (0 ~ 11)。
+getUTCFullYear()根据世界时从 Date 对象返回四位数的年份。
+getUTCHours()根据世界时返回 Date 对象的小时 (0 ~ 23)。
+getUTCMinutes()根据世界时返回 Date 对象的分钟 (0 ~ 59)。
+getUTCSeconds()根据世界时返回 Date 对象的秒钟 (0 ~ 59)。
+getUTCMilliseconds()根据世界时返回 Date 对象的毫秒(0 ~ 999)。
+RegExp：对象表示正则表达式，它是对字符串执行模式匹配的强大工具
+参数 pattern 是一个字符串，指定了正则表达式的模式或其他正则表达式。
+参数 attributes 是一个可选的字符串，包含属性 "g"、"i" 和 "m"，分别用于指定全局匹配、区分大小写的匹配和多行匹配。ECMAScript 标准化之前，不支持 m 属性。如果 pattern 是正则表达式，而不是字符串，则必须省略该参数。
+RegExp 构造函数创建时对应的模式字符串
+
+RegExp 对象属性
+global	RegExp 对象是否具有标志 g。
+ignoreCase	RegExp 对象是否具有标志 i。	
+lastIndex	一个整数，标示开始下一次匹配的字符位置。
+multiline	RegExp 对象是否具有标志 m。	
+source	正则表达式的源文本。	
+
+元字符
+.	查找单个字符，除了换行和行结束符。
+\w	查找单词字符。
+\W	查找非单词字符。
+\d	查找数字。
+\D	查找非数字字符。
+\s	查找空白字符。
+\S	查找非空白字符。
+\b	匹配单词边界。
+\B	匹配非单词边界。
+\0	查找 NUL 字符。
+\n	查找换行符。
+\f	查找换页符。
+\r	查找回车符。
+\t	查找制表符。
+\v	查找垂直制表符。
+\xxx	查找以八进制数 xxx 规定的字符。
+\xdd	查找以十六进制数 dd 规定的字符。
+\uxxxx	查找以十六进制数 xxxx 规定的 Unicode 字符。
+
+RegExp 构造函数属性
+input $_ 最后搜索的字符串
+lastMatch $& 最后匹配的文本
+lastParen $+ 最后匹配的捕获组
+leftContext $` input 字符串中出现在lastMatch 前面的文本
+rightContext $' input 字符串中出现在lastMatch 后面的文本
+通过这些属性可以提取出与 exec() 和 test() 执行的操作相关的信息。
+原始值包装类型：ECMAScript提供了3种特殊的引用类型：Boolean 、 Number 和 String 。
+Boolean 是对应布尔值的引用类型。要创建一个 Boolean 对象，就使用 Boolean 构造函数并传入 true 或 false ，
+Number 是对应数值的引用类型。要创建一个 Number 对象，就使用 Number 构造函数并传入一个数值，
+String 是对应字符串的引用类型。要创建一个 String 对象，使用 String 构造函数并传入一个数值，
+JavaScript字符
+ concat() ，用于将一个或多个字符串拼接成一个新字符串。
+indexOf() 和 lastIndexOf() 。这两个方法从字符串中搜索传入的字符串，并返回位置（如果没找到，则返回 -1 ）。
+判断字符串中是否包含另一个字符串的方法： startsWith() 、 endsWith() 和 includes()。这些方法都会从字符串中搜索传入的字符串，并返回一个表示是否包含的布尔值。
+ trim() 方法。这个方法会创建字符串的一个副本，删除前、后所有空格符
+ repeat() 方法。这个方法接收一个整数参数，表示要将字符串复制多少次，然后返回拼接所有副本后的结果。
+字符串大小写转换包括4个方法： toLowerCase() 、 toLocaleLowerCase() 、 toUpperCase() 和 toLocaleUpperCase() 。 toLowerCase() 和 toUpperCase() 方法是原来就有的方法，与 java.lang.String中的方法同名。 toLocaleLowerCase() 和 toLocaleUpperCase() 方法旨在基于特定地区实现。
+ localeCompare() ，这个方法比较两个字符串返回1，-1，0三种情况
+单例内置对象
+Global 对象是ECMAScript中最特别的对象，因为代码不会显式地访问它。ECMA-262规定 Global 对象为一种兜底对象，它所针对的是不属于任何对象的属性和方法。事实上，不存在全局变量或全局函数这种东西。在全局作用域中定义的变量和函数都会变成 Global 对象的属性 。本
+encodeURI() 和 encodeURIComponent() 方法用于编码统一资源标识符（URI），以便传给浏览器。有效的URI不能包含某些字符，比如空格。使用URI编码方法来编码URI可以让浏览器能够理解它们，同时又以特殊的UTF-8编码替换掉所有无效字符。
+eval() 。这个方法就是一个完整的ECMAScript解释器，它接收一个参数，即一个要执行的ECMAScript（JavaScript）字符串。
+Global 对象有很多属性，其中一些前面已经提到过了。像undefined 、 NaN 和 Infinity 等特殊值都是 Global 对象的属性。此外，所有原生引用类型构造函数，
+Math：ECMAScript提供了 Math 对象作为保存数学公式、信息和计算的地方。 Math 对象提供了一些辅助计算的属性和方法。
+Math 对象也提供了很多辅助执行简单或复杂数学计算的方法。min() 和 max() 方法用于确定一组数值中的最小值和最大值。这两个方法都接收任意多个参数
+舍入方法：于把小数值舍入为整数的4个方法： Math.ceil() 、 Math.floor() 、 Math.round() 和 Math.fround() 。	
+Math.random() 方法返回一个0~1范围内的随机数，其中包含0但不包含1。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 变量、作用域与内存
 JavaScript变量是松散类型的，而且变量不过就是特定
 时间点一个特定值的名称而已。由于没有规则定义变量必须包含什么
