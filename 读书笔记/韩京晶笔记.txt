@@ -60,5 +60,43 @@ JavaScript引擎不再使用这种算法，但某些旧版本的IE仍然会受这
 DOM元素）。
 引用计数在代码中存在循环引用时会出现问题。
 解除变量的引用不仅可以消除循环引用，而且对垃圾回收也有帮助。为促进内存回收，全局对象、全局对象的属性和循环引用都应该在不需要时解除引用。
-
+第五章   基本引用类型
+引用值（或者对象）是某个特定引用类型的实例。引用类型是把数据和功能组织到一起的结构。引用类型有时候也
+被称为对象定义。
+对象被认为是某个特定引用类型的实例。新对象通过使用 new 操作符后跟一个构造函数（constructor）来创建。
+5.1  Date
+let someDate = new Date(Date.parse("May 23, 2019"));
+let someDate = new Date("May 23, 2019");
+5.1.1    继承的方法
+5.1.2 日期格式化方法
+toDateString(){月、日、年}	toTimeString(){时、分、秒}
+toLocaleDateString()、toLocaleTimeString()
+toUTCString() 显示完整的UTC日期
+input 属性中包含原始的字符串。
+leftConext 属性包含原始字符串中 "short" 之前的内容，
+rightContext 属性包含 "short" 之后的内容。
+lastMatch 属性包含匹配整个正则表达式的上一个字符串，
+即 "short" 。
+lastParen 属性包含捕获组的上一次匹配，即 "s" 。
+5.3 原始值包装类型
+ECMAScript提供了3种特殊的引用类型：Boolean 、 Number 和 String 
+引用类型与原始值包装类型的?要区别在于对象的生命周期。
+Number 是对应数值的引用类型
+String 是对应字符串的引用类型。
+对于大多数语言字符集是足
+够了，在Unic?de中称为基本多语言平面（BMP）。为了表示更多的字符，Unic?de采用了一个策略，即每个字符使用另外16位去选择一个增补平面。这种每个字符使用两个16位码元的策略称为代理对。
+3. 字符串操作方法
+ concat() ，用于将一个或多个字符串拼接成一个新字符串。
+3个从字符串中提取子字符串的方法：slice() 、 substr() 和 substring() 。
+4. 字符串位置方法
+有两个方法用于在字符串中定位子字符串： indexOf() 和lastIndexOf() 。
+5. 字符串包含方法
+ECMAScript 6增加了3个用于判断字符串中是否包含另一个字符串的方法： startsWith() 、 endsWith() 和 includes() 。
+6. trim() 方法
+ECMAScript在所有字符串上都提供了 trim() 方法。这个方法会创建字符串的一个副本，删除前、后所有空格符，再返回结果。
+7. repeat() 方法
+ECMAScript在所有字符串上都提供了 repeat() 方法。这个方法接收一个整数参数，表示要将字符串复制多少次，然后返回拼接所有副本后的结果。
+8. padStart() 和 padEnd() 方法
+padStart() 和 padEnd() 方法会复制字符串，这两个方法的第一个参数是长度，第二个参数是可选的填充字符串
+第五章还有一小节没看完
 
