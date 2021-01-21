@@ -171,3 +171,134 @@ JavaScript最常用的垃圾回收策略是标记清理。当变量进入上下�
 2、原始值和引用值有以下特点:
 原始值大小固定，因此保存在栈内存上。从一个变量到另一个变量复制原始值会创建该值的第二个副本。引用值是对象，存储在堆内存上。
 包含引用值的变量实际上只包含指向相应对象的一个指针，而不是对象本身。从一个变量到另一个变量复制引用值只会复制指针，因此结果是两个变量都指向同一个对象。typeof 操作符可以确定值的原始类型，而 instanceof 操作符用于确保值的引用类型。
+1.20
+1、基本引用类型
+引用值（或者对象）是某个特定引用类型的实例。引用类型有时候也被称为对象定义，因为它们描述了自己的对象应有的属性和方法。
+对象被认为是某个特定引用类型的实例。新对象通过使用 new 操作符后跟一个构造函（constructor）来创建，构造函数就是用来创建新对象的函数。
+
+2、Date
+1、要创建日期对象，就使用 new 操作符来调用 Date 构造函数：let now = new Date();
+在不给 Date 构造函数传参数的情况下，创建的对象将保存当前日期和时间。要基于其他日期和时间创建日期对象，必须传入其毫秒表示。
+2、ECMAScript为此提供了两个辅助方法： Date.parse() 和 Date.UTC() 。
+3、Date.parse() 方法接收一个表示日期的字符串参数，尝试将这个字符串转换为表示该日期的毫秒数。
+4、Date.UTC() 方法也返回日期的毫秒表示，但使用的是跟Date.parse() 不同的信息来生成这个值。
+
+3、继承的方法
+与其他类型一样， Date 类型重写了 toLocaleString() 、 toString() 和 valueOf() 方法。但与其他类型不同，重写后这些方法的返回值不一样。 Date 类型的 toLocaleString() 方法返回与浏览器运行的本地环境一致的日期和时间。
+
+4、日期格式化方法
+Date 类型有几个专门用于格式化日期的方法，它们都会返回字符串：
+toDateString() 显示日期中的周几、月、日、年（格式特定于实现）；
+toTimeString() 显示日期中的时、分、秒和时区（格式特定于实现）；
+toLocaleDateString() 显示日期中的周几、月、日、年（格式特定于实现和地区）；
+toLocaleTimeString() 显示日期中的时、分、秒（格式特定于实现）；
+toUTCString() 显示完整的UTC日期（格式特定于实现）。
+这些方法的输出与 toLocaleString() 和 toString() 一样，会因浏览器而异。因此不能用于在用户界面上一致地显示日期。
+
+5、RegExp
+1、正则表达式使用类似Perl的简洁语法来创建：let expression = /pattern/flags;
+这个正则表达式的 pattern （模式）可以是任何简单或复杂的正则表达式，包括字符类、限定符、分组、向前查找和反向引用。每个正则表达式可以带零个或多个 flags （标记），用于控制正则表达式的行为。
+2、g ：全局模式，表示查找字符串的全部内容，而不是找到第一个匹配的内容就结束。
+i ：不区分大小写，表示在查找匹配时忽略 pattern 和字符串的大小写。
+m ：多行模式，表示查找到一行文本末尾时会继续查找。
+y ：粘附模式，表示只查找从 lastIndex 开始及之后的字符串。
+u ：Unicode模式，启用Unicode匹配。
+s ： dotAll 模式，表示元字符 . 匹配任何字符（包括 \n 或 \r ）。
+
+6、RegExp 实例属性
+每个 RegExp 实例都有下列属性：
+global ：布尔值，表示是否设置了 g 标记。
+ignoreCase ：布尔值，表示是否设置了 i 标记。
+unicode ：布尔值，表示是否设置了 u 标记。
+sticky ：布尔值，表示是否设置了 y 标记。
+lastIndex ：整数，表示在源字符串中下一次搜索的开始位置，始终从0开始。
+multiline ：布尔值，表示是否设置了 m 标记。
+dotAll ：布尔值，表示是否设置了 s 标记。
+source ：正则表达式的字面量字符串（不是传给构造函数的模式字符串），没有开头和结尾的斜杠。
+flags ：正则表达式的标记字符串。始终以字面量而非传入构造函数的字符串模式形式返回（没有前后斜杠）。
+
+7、RegExp 实例方法
+1、RegExp 实例的主要方法是 exec() ，主要用于配合捕获组使用。这个方法只接收一个参数，即要应用模式的字符串。如果找到了匹配项，则返回包含第一个匹配信息的数组；如果没找到匹配项，则返回 null 。
+2、返回的数组虽然是 Array 的实例，但包含两个额外的属性： index 和 input 。 index 是字符串中匹配模式的起始位置， input 是要查找的字符串。这个数组的第一个元素是匹配整个模式的字符串，其他元素是与表达式中的捕获组匹配的字符串。如果模式中没有捕获组，则数组只包含一个元素。
+
+8、RegExp 构造函数属性
+1、RegExp 构造函数本身也有几个属性。这些属性适用于作用域中的所有正则表达式，而且会根据最后执行的正则表达式操作而变化。每个属性都有一个全名和一个简写。
+2、例：全名/ 简写 /说明
+input $_ 最后搜索的字符串
+lastMatch $& 最后匹配的文本
+lastParen $+ 最后匹配的捕获组
+leftContext $` input 字符串中出现在
+lastMatch 前面的文本
+rightContext $’ input 字符串中出现在lastMatch 后面的文本
+3、input 属性中包含原始的字符串。
+leftConext 属性包含原始字符串中 “short” 之前的内容，
+rightContext 属性包含 “short” 之后的内容。
+lastMatch 属性包含匹配整个正则表达式的上一个字符串，即 “short” 。 lastParen 属性包含捕获组的上一次匹配，即 “s” 。
+
+9、原始值包装类型
+为了方便操作原始值，ECMAScript提供了3种特殊的引用类型：
+Boolean 、 Number 和 String 。这些类型具有本章介绍的其他引用类型一样的特点，但也具有与各自原始类型对应的特殊行为。每当用到某个原始值的方法或属性时，后台都会创建一个相应原始包装类型的对象，从而暴露出操作原始值的各种方法。
+
+10、Boolean
+1、Boolean 是对应布尔值的引用类型。要创建一个 Boolean 对象，就使用 Boolean 构造函数并传入 true 或 false：let booleanObject = new Boolean(true);
+2、Boolean 的实例会重写 valueOf() 方法，返回一个原始值 true 或 false 。 toString() 方法被调用时也会被覆盖，返回字符串 “true” 或 “false” 。不过， Boolean 对象在ECMAScript中用得很少。不仅如此，它们还容易引起误会，尤其是在布尔表达式中使用Boolean 对象时。
+
+11、Number
+1、Number 是对应数值的引用类型。要创建一个 Number 对象，就使用 Number 构造函数并传入一个数值：let numberObject = new Number(10);
+2、与 Boolean 类型一样， Number 类型重写了 valueOf() 、 toLocaleString() 和 toString() 方法。 valueOf() 方法返回Number 对象表示的原始数值，另外两个方法返回数值字符串。toString() 方法可选地接收一个表示基数的参数，并返回相应基数形式的数值字符串。
+
+12、String
+1、String 是对应字符串的引用类型。要创建一个 String 对象，使用 String 构造函数并传入一个数值：let stringObject = new String(“hello world”);
+2、String 对象的方法可以在所有字符串原始值上调用。3个继承的方法 valueOf() 、toLcaleString() 和 toString() 都返回对象的原始字符串值。每个 String 对象都有一个 length 属性，表示字符串中字符的数量。
+
+13、单例内置对象
+1、内置对象包括 Object 、 Array 和 String ，单例内置对象： Global 和 Math 。
+2、Global 对象是ECMAScript中最特别的对象，因为代码不会显式地访问它。
+isNaN() 、 isFinite() 、 parseInt() 和 parseFloat() ，实际上都是 Global 对象的方法。
+3、Global 对象属性：
+Global 对象有很多属性：undefined 、 NaN 和 Infinity 等特殊值都是 Global 对象的属性。此外，所有原生引用类型构造函数，比如 Object 和 Function ，也都是 Global 对象的属性。
+4、例：
+属性 / 说明
+undefined 特殊值 undefined
+NaN 特殊值 NaN
+Infinity 特殊值 Infinity
+Object Object 的构造函数
+Array Array 的构造函数
+Function Function 的构造函数
+Boolean Boolean 的构造函数
+String String 的构造函数
+Number Number 的构造函数
+Date Date 的构造函数
+RegExp RegExp 的构造函数
+Symbol Symbol 的伪构造函数
+Error Error 的构造函数
+EvalError EvalError 的构造函数
+RangeError RangeError 的构造函数
+ReferenceError ReferenceError 的构造函数
+SyntaxError SyntaxError 的构造函数
+TypeError TypeError 的构造函数
+URIError URIError 的构造函数
+
+14、Math
+1、ECMAScript提供了 Math 对象作为保存数学公式、信息和计算的地方。 Math 对象提供了一些辅助计算的属性和方法。
+2、Math 对象属性
+Math 对象有一些属性，主要用于保存数学中的一些特殊值。
+3、min() 和 max() 方法
+Math 对象也提供了很多辅助执行简单或复杂数学计算的方法。min() 和 max() 方法用于确定一组数值中的最小值和最大值。这两个方法都接收任意多个参数。
+4、 舍入方法
+接下来是用于把小数值舍入为整数的4个方法： Math.ceil() 、 Math.floor() 、 Math.round() 和 Math.fround() 。这几个方法处理舍入的方式如下：
+Math.ceil() 方法始终向上舍入为最接近的整数。
+Math.floor() 方法始终向下舍入为最接近的整数。
+Math.round() 方法执行四舍五入。
+
+15、random() 方法
+Math.random() 方法返回一个0~1范围内的随机数，其中包含0但不包含1。对于希望显示随机名言或随机新闻的网页，这个方法是非常方便的。
+
+16、总：
+1、引用值与传统面向对象编程语言中的类相似，但实现不同。Date 类型提供关于日期和时间的信息，包括当前日期、时间及相关计算。
+RegExp 类型是ECMAScript支持正则表达式的接口，提供了大多数基础的和部分高级的正则表达式功能。
+2、由于原始值包装类型的存在，JavaScript中的原始值可以被当成对象来使用。有3种原始值包装类型： Boolean 、 Number 和 String 。它们都具备如下特点。
+每种包装类型都映射到同名的原始类型。
+以读模式访问原始值时，后台会实例化一个原始值包装类型的对象，借助这个对象可以操作相应的数据。
+涉及原始值的语句执行完毕后，包装对象就会被销毁。
+3、当代码开始执行时，全局上下文中会存在两个内置对象： Global 和 Math 。其中， Global 对象在大多数ECMAScript实现中无法直接访问。不过，浏览器将其实现为 window 对象。所有全局变量和函数都是Global 对象的属性。 Math 对象包含辅助完成复杂计算的属性和方法。
