@@ -1,4 +1,6 @@
-时间data:
+# 第五章
+
+### 1.时间data:
 
 创建方法let now = new Date();
 
@@ -106,232 +108,822 @@ getTimezoneOffset()返回以分钟计的UTC与本地时区的偏移量（如美�
 
 
 
-大多数引用值使用的Object类型，Object是最常用的类型之一。
+#  第六章
 
-显式地创建 Object 的实例有两种方式。第一种是使用 new 操作符和 Object 构造函数，如下所示：
+## 1.1 Object
 
+### 1.1.1 new操作符
+
+``` js
 let person = new Object(); 
-
 person.name = "Nicholas"; 
-
 person.age = 29;
+```
 
-还有一种是对象字面量表示法：
+### 1.1.2 对象字面量
 
-let arr={name:'asdf',age:20};
+对象字面量是对象定义的简写形式，目的是为了简化包含大量属性的对象的创建。
 
-实际开发中更倾向对象字面量表示法。
+``` js
+let person = { 
+    name: "Nicholas", 
+    age: 29 
+};
+```
 
-function displayInfo(args) { 
+也可以使用字符串、数字、bool类型来定义。
 
-let output = ""; 
+``` js
+let person = { 
+    "name": "Nicholas", 
+    "age": 29, 
+    5: true,
+	true: 123,
+    false: 321
+};
+person[5];	//true
+person[true];	//123
+person[false];	//321
+```
 
-if (typeof args.name == "string"){ 
+但要注意此类情况（后值覆盖前值）：
 
-output += "Name: " + args.name + "\n"; 
-
+``` js
+let person = { 
+    "name": "Nicholas", 
+    "age": 29, 
+    5: true,
+	true: 123,
+    true: 555,
+    name: 'jack'
+};
+// 最后person变为
+{
+    5: true, 
+    name: "jack", 
+    age: 29, 
+    true: 555
 }
+```
 
-if (typeof args.age == "number") { 
+**思考：**
 
-output += "Age: " + args.age + "\n"; 
+``` js
+let person = {
+    5:15,
+    true: 'yes',
+    false: 'no'
+};
+person.5;	// ?
+person.true;	// ?
+person.false;	// ?
 
+person.__proto__ === ?;
+person.__proto__.constructor === ?;
+
+let person = new Object();
+person.__proto__ === ?;
+person.__proto__.constructor === ?;
+```
+
+### 1.1.3 访问/设置方式
+
+> **点语法**
+
+``` js 
+let person = { 
+	"name": "Nicholas", 
+	"age": 29, 
+	5: true,
+	true: 123
+};
+person.name;	//"Nicholas"
+person.age;		//29
+person.name = 'jack';
+person.age = 30;
+person.true;	//对吗？
+person.5;	//对吗？
+```
+
+> **中括号**
+
+``` js
+let person = { 
+	"name": "Nicholas", 
+	"age": 29, 
+	5: true,
+	true: 123
+};
+person['name'];	//"Nicholas"
+person['age'];		//29
+person['name'] = 'jack';
+person['age'] = 30;
+person[true];	//对吗？
+person[5];	//对吗？
+```
+
+
+**思考：可以这样定义吗？如果可以，那么怎么访问name属性值呢？**
+
+``` js
+let name = {
+    firstName: '张',
+    lastName: '三'
+};
+let person = {
+    [name]: '张三'
 }
+```
 
-alert(output); 
+## 1.2 Array
 
+### 1.2.1 Array构造函数
+
+``` js
+let colors = new Array();	//表示创建一个空数组
+colors.length;	//0
+
+let colors = new Array(5);	//表示创建一个长度为5的空数组
+colors.length;	//5
+colors[0];	//undefined
+let colors = Array(5); //不用new也可以
+
+let colors = new Array("red", "blue", "green");	//表示创建一个数组，并传入三个值
+colors.length;	//3
+colors[0];	//"red"
+let names = Array("Greg"); //不用new也可以
+```
+
+**思考：**
+
+``` js
+let colors = new Array(3);
+colors[0];	//？
+colors.length;	//？
+```
+
+### 1.2.2 数组字面量
+
+``` js
+let colors = ["red", "blue", "green"]; // 创建一个包含3个元素的数组
+let names = []; // 创建一个空数组
+let values = [1,2,]; // 创建一个包含2个元素的数组
+let ages = [,,,];	//创建一个包含3个三个空元素的数组
+colors.length = 2;	//改变数组长度
+colors[2];	//undefined
+```
+
+**思考：**
+
+``` js
+let cars = [1,2,,,];
+cars.length;	//?
+
+let cats = [1,2,,,5];
+cats.length;	//?
+cats[cats.length - 1];	//?
+
+let dogs = [1,2,3];
+dogs.length = 5;
+dogs.length;	//?
+dogs[dogs.length - 1];	//?
+```
+
+### 1.2.3 Array.from
+
+第一个参数是一个类数组对象，即任何可迭代的结构，或者有一个 length 属性和可索引元素的结构。
+
+``` js
+// 字符串会被拆分为单字符数组 
+console.log(Array.from("Matt")); // ["M", "a", "t", "t"]
+
+// 可以使用from()将集合和映射转换为一个新数组
+const s = new Set().add(1).add(2).add(3).add(4);
+console.log(Array.from(s)); // [1, 2, 3, 4]
+
+// Array.from()对现有数组执行浅复制
+const a1 = [1, 2, 3, 4]; 
+const a2 = Array.from(a1);
+console.log(a1); // [1, 2, 3, 4]
+a1 === a2; // false
+a2.push(5);
+a1.length;	//?
+
+// arguments对象可以被轻松地转换为数组
+function getArgsArray() { 
+    return Array.from(arguments); 
 }
+console.log(getArgsArray(1, 2, 3, 4)); // [1, 2, 3, 4]
 
-displayInfo({ 
+// from()也能转换带有必要属性的自定义对象
+const arrayLikeObject = { 0: 1, 1: 2, 2: 3, 3: 4, length: 4 };
+console.log(Array.from(arrayLikeObject)); // [1, 2, 3, 4]
 
-name: "Nicholas", 
+//没有length的对象不行，因为会将0,1,2,3当做对象的key，而不当做是下标
+const arrayLikeObject = { 0: 1, 1: 2, 2: 3, 3: 4 };
+console.log(Array.from(arrayLikeObject)); // []
+```
 
-age: 29 
+**思考：**
 
-}); 
+``` js
+const arrayLikeObject = { 3: 1, 1: 2, 2: 3, 0: 4,length:4 };	//下标打乱顺序
+console.log(Array.from(arrayLikeObject)); //?
 
-displayInfo({ 
+const arrayLikeObject = { 3: 1, 1: 2, 2: 3, 0: 4,length:6 };	//长度多了2
+console.log(Array.from(arrayLikeObject)); //?
 
-name: "Greg" 
+const arrayLikeObject = { 3: 1, 1: 2, 2: 3, 0: 4,length:2 };	//长度只有2
+console.log(Array.from(arrayLikeObject)); //?
 
+//转换一个没有length的对象
+const arrayLikeObject = { a:1, b:2 };
+console.log(Array.from(arrayLikeObject)); //?
+
+//转换一个有length的对象
+const arrayLikeObject = { a:1, b:2, length:3 };
+console.log(Array.from(arrayLikeObject)); //?
+```
+
+### 1.2.4 Array.of
+
+`Array.of() `可以把一组参数转换为数组。这个方法用于替代在ES6之前常用的`Array.prototype.slice.call(arguments)`。
+
+``` js
+console.log(Array.of(1, 2, 3, 4)); // [1, 2, 3, 4] 
+console.log(Array.of(undefined)); // [undefined]
+```
+
+### 1.2.5 检测数组
+
+``` js
+[] instanceof Array;	// true
+Array.isArray([]);	//true
+```
+
+思考：
+
+``` js
+(new Array() instanceof Array);	//?
+(Array.isArray(new Array()));	//?
+```
+
+### 1.2.6 fill
+
+使用`fill()`方法可以向一个已有的数组中插入全部或部分相同的值。开始索引用于指定开始填充的位置，它是可选的。如果不提供结束索引，则一直填充到数组末尾。
+
+[^负值索引]: 负值索引从数组末尾开始计算，也可以将负索引想象成数组长度加上它得到的一个正索引。
+
+``` js
+const zeroes = [0, 0, 0, 0, 0]; // 用5填充整个数组
+zeroes.fill(5);
+console.log(zeroes); // [5, 5, 5, 5, 5]
+
+// 用6填充索引大于等于3的元素
+zeroes.fill(0); // 重置
+zeroes.fill(6, 3); 
+console.log(zeroes); // [0, 0, 0, 6, 6]
+
+// 用7填充索引大于等于1且小于3的元素
+zeroes.fill(0); // 重置
+zeroes.fill(7, 1, 3);
+console.log(zeroes); // [0, 7, 7, 0, 0];
+
+// 用8填充索引大于等于1且小于4的元素
+// (-4 + zeroes.length = 1)
+// (-1 + zeroes.length = 4)
+zeroes.fill(8, -4, -1); 
+console.log(zeroes); // [0, 8, 8, 8, 0];
+```
+
+> **`fill()`静默忽略超出数组边界、零长度及方向相反的索引范围**
+
+[^fill()]: 注解如下：
+
+``` js
+const zeroes = [0, 0, 0, 0, 0]; 
+zeroes.fill(1, -10, -6);	// 索引过低，忽略
+console.log(zeroes); // [0, 0, 0, 0, 0] 
+zeroes.fill(1, 10, 15);		// 索引过高，忽略
+console.log(zeroes);	// [0, 0, 0, 0, 0] 
+zeroes.fill(2, 4, 2);	// 索引反向，忽略
+console.log(zeroes); // [0, 0, 0, 0, 0]
+zeroes.fill(4, 3, 10);	// 索引部分可用，填充可用部分 
+console.log(zeroes); 	// [0, 0, 0, 4, 4]
+```
+
+**思考：**
+
+``` js
+const zeroes = [0, 0, 0, 0, 0]; 
+zeroes.fill(1, -10, -1);
+console.log(zeroes);	//?
+
+const zeroes = [0, 0, 0, 0, 0]; 
+zeroes.fill(1, -10, 20);
+console.log(zeroes);	//?
+```
+
+### 1.2.7 copyWithin
+
+`copyWithin()`会按照指定范围浅复制数组中的部分内容，然后将它们插入到指定索引开始的位置。开始索引和结束索引则与`fill()`使用同样的计算方法。
+
+``` js
+let ints = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+// 从ints中复制索引0开始的内容，插入到索引5开始的位置
+// 在源索引或目标索引到达数组边界时停止
+ints.copyWithin(5); 
+console.log(ints); // [0, 1, 2, 3, 4, 0, 1, 2, 3,4]
+
+let ints = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+// 从ints中复制索引5开始的内容，插入到索引0开始的位置
+ints.copyWithin(0, 5); 
+console.log(ints); // [5, 6, 7, 8, 9, 5, 6, 7, 8, 9]
+
+let ints = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+// 从ints中复制索引大于0并且小于3的内容
+// 插入到索引4开始的位置
+ints.copyWithin(4, 0, 3); 
+console.log(ints); // [0, 1, 2, 3, 0, 1, 2, 7, 8, 9]
+
+let ints = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+ints.copyWithin(2, 0, 6); 
+console.log(ints); // [0, 1, 0, 1, 2, 3, 4, 5, 8, 9]
+
+// 支持负索引值，与fill()相对于数组末尾计算正向索引的过程是一样的
+let ints = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+ints.copyWithin(-4, -7, -3); 
+console.log(ints); // [0, 1, 2, 3, 4, 5, 3, 4, 5, 6]
+```
+
+> **静默忽略超出数组边界、零长度及方向相反的索引范围（同[^fill()]方法一样）**
+
+### 1.2.8 reverse
+
+严格意义上来讲，`reverse`不是排序方法，它只是数组颠倒方法，可以将数组的顺序颠倒过来。
+
+``` js
+// 书中的例子，只是作为反向排序讲解，不够全面
+let values = [1, 2, 3, 4, 5]; 
+values.reverse();
+console.log(values); // [5,4,3,2,1]
+
+let numbers = [5,1,2,6,3];
+numbers.reverse();
+console.log(numbers); // [3, 6, 2, 1, 5]
+
+let chars = ['c','b','d','a','w'];
+chars.reverse();
+console.log(chars); // ["w", "a", "d", "b", "c"]
+
+let objs = [{a:1}, {a:5}, {a:3}];
+objs.reverse();
+console.log(objs);	// [{a:3},{a:5},{a:1}]
+```
+
+### 1.2.9 sort
+
+`sort()`方法可以接收一个比较函数，用于判断哪个值应该排在前面。比较函数接收两个参数，如果第一个参数应该排在第二个参数前面，就返回负值；如果两个参数相等，就返回0；如果第一个参数应该排在第二个参数后面，就返回正值。
+
+``` js
+let values = [0, 1, 5, 10, 15];
+values.sort();	// 不传比较函数出来的结果是不正常的
+console.log(values); // 0,1,10,15,5
+
+let values = [15, 1, 10, 5, 0];
+values.sort(function (value1, value2) {
+    if (value1 < value2) {
+        return -1;
+    }
+    else if (value1 > value2) {
+        return 1;
+    }
+    return 0;
 });
+console.log(values); // 0,1,5,10,15
+
+//使用箭头函数简写
+let values = [15, 1, 10, 5, 0];
+values.sort((a, b) => a < b ? -1 : a > b ? 1 : 0);
+console.log(values); // 0,1,5,10,15
+
+//最简单的方法
+let values = [15, 1, 10, 5, 0];
+values.sort((a, b) => a - b);
+console.log(values); // 0,1,5,10,15
+```
+
+**思考：**
+
+``` js
+let values = [15, 1, 10, 5, 0];
+//使用function的方式写一个反向排序方法
+
+//使用箭头函数简写
+let values = [15, 1, 10, 5, 0];
+//使用箭头函数简写的方式写一个反向排序方法
+
+//最简单的方法
+let values = [15, 1, 10, 5, 0];
+//使用最简单的方法写一个反向排序方法
+```
+
+### 1.2.10 concat
+
+`concat()`方法可以在现有数组全部元素基础上创建一个新数组。它首先会创建一个当前数组的副本，然后再把它的参数添加到副本末尾，最后返回这个新构建的数组。
 
-创建数组：
+``` js
+let colors = ["red", "green", "blue"]; 
+let colors2 = colors.concat("yellow", ["black", "brown"]); 
+console.log(colors); // ["red", "green","blue"]
+console.log(colors2); // ["red", "green", "blue", "yellow", "black", "brown"]
+
+//不能添加第二层的数据
+let colors = ["red", "green", "blue"]; 
+let colors2 = colors.concat("yellow", ["black", "brown"],"aaa",["bbb",'ccc', ['a','b',['c']]]);
+console.log(colors2);	//["red", "green", "blue", "yellow", "black", "brown", "aaa", "bbb", "ccc", Array(3)]
+```
 
-let arr=new Array();
+### 1.2.11 slice
+
+`slice()`用于创建一个包含原有数组中一个或多个元素的新数组。`slice()`方法可以接收一个或两个参数：返回元素的开始索引和结束索引。如果只有一个参数，则 `slice()`会返回该索引到数组末尾的所有元素。如果有两个参数，则`slice()` 返回从开始索引到结束索引对应的所有元素，其中不包含结束索引对应的元素。
 
-当在构造函数传入一个数值，会创建一个length为你传入的数值的数值
+``` js
+let colors = ["red", "green", "blue", "yellow", "purple"]; 
+let colors2 = colors.slice(1); 
+let colors3 = colors.slice(1, 4);
+console.log(colors2);	// ["green", "blue", "yellow", "purple"
+console.log(colors3);	// ["green", "blue", "yellow"]
+console.log(colors);	// ["red", "green", "blue", "yellow", "purple"]
+```
 
-let arr=new Array(10);
+> - `slice()`的[^负值索引]跟`fill()`负值索引计算方式一样。
+>
+> - 静默忽略超出数组边界、零长度及方向相反的索引范围也跟[^fill()]方法的一样。
 
-let colors = new Array(3); *//* *创建一个包含**3**个元素的*数组*
+**思考：**
 
-let names = new Array("Greg"); *//* *创建一个只包含一个元*素，即字符串**"Greg"**的数组*
+``` js
+let numbers = [1,2,3,4,5];
+console.log(numbers.slice(-5));		//?
+console.log(numbers.slice(-5,-1));	//?
+console.log(numbers.slice(-30));	//?
+console.log(numbers.slice(-3,-5));	//?
+```
 
-在使用 Array 构造函数时，也可以省略 new 操作符。结果是一样
+### 1.2.12 splice
 
-的，比如：
+`splice()`是个非常强大的方法，可删除，替换，增加（**需非常熟悉**）。
 
-let colors = Array(3); *//* *创建一个包含**3**个元素的数组*
+- **删除**
 
-let names = Array("Greg"); *//* *创建一个只包含一个元素，即*
+  需要给 `splice()` 传2个参数：要删除的第一个元素的位置和要删除的元素数量。从原数组中删除任意多个元素，并返回一个数组，返回的数组包含删除的项。比如`splice(0, 2)` 会删除原数组前两个元素，并返回一个数组，数组中包含前两个已删除的项。
 
-*字符串**"Greg"**的数组*
+  ``` js
+  let colors = ["red", "green", "blue"]; 
+  let removed = colors.splice(0,1); // 删除第一项，并将第一项返回
+  console.log(colors);	// ["green", "blue"]
+  console.log(removed);	// ["red"]
+  
+  let colors = ["red", "green", "blue"]; 
+  let removed = colors.splice(-3);
+  console.log(colors);	// []
+  console.log(removed);	// ["red", "green", "blue"]
+  
+  let colors = ["red", "green", "blue"]; 
+  let removed = colors.splice(-3,2);
+  console.log(colors);	// ["blue"]
+  console.log(removed);	// ["red", "green"]
+  ```
+
+- **插入**
+
+  需要给 `splice()` 传3个参数：开始位置、0（要删除的元素数量）和要插入的元素，可以在数组中指定的位置插入元素。第三个参数之后还可以传第四个、第五个参数，乃至任意多个要插入的元素。比如，`splice(2, 0, "red", "green")` 会从数组位置2开始插入字符串 "red" 和 "green" 。
+
+  ``` js
+  let colors = ["red", "green", "blue"]; 
+  let removed = colors.splice(1, 0, "yellow", "orange"); // 在位置1插入两个元素
+  console.log(colors);	// ["red", "yellow", "orange", "green", "blue"]
+  console.log(removed);	// []
+  ```
 
-另一种创建数组的方式是使用数组字面量（array literal）表示法。数
+- **替换**
 
-组字面量是在中括号中包含以逗号分隔的元素列表，如下面的例子所示：
+  `splice()` 在删除元素的同时可以在指定位置插入新元素，样要传入3个参数：开始位置、要删除元素的数量和要插入的任意多个元素。要插入的元素数量不一定跟删除的元素数量一致。比如，`splice(2, 1, "red", "green")` 会在位置2删除一个元素，然后从该位置开始向数组中插入 "red" 和 "green"。
+
+  ``` js
+  let colors = ["red", "green", "blue"]; 
+  let removed = colors.splice(1, 1, "red", "purple"); // 插入两个值，删除一个元素
+  console.log(colors);	// ["red", "red", "purple", "blue"]
+  console.log(removed);	// ["green"]
+  ```
+
+  **思考：**
 
-let colors = ["red", "blue", "green"]; *//* *创建一个包*含**3**个元素的数组*
+  ```   js
+  let colors = ["red", "green", "blue"];
+  //写一个方法将colors所有的内容清空并替换为["yellow", "white"]
+  ```
+
+### 1.2.13 寻找下标
+
+- **indexOf**
+
+  从左到右搜索第一个===的下标。
+
+  ``` js
+  [1,2,3].indexOf(1);	// 0
+  [1,2,3].indexOf('1');	// -1，因为不全等，找不到就返回-1
+  [1,2,3,1,5,6].indexOf(1, 2);	// 3，第二个参数是从x下标开始搜索
+  ```
+
+- **lastIndexOf**
+
+  从右往左搜索第一个===的下标。
 
-let names = []; *//* *创建一个空*数组*
+  ``` js
+  [1,2,3,1,5,7].lastIndexOf(1);	// 3
+  [1,2,3,1,5,7,1,5].lastIndexOf(1, 100);	// 6 第二个参数是从x下标开始搜索
+  [1,2,3,1,5,7,1,5].lastIndexOf(1, 5);	// 3
+  ```
+
+**思考：**
 
-let values = [1,2,]; *//* *创建一个包**含**2**个元素的数组*
+``` js
+[1,2,3,1,5,6].indexOf(1, -2);	// ?
+[1,2,3,1,5,6].indexOf(1, -3);	// ?
+[1,2,3,1,5,7,1,5].lastIndexOf(1, -7);	// ?
+[1,2,3,1,5,7,1,5].lastIndexOf(1, -5);	// ?
+```
+
+### 1.2.14 includes
+
+判断数组内是否有===的项。
+
+``` js
+[1,2,3,4,5,6].includes(1);	// true
+[1,2,3,4,5,6].includes('1');	// false，因为不全等
+[1,2,3,4,5,6].includes(8);	// false
+```
+
+### 1.2.15 find
+
+根据条件查找数组内的单个项。
+
+``` js
+[1,2,3].find(c=> c === 1);	// 1
+[1,2,3].find(c=> c == '1');	// 1
+[1,2,3].find(c=> c === 5);	// undefined
+[1,2,3].find(c=> c > 1);	// 2
+
+const people = [{
+    name: "Matt",
+    age: 27
+},
+{
+    name: "Nicholas",
+    age: 29
+}];
+//三个参数分别是：当前遍历的项、当前下标、原始数组。
+let p = people.find((element, index, array) => {
+    console.log(element, index, array);
+    return element.age > 28;
+});
+console.log(p);		// {name: "Nicholas", age: 29}
+```
+
+### 1.2.16 findIndex
+
+根据条件查找数组内匹配项的下标。
+
+``` js
+[1,2,3].findIndex(c=> c === 3);	// 2
+[1,2,3].findIndex(c=> c === 5);	// -1
+[1,2,3].findIndex(c=> c > 1);	// 1
+```
+
+### 1.2.17 every
+
+验证数组内每一个项是否匹配。
+
+``` js
+[1,2,3].every(c=> c === 3);	// false
+[1,2,3].every(c=> c > 0);	// true
+[1,2,3].every(c=> c < 10);	// true
+[1,1,1].every(c=> c === 1);	// true
+[1, 2, 3, 4, 5, 4, 3, 2, 1].every((item, index, array) => item > 2);    // false
+```
+
+### 1.2.18 some
+
+验证数组内某一个项是否匹配。
+
+``` js
+[1,2,3].some(c=> c === 3);	// true
+[1,2,3].some(c=> c > 0);	// true
+[1,2,3].some(c=> c < 10);	// true
+[1,1,1].some(c=> c === 1);	// true
+[1,2,3].some(c=> c === 5);	// false
+[1, 2, 3, 4, 5, 4, 3, 2, 1].some((item, index, array) => item > 2);     // true
+```
 
+### 1.2.19 filter
 
+创建一个新数组，根据条件将搜索匹配的项放入至新数组内，并将此数组返回。
 
+``` js
+[1,2,3].filter(c=> c > 1);	// [2,3]
+[1,2,3].filter(c=> c > 5);	// []
+[1,2,3].filter(c=> c === 3);	// [3]
+[1, 2, 3, 4, 5, 4, 3, 2, 1].filter((item, index, array) => item > 2);	//[3, 4, 5, 4, 3]
+```
 
+### 1.2.20 forEach
 
-ECMAScript 6新增的 Set 是一种新集合类型，为这门语言带来集合数据结构。 Set 在很多方面都像是加强的 Map ，这是因为它们的大多数API和行为都是共有的。
+遍历每一个数组，传入回调函数，可对每一个项进行操作。
 
-const m = new Set()
+``` js
+[1, 2, 3].forEach(c => {
+    console.log(c * 2);
+});
+// 2 4 6
 
-*//* *使用数组初始化集合*
+[1, 2, 3].forEach((item, index, array) => {
+    console.log(item * index);
+});
+// 0 2 6
+```
 
-const s1 = new Set(["val1", "val2", "val3"]); 
+**思考：**
 
-alert(s1.size); *// 3* 
+``` js
+let numbers = [{ a: 1 }, { a: 2 }, { a: 3 }];
+numbers.forEach((item, index, array) => {
+    if (item.a > 1) {
+        item.a = index;
+    }
+});
+console.log(numbers);	// ?
+```
 
-*//* *使用自定义迭代器初始化集合* 
+### 1.2.21 flat
 
-const s2 = new Set({ 
+将多维数组扁平化，并返回一个新数组。方法接受一个数值，表示要扁平化的数组维度。
 
-[Symbol.iterator]: function*() { 
+``` js
+let ary = [1, [2, [3, [4, 5]]], 6];
+console.log(ary.flat(1));	// [1, 2, Array(2), 6]
+console.log(ary.flat());	// [1, 2, Array(2), 6]，不传参默认为1
+console.log(ary.flat(2));	// [1, 2, 3, Array(2), 6]
+console.log(ary.flat(3));	// [1, 2, 3, 4, 5, 6]
+console.log(ary.flat(100));	// [1, 2, 3, 4, 5, 6]，可以超过维度深度，超过则会扁平化所有维度
+console.log(ary);	// [1, Array(2), 6]
+```
 
-yield "val1"; 
+### 1.2.22 map
 
-yield "val2"; 
+遍历数组，针对每一个项返回一个新值，将新值放进新数组里，最后将新数组返回。
 
-yield "val3"; 
+``` js
+[1, 2, 3].map(c => {
+    return c * 2;
+});	// [2,4,6]
 
-} 
+[1, 2, 3].map(c => {
+    return 2;
+});	// [2,2,2]
 
-}); 
+[1, 2, 3].map((item, index, array) => {
+    return item * index;
+});	// [0,2,6]
 
-alert(s2.size); *// 3*
+[{ a: 1 }, { a: 2 }, { a: 3 }, { a: 4 }, { a: 5 }].map(c => c.a);	// [1, 2, 3, 4, 5]
+```
 
+**思考：**
 
+``` js
+[1, 2, 3].map((item, index, array) => {
+    return index;
+});	// ?
 
-初始化之后，可以使用 add() 增加值，使用 has() 查询，通过
+[1, 2, 3].map((item, index, array) => {
+    return index * array.length;
+});	// ?
 
-size 取得元素数量，以及使用 delete() 和 clear() 删除元素：
+let numbers =[{ a: 1 }, { a: 2 }, { a: 3 }, { a: 4 }, { a: 5 }];
+//请使用map方法将numbers数据变为[3,6,9,12,15]
 
-const s = new Set(); 
+//请使用map方法将numbers数据变为[3,6,9,8,10]
 
-alert(s.has("Matt")); *// false* 
+let numbers = [{ a: 1, b: 10 }, { a: 2, b: 10 }, { a: 3, b: 10 }, { a: 4, b: 10 }, { a: 5, b: 10 }];
+//请使用map方法将numbers数据变为[9,8,7,6,5]
+```
 
-alert(s.size); *// 0* 
+### 1.2.23 join
 
-s.add("Matt") 
+数组拼接成字符串方法，方法传入拼接关键字。
 
-.add("Frisbie"); 
+``` js
+[1,2,3].join(',');	// '1,2,3'
+```
 
-alert(s.has("Matt")); *// true* 
+**思考：**
 
-alert(s.size); *// 2* 
+``` js
+[{ a: 1 }, { a: 2 }].join(',');	// ?
 
-s.delete("Matt");alert(s.has("Matt")); *// false* 
+let persons = [{ age: 50 }, { age: 12 }, { age: 30 }];
+//请写一个方法将persons变为 '12,30,50'
+```
 
-alert(s.has("Frisbie")); *// true* 
+### 1.2.24 pop
 
-alert(s.size); *// 1* 
+从原数组取出最后一个项。
 
-s.clear(); *//* *销毁集合实例中的所有值*
+``` js
+let numbers = [1,2,3,4,5];
+numbers.pop();	// 5
+console.log(numbers);   // [1,2,3,4]
 
-alert(s.has("Matt")); *// false* 
+let empty = [];
+empty.pop();	// undefined
+console.log(empty);	// []
+```
 
-alert(s.has("Frisbie")); *// false* 
+### 1.2.25 shift
 
-alert(s.size); *// 0* 
+从原数组取出第一个项。
 
-add() 返回集合的实例，所以可以将多个添加操作连缀起来，包括
+``` js
+let numbers = [1,2,3,4,5];
+numbers.shift();    // 1
+console.log(numbers);   // [2,3,4,5]
+```
 
-初始化：
+### 1.2.26 unshift
 
-const s = new Set().add("val1"); 
+在原数组的头部添加随意数量的项，并返回添加后数组的长度。
 
-s.add("val2") 
+``` js
+let numbers = [1, 2, 3, 4, 5];
+let length = numbers.unshift(7, 8, 9);
+console.log(length);    // 8
+console.log(numbers);   // [7, 8, 9, 1, 2, 3, 4, 5]
+```
 
-.add("val3"); 
+## 1.3 Set
 
-alert(s.size); *// 3* 
+Set是一个无法添加重复值的集合。
 
-与 Map 类似， Set 可以包含任何JavaScript数据类型作为值。集合也
+``` js
+const set = new Set();	//创建一个空集合
 
-使用SameValueZero操作（ECMAScript内部定义，无法在语言中使用），
+const s1 = new Set(["val1", "val2", "val3"]);	// 使用数组初始化集合
+console.log(s1.size);		// 3,长度访问跟数组的length不一样
+s1.add("Matt").add("Frisbie");	//可以链式添加
+s1.has('Matt');	// true，是否存在指定的项
+console.log(s1);	// Set(5) {"val1", "val2", "val3", "Matt", "Frisbie"}
+s1.add("Matt");
+console.log(s1);	// Set(5) {"val1", "val2", "val3", "Matt", "Frisbie"}，无法添加重复项
 
-基本上相当于使用严格对象相等的标准来检查值的匹配性。
+let deleted = s1.delete('Matt');	// delete方法返回删除结果
+console.log(deleted);   // true
+console.log(s1);    // Set(4) {"val1", "val2", "val3", "Frisbie"}
 
-const s = new Set(); 
+deleted = s1.delete('Matt');
+console.log(deleted);   // false，无法重复删除
 
-const functionVal = function() {}; 
+//可通过for of访问每个项
+for (let item of s1) {
+    console.log(item);
+}
+//val1 val2  val3 Frisbie
 
-const symbolVal = Symbol(); 
+//也可通过forEach方法访问
+s1.forEach(item => console.log(item));
+```
 
-const objectVal = new Object();s.add(functionVal); 
+> **Set的经典应用-去重**
 
-s.add(symbolVal); 
+``` js
+let numbers = [1, 2, 3, 5, 6, 1, 2, 3];
+numbers = Array.from(new Set(numbers));
+console.log(numbers);   // [1, 2, 3, 5, 6]
+```
 
-s.add(objectVal); 
+**思考：**
 
-alert(s.has(functionVal)); *// true* 
+``` js
+let chars = ['a', 'b', 'c', 'a', 'c', 'd'];
+// 将chars去重
+```
 
-alert(s.has(symbolVal)); *// true* 
+**作业：**
 
-alert(s.has(objectVal)); *// true* 
+``` js
+let objs = [{ count: 20 }, { count: 66 }, { count: 16 }, { count: 30 }, { count: 5 }, { count: 20 }, { count: 66 }];
+//使用objs打印 "5,16,20,30,66"
 
-*// SameValueZero**检查意味着独立的实例不会冲突*
-
-alert(s.has(function() {})); *// false*
-
-与严格相等一样，用作值的对象和其他“集合”类型在自己的内容或属
-
-性被修改时也不会改变：
-
-const s = new Set(); 
-
-const objVal = {}, 
-
-arrVal = []; 
-
-s.add(objVal); 
-
-s.add(arrVal); 
-
-objVal.bar = "bar"; 
-
-arrVal.push("bar"); 
-
-alert(s.has(objVal)); *// true* 
-
-alert(s.has(arrVal)); *// true* 
-
-add() 和 delete() 操作是幂等的。 delete() 返回一个布尔
-
-值，表示集合中是否存在要删除的值：const s = new Set(); 
-
-s.add('foo'); 
-
-alert(s.size); *// 1* 
-
-s.add('foo'); 
-
-alert(s.size); *// 1* 
-
-*//* *集合里有这个值*
-
-alert(s.delete('foo')); *// true* 
-
-*//* *集合里没有这个值*
-
-alert(s.delete('foo')); *// false* 
+//使用objs打印 "20,30,66"
+```
