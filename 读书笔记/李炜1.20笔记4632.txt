@@ -1,3 +1,54 @@
+# JavaScript
+
+JavaScript他是是一门用来与网页交互的脚本语言核心(ECMAScript)  由ECMA-262定义并提供核心功能 文档对象模型(DOM) 提供与网页内容交互的方法和接口浏览器对象模型(BOM) 提供与浏览器交互的方法和接口JavaScript的这三个部分得到了五大Web浏览器，IE、Firefox、Chrome、Safari和Opera，不同程度的支持。所有浏览器基本上对ES5（ECMAScript 5）提供了完善的支持，而对ES6（ECMAScript 6） 和ES7（ECMAScript 7）的支持度也在不断提升。这些浏览器对DOM的支持各不相同，但对Level 3的支持日益趋于规范。HTML5中收录的BOM会因浏览器而异，不过开发者仍然可以假定存在很大一部分公共特性
+
+JavaScript插入HTML的主要方法是使用 <script> 元素。这个元素是由网景公司创造出来，最早在Netscape Navigator 2中实现
+的。后来，这个元素被正式加入到HTML规范。 <script> 元素有下列8个属性。
+1、async 立即开始下载脚本，但不能阻止其他页面动作，比如下载资源或等待其他脚本加载。只对外部脚本文件有效
+2、charset 使用 src 属性指定的代码字符集。这个属性很少使用，因为大多数浏览器不在乎它的值。
+3、crossorigin 配置相关请求的CORS 跨源资源共享 设置。默认不使用CORS
+4、defer 表示在文档解析和显示完成后再执行脚本是没有问题的。只对外部脚本件有效
+5、integrity 允许比对接收到的资源和指定的加密签名以验证子资源完整性如果接收到的资源的签名与这个属性指定的签名不匹配，则页面会报错，脚本不会执行。这个属性可以用于确保内容分发网络
+6、language 废弃。最初用于表示代码块中的脚本语言
+7、src 包含要执行的代码的外部文件。
+8、type 代替 language ，表示代码块中脚本语言的内容类型（也称MIME类型）。按照惯例，这个值始终都是 "text/javascript" ，尽
+管 "text/javascript" 和 "text/ecmascript" 都已经废弃了。JavaScript文件的MIME类型通常是 "application/x- javascript" ，不过给type属性这个值有可能导致脚本被忽略。在非IE的浏览器中有效的其他值还有行内代码与外部文件 可以直接在HTML文件中嵌入JavaScript代码，但通常认为最佳实践是尽可能将JavaScript代码放在外部文件中。不过这个最佳实践并不是明确的强制性规则可维护性。JavaScript代码如果分散到很多HTML页面，会导致维护困难。而用一个目录保存所有JavaScript文件，则更容易维护，这样开发者就可以独立的编辑代码。缓存。浏览器会根据特定的设置缓存所有外部链接的JavaScript文件，这意味着如果两个页面都用到同一个文件，则该文件只需下
+载一次。这最终意味着页面加载更快。适应未来。通过把JavaScript放到外部文件中，就不必考虑用XHTML或前面提到的注释黑科技。包含外部JavaScript文件的语法在HTML和XHTML中是一样的
+
+#### 1.2语言基础
+
+1、区分大小写：ECMAScript中一切都区分大小写。无论是变量、函数名还是操作符，都区分大小写
+2、标识符：字母，数字，下划线 ,$
+3、注释 ： //单行注释  /**/ 多行注释
+4、严格模式：ECMAScript 5增加了严格模式（strict mode）的概念。严格模式是
+一种不同的JavaScript解析和执行模型，ECMAScript 3的一些不规范写
+法在这种模式下会被处理，对于不安全的活动将抛出错误。要对整个
+脚本启用严格模式，在脚本开头加上这一行
+5、语句：省略分号意味着由解析器确定  在哪里结尾在结尾加分号  if 条件输出语句； 
+6、变量 变量可以用于保存任何类型的数据。每个变量只不过是一个用于保存任意值的命名占位符。有3
+个关键字可以声明变量： var 、 const 和 let
+7、 do-while 语句是一种后测试循环语句，即循环体中的代码执行后才会对退出条件进行求值。换句话说，循环体内的代码至少执行一次
+8、while 语句是一种先测试循环语句，即先检测退出条件，再执行循环体内的代码。因此， while 循环体内的代码有可能不会执行
+9、for 语句也是先测试语句，只不过增加了进入循环之前的初始化代码，以及循环执行后要执行的表达式
+10、for-in 循环显示了BOM对象 window 的所有属性。每次执行循环，都会给变量 propName 赋予一个 window 对象
+的属性作为值，直到 window 的所有属性都被枚举一遍。与 for 循环一样，这里控制语句中的 const 也不是必需的。但为了确保这个局部变量不被修改，推荐使用 const
+11、for-of 语句显示了一个包含4个元素的数组中的所有元素。循环会一直持续到将所有元素都迭代完。与for 循环一样，这里控制语句中的 const 也不是必需的。但为了确保这个局部变量不被修改，推荐使用 const
+12、start 是一个标签，可以在后面通过 break 或 continue 语句引用。标签语句的典型应用场景是嵌套循环。
+13、reak 和 continue 语句为执行循环代码提供了更严格的控制手段。其中， break 语句用于立即退出循环，强制执行循环后的下一条语句。而 continue 语句也用于立即退出循环，但会再次从循环顶部开始执行
+14、with 语句的主要场景是针对一个对象反复操作，这时候将代码作用域设置为该对象能提供便利
+
+#### 1.3函数 
+
+函数对任何语言来说都是核心组件，因为它们可以封装语句，然后在任何地方、任何时间执行。ECMAScript中的函数使用function 关键字声明，后跟一组参数，然后是函数体。
+diff() 函数用于计算两个数值的差。如果第一个数值小于第二个，则用第二个减第一个；否则，就用第一个减第二个。代码中每个分支都有自己的 return 语句，返回正确的差值。
+return 语句也可以不带返回值。这时候，函数会立即停止执行并返回 undefined 。这种用法最常用于提前终止函数执行，并不是为了返回值
+严格模式对函数也有一些限制
+
+函数不能以 eval 或 arguments 作为名称；
+函数的参数不能叫 eval 或 arguments ；
+两个函数的参数不能叫同一个名称。
+如果违反上述规则，则会导致语法错误，代码也不会执行。
+
 # 第五章
 
 ### 1.时间data:
@@ -108,11 +159,11 @@ getTimezoneOffset()返回以分钟计的UTC与本地时区的偏移量（如美�
 
 
 
-#  第六章
+# 第六章
 
-## 1.1 Object
+## 1 Object
 
-### 1.1.1 new操作符
+### 1.1 new操作符
 
 ``` js
 let person = new Object(); 
@@ -120,7 +171,7 @@ person.name = "Nicholas";
 person.age = 29;
 ```
 
-### 1.1.2 对象字面量
+### 1.2 对象字面量
 
 对象字面量是对象定义的简写形式，目的是为了简化包含大量属性的对象的创建。
 
@@ -186,7 +237,7 @@ person.__proto__ === ?;
 person.__proto__.constructor === ?;
 ```
 
-### 1.1.3 访问/设置方式
+### 1.3 访问/设置方式
 
 > **点语法**
 
@@ -235,9 +286,9 @@ let person = {
 }
 ```
 
-## 1.2 Array
+## 2 Array
 
-### 1.2.1 Array构造函数
+### 2.1 Array构造函数
 
 ``` js
 let colors = new Array();	//表示创建一个空数组
@@ -262,7 +313,7 @@ colors[0];	//？
 colors.length;	//？
 ```
 
-### 1.2.2 数组字面量
+### 2.2 数组字面量
 
 ``` js
 let colors = ["red", "blue", "green"]; // 创建一个包含3个元素的数组
@@ -289,7 +340,7 @@ dogs.length;	//?
 dogs[dogs.length - 1];	//?
 ```
 
-### 1.2.3 Array.from
+### 2.3 Array.from
 
 第一个参数是一个类数组对象，即任何可迭代的结构，或者有一个 length 属性和可索引元素的结构。
 
@@ -345,7 +396,7 @@ const arrayLikeObject = { a:1, b:2, length:3 };
 console.log(Array.from(arrayLikeObject)); //?
 ```
 
-### 1.2.4 Array.of
+### 2.4 Array.of
 
 `Array.of() `可以把一组参数转换为数组。这个方法用于替代在ES6之前常用的`Array.prototype.slice.call(arguments)`。
 
@@ -354,7 +405,7 @@ console.log(Array.of(1, 2, 3, 4)); // [1, 2, 3, 4]
 console.log(Array.of(undefined)); // [undefined]
 ```
 
-### 1.2.5 检测数组
+### 2.5 检测数组
 
 ``` js
 [] instanceof Array;	// true
@@ -368,7 +419,7 @@ Array.isArray([]);	//true
 (Array.isArray(new Array()));	//?
 ```
 
-### 1.2.6 fill
+### 2.6 fill
 
 使用`fill()`方法可以向一个已有的数组中插入全部或部分相同的值。开始索引用于指定开始填充的位置，它是可选的。如果不提供结束索引，则一直填充到数组末尾。
 
@@ -424,7 +475,7 @@ zeroes.fill(1, -10, 20);
 console.log(zeroes);	//?
 ```
 
-### 1.2.7 copyWithin
+### 2.7 copyWithin
 
 `copyWithin()`会按照指定范围浅复制数组中的部分内容，然后将它们插入到指定索引开始的位置。开始索引和结束索引则与`fill()`使用同样的计算方法。
 
@@ -458,7 +509,7 @@ console.log(ints); // [0, 1, 2, 3, 4, 5, 3, 4, 5, 6]
 
 > **静默忽略超出数组边界、零长度及方向相反的索引范围（同[^fill()]方法一样）**
 
-### 1.2.8 reverse
+### 2.8 reverse
 
 严格意义上来讲，`reverse`不是排序方法，它只是数组颠倒方法，可以将数组的顺序颠倒过来。
 
@@ -481,7 +532,7 @@ objs.reverse();
 console.log(objs);	// [{a:3},{a:5},{a:1}]
 ```
 
-### 1.2.9 sort
+### 2.9 sort
 
 `sort()`方法可以接收一个比较函数，用于判断哪个值应该排在前面。比较函数接收两个参数，如果第一个参数应该排在第二个参数前面，就返回负值；如果两个参数相等，就返回0；如果第一个参数应该排在第二个参数后面，就返回正值。
 
@@ -528,7 +579,7 @@ let values = [15, 1, 10, 5, 0];
 //使用最简单的方法写一个反向排序方法
 ```
 
-### 1.2.10 concat
+### 2.10 concat
 
 `concat()`方法可以在现有数组全部元素基础上创建一个新数组。它首先会创建一个当前数组的副本，然后再把它的参数添加到副本末尾，最后返回这个新构建的数组。
 
@@ -544,7 +595,7 @@ let colors2 = colors.concat("yellow", ["black", "brown"],"aaa",["bbb",'ccc', ['a
 console.log(colors2);	//["red", "green", "blue", "yellow", "black", "brown", "aaa", "bbb", "ccc", Array(3)]
 ```
 
-### 1.2.11 slice
+### 2.11 slice
 
 `slice()`用于创建一个包含原有数组中一个或多个元素的新数组。`slice()`方法可以接收一个或两个参数：返回元素的开始索引和结束索引。如果只有一个参数，则 `slice()`会返回该索引到数组末尾的所有元素。如果有两个参数，则`slice()` 返回从开始索引到结束索引对应的所有元素，其中不包含结束索引对应的元素。
 
@@ -571,7 +622,7 @@ console.log(numbers.slice(-30));	//?
 console.log(numbers.slice(-3,-5));	//?
 ```
 
-### 1.2.12 splice
+### 2.12 splice
 
 `splice()`是个非常强大的方法，可删除，替换，增加（**需非常熟悉**）。
 
@@ -625,7 +676,7 @@ console.log(numbers.slice(-3,-5));	//?
   //写一个方法将colors所有的内容清空并替换为["yellow", "white"]
   ```
 
-### 1.2.13 寻找下标
+### 2.13 寻找下标
 
 - **indexOf**
 
@@ -656,7 +707,7 @@ console.log(numbers.slice(-3,-5));	//?
 [1,2,3,1,5,7,1,5].lastIndexOf(1, -5);	// ?
 ```
 
-### 1.2.14 includes
+### 2.14 includes
 
 判断数组内是否有===的项。
 
@@ -692,7 +743,7 @@ let p = people.find((element, index, array) => {
 console.log(p);		// {name: "Nicholas", age: 29}
 ```
 
-### 1.2.16 findIndex
+### 2.16 findIndex
 
 根据条件查找数组内匹配项的下标。
 
@@ -702,7 +753,7 @@ console.log(p);		// {name: "Nicholas", age: 29}
 [1,2,3].findIndex(c=> c > 1);	// 1
 ```
 
-### 1.2.17 every
+### 2.17 every
 
 验证数组内每一个项是否匹配。
 
@@ -714,7 +765,7 @@ console.log(p);		// {name: "Nicholas", age: 29}
 [1, 2, 3, 4, 5, 4, 3, 2, 1].every((item, index, array) => item > 2);    // false
 ```
 
-### 1.2.18 some
+### 2.18 some
 
 验证数组内某一个项是否匹配。
 
@@ -727,7 +778,7 @@ console.log(p);		// {name: "Nicholas", age: 29}
 [1, 2, 3, 4, 5, 4, 3, 2, 1].some((item, index, array) => item > 2);     // true
 ```
 
-### 1.2.19 filter
+### 2.19 filter
 
 创建一个新数组，根据条件将搜索匹配的项放入至新数组内，并将此数组返回。
 
@@ -738,7 +789,7 @@ console.log(p);		// {name: "Nicholas", age: 29}
 [1, 2, 3, 4, 5, 4, 3, 2, 1].filter((item, index, array) => item > 2);	//[3, 4, 5, 4, 3]
 ```
 
-### 1.2.20 forEach
+### 2.20 forEach
 
 遍历每一个数组，传入回调函数，可对每一个项进行操作。
 
@@ -766,7 +817,7 @@ numbers.forEach((item, index, array) => {
 console.log(numbers);	// ?
 ```
 
-### 1.2.21 flat
+### 2.21 flat
 
 将多维数组扁平化，并返回一个新数组。方法接受一个数值，表示要扁平化的数组维度。
 
@@ -780,7 +831,7 @@ console.log(ary.flat(100));	// [1, 2, 3, 4, 5, 6]，可以超过维度深度，�
 console.log(ary);	// [1, Array(2), 6]
 ```
 
-### 1.2.22 map
+### 2.22 map
 
 遍历数组，针对每一个项返回一个新值，将新值放进新数组里，最后将新数组返回。
 
@@ -820,7 +871,7 @@ let numbers = [{ a: 1, b: 10 }, { a: 2, b: 10 }, { a: 3, b: 10 }, { a: 4, b: 10 
 //请使用map方法将numbers数据变为[9,8,7,6,5]
 ```
 
-### 1.2.23 join
+### 2.23 join
 
 数组拼接成字符串方法，方法传入拼接关键字。
 
@@ -837,7 +888,7 @@ let persons = [{ age: 50 }, { age: 12 }, { age: 30 }];
 //请写一个方法将persons变为 '12,30,50'
 ```
 
-### 1.2.24 pop
+### 2.24 pop
 
 从原数组取出最后一个项。
 
@@ -851,7 +902,7 @@ empty.pop();	// undefined
 console.log(empty);	// []
 ```
 
-### 1.2.25 shift
+### 2.25 shift
 
 从原数组取出第一个项。
 
@@ -861,7 +912,7 @@ numbers.shift();    // 1
 console.log(numbers);   // [2,3,4,5]
 ```
 
-### 1.2.26 unshift
+### 2.26 unshift
 
 在原数组的头部添加随意数量的项，并返回添加后数组的长度。
 
@@ -872,7 +923,7 @@ console.log(length);    // 8
 console.log(numbers);   // [7, 8, 9, 1, 2, 3, 4, 5]
 ```
 
-## 1.3 Set
+## 3 Set
 
 Set是一个无法添加重复值的集合。
 
@@ -912,18 +963,12 @@ numbers = Array.from(new Set(numbers));
 console.log(numbers);   // [1, 2, 3, 5, 6]
 ```
 
-**思考：**
+
 
 ``` js
-let chars = ['a', 'b', 'c', 'a', 'c', 'd'];
-// 将chars去重
+
+
 ```
 
-**作业：**
 
-``` js
-let objs = [{ count: 20 }, { count: 66 }, { count: 16 }, { count: 30 }, { count: 5 }, { count: 20 }, { count: 66 }];
-//使用objs打印 "5,16,20,30,66"
 
-//使用objs打印 "20,30,66"
-```
