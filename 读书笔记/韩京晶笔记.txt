@@ -98,5 +98,55 @@ ECMAScript在所有字符串上都提供了 trim() 方法。这个方法会创建字符串的一个副本，删
 ECMAScript在所有字符串上都提供了 repeat() 方法。这个方法接收一个整数参数，表示要将字符串复制多少次，然后返回拼接所有副本后的结果。
 8. padStart() 和 padEnd() 方法
 padStart() 和 padEnd() 方法会复制字符串，这两个方法的第一个参数是长度，第二个参数是可选的填充字符串
-第五章还有一小节没看完
+第六章    集合引用类型
+6.1   Object 
+大多数引用值的实例都是Object类型
+对象字面量表示法：它是对象定义的简写形式
+属性一般是通过点语法存取。
+用中括号能通过变量访问属性：
+let prototypeName="name";
+console.log(person[prototypeName]);
+其实就是给属性起个名，然后打印输出这个名字，就可以访问这个属性了。
+数组字面量表示法：
+let colors=["red","blue","green"];
+let name=[];
+let values=[1,2];
+//逗号分隔元素
+数组排序：
+reverse()、sort()
+splice(0,2)删除前两个元素
+splice(0,2,"red","green")从位置2插入“red”和“green”
+splice(2, 1, "red", "green")从位置二删除一个元素，再在该位置插入 "red" 和 "green"
+6.3    定型数组
+SharedArrayBuffer 是 ArrayBuffer 的一个变体，可以无须复制就在执行上下文间传递它。
+ ArrayBuffer一经创建就不能再调整大小了，可以用slice（）创建一个新的
+malloc() 在分配失败时会返回一个 null 指针。 ArrayBuffer在分配失败时会抛出错误。
+malloc() 可以利用虚拟内存，因此最大可分配尺寸只受可寻址系统内存限制。 ArrayBuffer 分配的内存不能超过Number.MAX_SAFE_INTEGER （）字节。
+malloc() 调用成功不会初始化实际的地址。声明 ArrayBuffer则会将所有二进制位初始化为0。
+通过 malloc() 分配的堆内存除非调用 free() 或程序退出，否则系统不能再使用。而通过声明 ArrayBuffer 分配的堆内存可以被当成垃圾回收，不用手动释放。
+6.4    Map
+ Map 是一种新的集合类型，Map 的大多数特性都可以通过Object 类型实现
+使用回调方式，可以调用forEach()方法并传回回调。
+6.4.3  选Object还是Map
+·内存占用：Map比Object存储多
+·插入性能：代码涉及大量插入时，Map的性能更加
+·查找速度：代码涉及大量查找，选择Object比较好
+·删除性能：涉及大量删除选Map
+6.5   基本API
+用 new 关键字实例化一个空的 WeakMap ：弱映射中的键只能是 Object 或者继承Object 的类型，尝试使用非对象设置键会抛出 TypeError 。值的类型没有限制。
+6.6   Set
+Set 会维护值插入时的顺序，因此支持按顺序迭代。
+因为 values() 是默认迭代器，可以直接对集合实例使用扩展操作，把集合转换为数组：
+const s = new Set(["val1", "val2", "val3"]);
+console.log([...s]);  
+6.7   WeakSet
+WeakSet是一种新的集合类型
+6.8   迭代与扩展操作
+与扩展操作符一起使用时，能方便地实现互操作。
+6.9   小结
+3种原始值包装类型： Boolean 、 Number 和String 。
+特点：·每种包装类型都映射到同名的原始类型。
+·在以读模式访问原始值时，后台会实例化一个原始值包装对象，通过这个对象可以操作数据
+·涉及原始值的语句只要一执行完毕，包装对象就会立即销毁
+
 
