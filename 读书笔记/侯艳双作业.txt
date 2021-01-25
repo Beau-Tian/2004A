@@ -635,8 +635,49 @@ charAt() 方法返回给定索引位置
 
 
 
+## 2、Array
+
+1、有几种基本的方式可以创建数组。一种是使用 Array 构造函数，比如：let colors = new Array();也可以给 Array 构造函数传入要保存的元素
+2、创建数组时可以给构造函数传一个值。这时候就有点问题了，因为如果这个值是数值，则会创建一个长度为指定数值的数组；而如果这个值是其他类型的，则会创建一个只包含该特定值的数组。
+3、在使用 Array 构造函数时，也可以省略 new 操作符，结果是一样的：
+let colors = Array(3); // 创建一个包含3个元素的数组
+let names = Array("Greg"); // 创建一个只包含一个元素，即字符串"Greg"的数组
+4、另一种创建数组的方式是使用数组字面量（array literal）表示法。数组字面量是在中括号中包含以逗号分隔的元素列表：
+let colors = ["red", "blue", "green"]; // 创建一个包：含3个元素的数组
+let names = []; // 创建一个空数组
+let values = [1,2,]; // 创建一个包
+含2个元素的数组
+
+在ES6中， Array 的原型上暴露了3个用于检索数组内容的方法：keys() 、 values() 和 entries() 。 keys() 返回数组索引的迭代器， values() 返回数组元素的迭代器，而 entries() 返回索引/值对的迭代器：
+const a = ["foo", "bar", "baz", "qux"]; // 因为这些方法都返回迭代器，所以可以将它们的内容
+// 通过Array.from()直接转换为数组实例
+const aKeys = Array.from(a.keys());
+ const aValues = Array.from(a.values()); 
+ const aEntries = Array.from(a.entries()); 
+ console.log(aKeys); // [0, 1, 2, 3] 
+ console.log(aValues); // ["foo", "bar", "baz", "qux"]
+ console.log(aEntries); // [[0, "foo"], [1, "bar"],[2, "baz"], [3, "qux"]]
+1、所有对象都有 toLocaleString() 、 toString() 和 valueOf() 方法。其中， valueOf() 返回的还是数组本身。而toString() 返回由数组中每个值的等效字符串拼接而成的一个逗号分隔的字符串。也就是说，对数组的每个值都会调用其 toString() 方法，以得到最终的字符串。
+例子：
+let colors = ["red", "blue", "green"]; // 创建一个包含3个字符串的数组
+alert(colors.toString()); // red,blue,green 
+alert(colors.valueOf()); // red,blue,green 
+alert(colors); // red,blue,green
+2、toLocaleString() 方法也可能返回跟 toString() 和 valueOf() 相同的结果，但也不一定。在调用数组的toLocaleString() 方法时，会得到一个逗号分隔的数组值的字符串。它与另外两个方法唯一的区别是，为了得到最终的字符串，会调用数组每个值的 toLocaleString() 方法，而不是 toString() 方法：
+
+splice() 的主要目的是在数组中间插入元素，但有 3 种不同的方式使用这个方法：
+1.删除：需要给 splice() 传2个参数：要删除的第一个元素的位置和要删除的元素数量。可以从数组中删除任意多个元素，比如splice(0, 2) 会删除前两个元素。
+2.插入：需要给 splice() 传3个参数：开始位置、0（要删除的元素数量）和要插入的元素，可以在数组中指定的位置插入元素。第三个参数之后还可以传第四个、第五个参数，乃至任意多个要插入的元
+素。比如， splice(2, 0, "red", "green") 会从数组位置2开始插入字符串 "red" 和 "green" 。
+3.替换： splice() 在删除元素的同时可以在指定位置插入新元素，同样要传入3个参数：开始位置、要删除元素的数量和要插入的任意多个元素。要插入的元素数量不一定跟删除的元素数量一致。比如，splice(2, 1, "red", "green") 会在位置2删除一个元素，然后从该位置开始向数组中插入 "red" 和 "green" 。 splice() 方法始终返回这样一个数组，它包含从数组中被删除的元素（如果没有删除元素，则返回空数组）。
 
 
+引用类型与传统面向对象编程语言中的类相似，但实现不同。
+Object 类型是一个基础类型，所有引用类型都从它继承了基本的行为。
+Array 类型表示一组有序的值，并提供了操作和转换值的能力。
+定型数组包含一套不同的引用类型，用于管理数值在内存中的类型。
+Date 类型提供了关于日期和时间的信息，包括当前日期和时间以及计算。
+RegExp 类型是ECMAScript支持的正则表达式的接口，提供了大多数基本正则表达式以及一些高级正则表达式的能力。
 
 
 
