@@ -1,0 +1,103 @@
+时间data:
+
+创建方法let now = new Date();
+
+
+
+toDateString() 显示日期中的周几、月、日、年（格式特定于实
+
+现）；
+
+toTimeString() 显示日期中的时、分、秒和时区（格式特定于实
+
+现）；
+
+toLocaleDateString() 显示日期中的周几、月、日、年（格式特
+
+定于实现和地区）；
+
+toLocaleTimeString() 显示日期中的时、分、秒（格式特定于实
+
+现）；
+
+toUTCString() 显示完整的UTC日期（格式特定于实现）
+
+
+
+
+
+getTime()返回日期的毫秒表示；与valueOf() 相同
+
+setTime(*milliseconds*)设置日期的毫秒表示，从而修改整个日期
+
+getFullYear()返回4位数年（即2019而不是19） 
+
+getUTCFullYear()返回UTC日期的4位数年
+
+setFullYear(*year*)设置日期的年（ *year* 必须是4位数）
+
+setUTCFullYear(*year*)设置UTC日期的年（ *year* 必须是4位数）
+
+getMonth()返回日期的月（0表示1月，11表 示12月）
+
+getUTCMonth()返回UTC日期的月（0表示1月，11表示12月）
+
+
+
+setMonth(*month*)设置日期的月（ *month* 为大于0的数值，大于11加年）
+
+setUTCMonth(*month*)设置UTC日期的月（ *month* 为大于0的数值，大于11加年）
+
+getDate()返回日期中的日（1~31） 
+
+getUTCDate()返回UTC日期中的日（1~31） 
+
+setDate(*date*)设置日期中的日（如果 *date* 大于该月天数，则加月）
+
+setUTCDate(*date*)设置UTC日期中的日（如果date大于该月天数，则加月）
+
+getDay()返回日期中表示周几的数值（0表示周日，6表示周六）
+
+
+
+
+
+getUTCDay()返回UTC日期中表示周几的数值（0表示周日，6表示周六）
+
+getHours()返回日期中的时（0~23） 
+
+getUTCHours()返回UTC日期中的时（0~23） 
+
+setHours(*hours*)设置日期中的时（如果 *hours*大于23，则加日）
+
+setUTCHours(*hours*)设置UTC日期中的时（如果hours大于23，则加日）
+
+getMinutes()返回日期中的分（0~59） 
+
+getUTCMinutes()返回UTC日期中的分（0~59） 
+
+setMinutes(*minutes*)设置日期中的分（如果minutes 大于59，则加时）
+
+setUTCMinutes(*minutes*)设置UTC日期中的分（如果minutes大于59，则加时）
+
+
+
+
+
+getSeconds()返回日期中的秒（0~59） 
+
+getUTCSeconds()返回UTC日期中的秒（0~59） 
+
+setSeconds(*seconds*)设置日期中的秒（如果seconds 大于59，则加分）
+
+setUTCSeconds(*seconds*)设置UTC日期中的秒（如果seconds 大于59，则加分）
+
+getMilliseconds()返回日期中的毫秒
+
+getUTCMilliseconds()返回UTC日期中的毫秒
+
+setMilliseconds(*milliseconds*)设置日期中的毫秒
+
+setUTCMilliseconds(*milliseconds*)设置中的毫秒 UTC日期
+
+getTimezoneOffset()返回以分钟计的UTC与本地时区的偏移量（如美国EST即“东部标准时间”返回300，进入夏令时的地区可能有所差异）

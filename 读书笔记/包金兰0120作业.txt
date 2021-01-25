@@ -1,0 +1,612 @@
+第 5 章 基本引用类型
+
+引用值（或者对象）是某个特定引用类型的实例。在ECMAScript中，
+引用类型是把数据和功能组织到一起的结构，经常被人错误地称作“类”。虽
+然从技术上讲JavaScript是一门面向对象语言，但ECMAScript缺少传统的面
+向对象编程语言所具备的某些基本结构，包括类和接口。引用类型有时候也
+被称为对象定义，因为它们描述了自己的对象应有的属性和方法。
+
+
+Date
+ECMAScript的 Date 类型参考了Java早期版本中的
+java.util.Date 。
+要创建日期对象，就使用 new 操作符来调用 Date 构造函数：
+let now = new Date();
+
+
+Date.parse() 方法接收一个表示日期的字符串参数，尝试将这个字
+符串转换为表示该日期的毫秒数。ECMA-262第5版定义了
+Date.parse() 应该支持的日期格式，填充了第3版遗留的空白。
+
+
+继承的方法
+与其他类型一样， Date 类型重写了 toLocaleString() 、
+toString() 和 valueOf() 方法。但与其他类型不同，重写后这些方法
+的返回值不一样。 Date 类型的 toLocaleString() 方法返回与浏览器
+运行的本地环境一致的日期和时间。这通常意味着格式中包含针对时间的
+AM（上午）或PM（?午），但不包含时区信息（具体格式可能因浏览器而
+不同）。 toString() 方法通常返回带时区信息的日期和时间，而时间也
+是以24小时制（0~23）表示的。
+
+
+ 日期格式化方法
+Date 类型有几个专门用于格式化日期的方法，它们都会返回字符
+串：
+toDateString() 显示日期中的周几、月、日、年（格式特定于实
+现）；
+toTimeString() 显示日期中的时、分、秒和时区（格式特定于实
+现）；
+toLocaleDateString() 显示日期中的周几、月、日、年（格式特
+定于实现和地区）；
+toLocaleTimeString() 显示日期中的时、分、秒（格式特定于实
+现）；
+toUTCString() 显示完整的UTC日期（格式特定于实现）。
+这些方法的输出与 toLocaleString() 和 toString() 一样，会
+因浏览器而异。因此不能用于在用户界面上一致地显示日期。
+注意 还有一个方法叫 toGMTString() ，这个方法跟
+toUTCString() 是一样的，目的是为了向后兼容。不过，规范建议新
+代码使用 toUTCString() 
+
+
+
+RegExp
+ECMAScript通过 RegExp 类型支持正则表达式。正则表达式使用类似
+Perl的简洁语法来创建：
+let expression = /pattern/flags;
+这个正则表达式的 pattern （模式）可以是任何简单或复杂的正则表
+达式，包括字符类、限定符、分组、向前查找和反向引用。每个正则表达式
+可以带零个或多个 flags （标记），用于控制正则表达式的行为。
+
+
+##### 正则中常见的字符
+
+- 元字符
+
+  ```js
+          [abc] 匹配方框号中的任意一个字符 
+          [^abc] 除了abc以外的所有的字符  
+          [0-9] 匹配0-9之间数字
+          [a-z] 匹配所有的小写字母
+          [A-Z] 匹配所有的大写字母
+          [0-9a-zA-Z] 匹配大小写字母和数字
+          [A-z] 匹配所有的大小写字母  [A-Za-z]
+          (红色|蓝色|绿色)  匹配红色，蓝色绿色
+          [\u4e00-\u9fa5]  中文汉字
+  
+          .  匹配任意字符
+          \w 匹配任意字母数字下划线  [A-Za-z0-9_]
+          \W 匹配非字母数字下划线
+          \d 匹配所有数字  [0-9]
+          \D 匹配非数字
+          \s 匹配空格字符
+          \S 
+  ```
+
+- 量词
+
+  ```js
+          {5} 重复出现5次
+          {5,} 最小重复出现5次
+          {5,7} 最小5次最多7次
+  
+          +  {1,} 至少一次
+          ?  {0,1} 最多出现一次
+          *  {0,} 任意次数
+              
+          ^ 正则的开始位置
+          $ 正则的结束位置
+  ```
+
+##### 常见的正则表达式
+
+rep.test(string)
+
+```js
+        1. 只能是中文 长度为2-7位
+		 /^([\u4e00-\u9fa5]){2,7}$/
+        2. 长度为8到18位的小写大写字母或数字或下划线 【重要】
+            /^[a-zA-Z0-9_]{8,18}$/  /^\w{8,18}$/
+        3. 正确的邮箱格式 【重要】
+            /^\w+@[a-z0-9]{2,5}\.(com|cn|net|org)$/
+            /^[A-z0-9_-]+@[a-z0-9]{2,5}\.[a-z]{2,3}$/
+        4. 正确的手机号【重要】
+            /^1(3|4|5|7|8)\d{9}$/
+        5. 正确的身份证号
+            /^\d{15}|\d{17}([0-9]|x)/
+            /^[1-9][0-9]{16}[0-9x]$/
+        6. 正确的qq号
+            /[1-9][0-9]{4,}/
+        7. 正确的电话号码格式 【重要】
+            /^0[0-9]{2}-[0-9]{8}|0[0-9]{3}-[0-9]{7}$/
+        8. 过滤空白 /\s+/g
+        9. 过滤首尾空格  str.trim()
+        10. 匹配任意8-18之间的大小写字母数字构成的密码
+            /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,18}$/
+```
+=====================================================
+
+
+RegExp 实例属性
+每个 RegExp 实例都有?列属性，提供有关模式的各方面信息。
+global ：布尔值，表示是否设置了 g 标记。
+ignoreCase ：布尔值，表示是否设置了 i 标记。
+unicode ：布尔值，表示是否设置了 u 标记。
+sticky ：布尔值，表示是否设置了 y 标记。
+lastIndex ：整数，表示在源字符串中?一次搜索的开始位置，始
+终从0开始。
+multiline ：布尔值，表示是否设置了 m 标记。
+dotAll ：布尔值，表示是否设置了 s 标记。
+source ：正则表达式的字面量字符串（不是传给构造函数的模式字
+符串），没有开头和结尾的斜杠。
+flags ：正则表达式的标记字符串。始终以字面量而非传入构造函数
+的字符串模式形式返回（没有前后斜杠）。
+
+
+RegExp 实例方法
+RegExp 实例的?要方法是 exec() ，?要用于配合捕获组使用。这
+个方法只接收一个参数，即要应用模式的字符串。如果找到了匹配项，则返
+回包含第一个匹配信息的数组；如果没找到匹配项，则返回 null 。返回
+的数组虽然是 Array 的实例，但包含两个额外的属性： index 和
+input 。 index 是字符串中匹配模式的起始位置， input 是要查找的
+字符串。这个数组的第一个元素是匹配整个模式的字符串，其他元素是与表
+达式中的捕获组匹配的字符串。如果模式中没有捕获组，则数组只包含一个
+元素。
+
+
+正则表达式的另一个方法是 test() ，接收一个字符串参数。如果输
+入的文本与模式匹配，则参数返回 true ，否则返回 false 。这个方法适
+用于只想测试模式是否匹配，而不需要实际匹配内容的情况。 test() 经
+常用在 if 语句中：
+let text = "000-00-0000";
+let pattern = /\d{3}-\d{2}-\d{4}/;
+if (pattern.test(text)) {
+console.log("The pattern was matched.");
+}
+在这个例子中，正则表达式用于测试特定的数值序列。如果输入的文本
+与模式匹配，则显示匹配成功的消息
+
+
+RegExp 构造函数属性
+RegExp 构造函数本身也有几个属性。（在其他语言中，这种属性被
+称为静态属性。）这些属性适用于作用域中的所有正则表达式，而且会根据
+最后执行的正则表达式操作而变化。这些属性还有一个特点，就是可以通过
+两种不同的方式访问它们。换句话说，每个属性都有一个全名和一个简写
+
+
+
+原始值包装类型
+为了方便操作原始值，ECMAScript提供了3种特殊的引用类型：
+Boolean 、 Number 和 String 。这些类型具有本章介绍的其他引用类
+型一样的特点，但也具有与各自原始类型对应的特殊行为。每当用到某个原
+始值的方法或属性时，后台都会创建一个相应原始包装类型的对象，从而暴
+露出操作原始值的各种方法。
+
+
+
+Boolean
+Boolean 是对应布尔值的引用类型。要创建一个 Boolean 对象，就
+使用 Boolean 构造函数并传入 true 或 false ，如?例所示：
+let booleanObject = new Boolean(true);
+Boolean 的实例会重写 valueOf() 方法，返回一个原始值 true
+或 false 。 toString() 方法被调用时也会被覆盖，返回字符
+串 "true" 或 "false" 。不过， Boolean 对象在ECMAScript中用得很
+少。不仅如此，它们还容易引起误会，尤其是在布尔表达式中使用
+Boolean 对象时，比如：
+let falseObject = new Boolean(false);
+let result = falseObject && true;
+console.log(result); // true
+let falseValue = false;
+result = falseValue && true;
+console.log(result); // false
+在这段代码中，我们创建一个值为 false 的 Boolean 对象。然后，
+在一个布尔表达式中通过 && 操作将这个对象与一个原始值 true 组合起
+来。在布尔算术中， false && true 等于 false 。可是，这个表达式
+是对 falseObject 对象而不是对它表示的值（ false ）求值。前面刚
+刚说过，所有对象在布尔表达式中都会自动转换为 true ，因此
+falseObject 在这个表达式里实际上表示一个 true 值。那么 true
+&& true 当然是 true 。
+除此之外，原始值和引用值（ Boolean 对象）还有几个区别。首
+先， typeof 操作符对原始值返回 "boolean" ，但对引用值返
+回 "object" 。同样， Boolean 对象是 Boolean 类型的实例，在使用
+instaceof 操作符时返回 true ，但对原始值则返回 false
+
+
+Number
+Number 是对应数值的引用类型。要创建一个 Number 对象，就使
+用 Number 构造函数并传入一个数值，如?例所示：
+let numberObject = new Number(10);
+与 Boolean 类型一样， Number 类型重写了 valueOf() 、
+toLocaleString() 和 toString() 方法。 valueOf() 方法返回
+Number 对象表示的原始数值，另外两个方法返回数值字符串。
+toString() 方法可选地接收一个表示基数的参数，并返回相应基数形式
+的数值字符串
+
+除了继承的方法， Number 类型还提供了几个用于将数值格式化为字
+符串的方法。
+toFixed() 方法返回包含指定小数点位数的数值字符串
+
+
+
+
+原始数值在调用 typeof 时始终返回 "number" ，而 Number 对象
+则返回 "object" 。类似地， Number 对象是 Number 类型的实例，而
+原始数值不是。
+isInteger() 方法与安全整数
+ES6新增了 Number.isInteger() 方法，用于辨别一个数值是否保
+存为整数。有时候，小数位的0可能会让人误以为数值是一个浮点值：
+console.log(Number.isInteger(1)); // true
+console.log(Number.isInteger(1.00)); // true
+console.log(Number.isInteger(1.01)); // false
+IEEE 754数值格式有一个特殊的数值范围，在这个范围内二进制值可以
+表示一个整数值。这个数值范围从 Number.MIN_SAFE_INTEGER （
+-2^{53}+1
+）到 Number.MAX_SAFE_INTEGER （
+2^{53}-1
+）。对超出这个范围的数值，即使尝试保存为整数，IEEE 754编码格式也意
+味着二进制值可能会表示一个完全不同的数值。为了鉴别整数是否在这个范
+围内，可以使用 Number.isSafeInteger() 方法：
+console.log(Number.isSafeInteger(-1 * (2 ** 53)));
+// false
+console.log(Number.isSafeInteger(-1 * (2 ** 53) +
+1)); // true
+console.log(Number.isSafeInteger(2 ** 53));
+// false
+console.log(Number.isSafeInteger((2 ** 53) - 1));
+// true
+
+
+
+
+String
+String 是对应字符串的引用类型。要创建一个 String 对象，使
+用 String 构造函数并传入一个数值，如?例所示：
+let stringObject = new String("hello world");
+String 对象的方法可以在所有字符串原始值上调用。3个继承的方
+法 valueOf() 、 toLcaleString() 和 toString() 都返回对象的原
+始字符串值。
+每个 String 对象都有一个 length 属性，表示字符串中字符的数
+量。
+
+ charAt() 方法返回给定索引位置的字符，由传给方法的整数
+参数指定。
+
+charCodeAt() 方法可以查看指定码元的字符编码。
+
+fromCharCode() 方法用于根据给定的UTF-16码元创建字符串中的
+字符。
+
+
+
+字符串操作方法
+本节介绍几个操作字符串值的方法。首先是 concat() ，用于将一个
+或多个字符串拼接成一个新字符串。
+
+
+
+ECMAScript提供了3个从字符串中提取子字符串的方法：
+slice() 、 substr() 和 substring() 。这3个方法都返回调用
+它们的字符串的一个子字符串，而且都接收一或两个参数。第一个参数
+表示子字符串开始的位置，第二个参数表示子字符串结束的位置。对
+slice() 和 substring() 而言，第二个参数是提取结束的位置
+（即该位置之前的字符会被提取出来）。对 substr() 而言，第二个
+参数表示返回的子字符串数量。任何情况?，省略第二个参数都意味着
+提取到字符串末尾。与 concat() 方法一样， slice() 、
+substr() 和 substring() 也不会修改调用它们的字符串，而只会
+返回提取到的原始新字符串值。
+
+
+
+
+字符串位置方法
+有两个方法用于在字符串中定位子字符串： indexOf() 和
+lastIndexOf() 。这两个方法从字符串中搜索传入的字符串，并返
+回位置（如果没找到，则返回 -1 ）。两者的区别在于，
+indexOf() 方法从字符串开头开始查找子字符串，而
+lastIndexOf() 方法从字符串末尾开始查找子字符串。
+
+
+
+字符串包含方法
+ECMAScript 6增加了3个用于判断字符串中是否包含另一个字符串的方
+法： startsWith() 、 endsWith() 和 includes() 。这些方法
+都会从字符串中搜索传入的字符串，并返回一个表示是否包含的布尔
+值。它们的区别在于， startsWith() 检查开始于索引0的匹配项，
+endsWith() 检查开始于索引 (string.length -
+substring.length) 的匹配项，而 includes() 检查整个字符
+串
+
+
+
+ trim() 方法
+ECMAScript在所有字符串上都提供了 trim() 方法。这个方法会创建
+字符串的一个副本，删除前、后所有空格符，再返回结果
+
+
+repeat() 方法
+ECMAScript在所有字符串上都提供了 repeat() 方法。这个方法接收
+一个整数参数，表示要将字符串复制多少次，然后返回拼接所有副本后
+的结果。
+
+
+padStart() 和 padEnd() 方法
+padStart() 和 padEnd() 方法会复制字符串，如果小于指定长
+度，则在相应一边填充字符，直至满足长度条件。这两个方法的第一个
+参数是长度，第二个参数是可选的填充字符串，默认为空格
+（U+0020）。
+
+
+
+字符串迭代与解构
+字符串的原型上暴露了一个 @@iterator 方法，表示可以迭代字符串
+的每个字符。
+
+字符串大小写转换
+?一组方法涉及大小写转换，包括4个方法： toLowerCase() 、
+toLocaleLowerCase() 、 toUpperCase() 和
+toLocaleUpperCase() 。 toLowerCase() 和
+toUpperCase() 方法是原来就有的方法，与 java.lang.String
+中的方法同名。 toLocaleLowerCase() 和
+toLocaleUpperCase() 方法旨在基于特定地区实现。在很多地
+区，地区特定的方法与通用的方法是一样的。但在少数语言中（如土耳
+其语），Unic?de大小写转换需应用特殊规则，要使用地区特定的方法
+才能实现正确转换。
+
+
+
+字符串模式匹配方法
+String 类型专门为在字符串中实现模式匹配设计了几个方法。第一
+个就是 match() 方法，这个方法本质上跟 RegExp 对象的 exec()
+方法相同。 match() 方法接收一个参数，可以是一个正则表达式字符
+串，也可以是一个 RegExp 对象。
+
+
+match() 方法返回的数组与 RegExp 对象的 exec() 方法返回的数
+组是一样的：第一个元素是与整个模式匹配的字符串，其余元素则是与
+表达式中的捕获组匹配的字符串（如果有的话）。
+另一个查找模式的字符串方法是 search() 。这个方法唯一的参数与
+match() 方法一样：正则表达式字符串或 RegExp 对象。这个方法
+返回模式第一个匹配的位置索引，如果没找到则返回-1。 search()
+始终从字符串开头向后匹配模式。
+
+
+
+?RL编码方法
+encodeURI() 和 encodeURIComponent() 方法用于编码统一资
+源标识符（URI），以便传给浏览器。有效的URI不能包含某些字符，
+比如空格。使用URI编码方法来编码URI可以让浏览器能够理解它们，
+同时又以特殊的UTF-8编码替换掉所有无效字符。
+ecnodeURI() 方法用于对整个URI进行编码，比
+如 "www.wrox.com/illegal value.js" 。而
+encodeURIComponent() 方法用于编码URI中单独的组件，比如前
+面URL中的 "illegal value.js" 。这两个方法的?要区别是，
+encodeURI() 不会编码属于URL组件的特殊字符，比如冒号、斜
+杠、问号、井号，而 encodeURIComponent() 会编码它发现的所有
+非标准字符。
+
+
+eval() 方法
+最后一个方法可能是整个ECMAScript语言中最强大的了，它就是
+eval() 。这个方法就是一个完整的ECMAScript解释器，它接收一个
+参数，即一个要执行的ECMAScript（JavaScript）字符串。
+
+
+
+Global 对象属性
+Global 对象有很多属性，其中一些前面已经提到过了。像
+undefined 、 NaN 和 Infinity 等特殊值都是 Global 对象的属
+性。此外，所有原生引用类型构造函数，比如 Object 和
+Function ，也都是 Global 对象的属性。
+
+
+
+window 对象
+虽然ECMA-262没有规定直接访问 Global 对象的方式，但浏览器将
+window 对象实现为 Global 对象的代理。因此，所有全局作用域中
+声明的变量和函数都变成了 window 的属性。
+
+
+
+Math
+ECMAScript提供了 Math 对象作为保存数学公式、信息和计算的地
+方。 Math 对象提供了一些辅助计算的属性和方法。
+
+min() 和 max() 方法
+Math 对象也提供了很多辅助执行简单或复杂数学计算的方法。
+min() 和 max() 方法用于确定一组数值中的最小值和最大值。这两
+个方法都接收任意多个参数，如?面的例子所示：
+let max = Math.max(3, 54, 32, 16);
+console.log(max); // 54
+let min = Math.min(3, 54, 32, 16);
+console.log(min); // 3
+在3、54、32和16中， Math.max() 返回54， Math.min() 返回3。
+使用这两个方法可以避免使用额外的循环和 if 语句来确定一组数值的
+最大最小值。
+要知道数组中的最大值和最小值，可以像?面这样使用扩展操作符：
+let values = [1, 2, 3, 4, 5, 6, 7, 8];
+let max = Math.max(...values);
+
+
+
+舍入方法
+接?来是用于把小数值舍入为整数的4个方法： Math.ceil() 、
+Math.floor() 、 Math.round() 和 Math.fround() 。这几个
+方法处理舍入的方式如?所述。
+Math.ceil() 方法始终向上舍入为最接?的整数。
+Math.floor() 方法始终向?舍入为最接?的整数。
+Math.round() 方法执行四舍五入。
+Math.fround() 方法返回数值最接?的单精度（32位）浮点值
+表示。
+
+
+
+random() 方法
+Math.random() 方法返回一个0~1范围内的随机数，其中包含0但不
+包含1。对于希望显示随机名言或随机新闻的网页，这个方法是非常方
+便的。可以基于如?公式使用 Math.random() 从一组整数中随机选
+择一个数：
+number = Math.floor(Math.random() *
+total_number_of_choices + first_possible_value)
+这里使用了 Math.floor() 方法，因为 Math.random() 始终返回
+小数，即便乘以一个数再加上一个数也是小数。因此，如果想从1~10范
+围内随机选择一个数，代码就是这样的：
+let num = Math.floor(Math.random() * 10 + 1);
+这样就有10个可能的值（1~10），其中最小的值是1。如果想选择一个
+2~10范围内的值，则代码就要写成这样：
+let num = Math.floor(Math.random() * 9 + 2);
+2~10只有9个数，所以可选总数（ total_number_of_choices ）
+是9，而最小可能的值（ first_possible_value ）是2。很多时
+候，通过函数来算出可选总数和最小可能的值可能更方便，比如：
+function selectFrom(lowerValue, upperValue) {
+let choices = upperValue - lowerValue + 1;
+return Math.floor(Math.random() * choices +
+lowerValue);
+}
+let num = selectFrom(2,10);
+console.log(num); // 2~10范围内的值，其中包含2和10
+这里的函数 selectFrom() 接收两个参数：应该返回的最小值和最大
+值。通过将这两个值相减再加 1 得到可选总数，然后再套用上面的公
+式。于是，调用 selectFrom(2,10) 就可以从2~10（包含）范围内
+选择一个值了。使用这个函数，从一个数组中随机选择一个元素就很容
+易，比如：
+let colors = ["red", "green", "blue", "yellow",
+"black", "purple", "brown"];
+let color = colors[selectFrom(0, colors.length-
+1)];
+在这个例子中，传给 selecFrom() 的第二个参数是数组长度减1，即
+数组最大的索引值。
+注意 Math.random() 方法在这里出于演示目的是没有问题的。
+如果是为了加密而需要生成随机数（传给生成器的输入需要较高的
+不确定性），那么建议使用
+window.crypto.getRandomValues() 。
+
+
+
+小结
+JavaScript中的对象称为引用值，几种内置的引用类型可用于创建特定
+类型的对象。
+引用值与传统面向对象编程语言中的类相似，但实现不同。
+Date 类型提供关于日期和时间的信息，包括当前日期、时间及相关
+计算。
+RegExp 类型是ECMAScript支持正则表达式的接口，提供了大多数基
+础的和部分高级的正则表达式功能。
+JavaScript比较独特的一点是，函数实际上是 Function 类型的实例，
+也就是说函数也是对象。因为函数也是对象，所以函数也有方法，可以用于
+增强其能力。
+由于原始值包装类型的存在，JavaScript中的原始值可以被当成对象来
+使用。有3种原始值包装类型： Boolean 、 Number 和 String 。它们
+都具备如?特点。
+每种包装类型都映射到同名的原始类型。
+以读模式访问原始值时，后台会实例化一个原始值包装类型的对象，借
+助这个对象可以操作相应的数据。
+涉及原始值的语句执行完毕后，包装对象就会被销毁。
+当代码开始执行时，全局上?文中会存在两个内置对象： Global 和
+Math 。其中， Global 对象在大多数ECMAScript实现中无法直接访问。
+不过，浏览器将其实现为 window 对象。所有全局变量和函数都是
+Global 对象的属性。 Math 对象包含辅助完成复杂计算的属性和方法。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
