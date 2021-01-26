@@ -202,7 +202,7 @@ toLocaleTimeString() 显示日期中的时、分、秒
 toUTCString() 显示完整的UTC日期
 
 
-5.1.3 日期/时间组件方法
+日期/时间组件方法
 
 
 Date 类型剩下的方法（见下表）直接涉及取得或设置日期值的特定
@@ -294,10 +294,7 @@ setMinutes(minutes)设置日期中的分（如果
 minutes 大于59，则加时）
 
 
-setUTCMinutes(minutes)设置UTC日期中的分（如果
-
-
-minutes 大于59，则加时）
+setUTCMinutes(minutes)设置UTC日期中的分（如果minutes 大于59，则加时）
 
 
 getSeconds()返回日期中的秒（0~59）
@@ -306,16 +303,10 @@ getSeconds()返回日期中的秒（0~59）
 getUTCSeconds()返回UTC日期中的秒（0~59）
 
 
-setSeconds(seconds)设置日期中的秒（如果
+setSeconds(seconds)设置日期中的秒（如果seconds 大于59，则加分）
 
 
-seconds 大于59，则加分）
-
-
-setUTCSeconds(seconds)设置UTC日期中的秒（如果
-
-
-seconds 大于59，则加分）
+setUTCSeconds(seconds)设置UTC日期中的秒（如果seconds 大于59，则加分）
 
 
 getMilliseconds()返回日期中的毫秒
@@ -592,9 +583,7 @@ JavaScript字符串由16位码元（code unit）组成。
  
 比如：
 
-
 // U+00C5：上面带圆圈的大写拉丁字母A
-
 
 console.log(String.fromCharCode(0x00C5));
 // Å
@@ -641,3 +630,148 @@ let result = stringValue.concat("world");
 
 
 console.log(result);
+
+
+
+第六章
+
+6.1Object
+
+Object 适合存储和在程序间交换数据
+Object实例的创建方式：
+1.new Object.
+2.字面量方式创建：let person = { name: "Nicholas", age: 29 };
+
+倾向于对象字面量，以原因：代码更少
+
+6.2Array
+6.2.1创建数组
+1.new Array()
+如果知道数组中元素的数量，那么可以给构造函数传入一个数值:new Array(20)
+也可以给 Array 构造函数传入要保存的元素： new Array("red", "blue", "green")
+
+2.使用数组字面量
+
+Array 构造函数还有两个ES6新增的用于创建数组的静态方法：
+1.Array.from()  例：console.log(Array.from("Matt"))
+2.Array.of() 可以把一组参数转换为数组。
+
+6.2.2数组空位
+例：
+const options = [,,,,,]; // 创建包含5个元素的数组
+console.log(options.length); // 5
+
+6.2.3
+数组索引
+let colors = ["red", "blue", "green"]; // 定义一个字
+符串数组
+alert(colors[0]); // 显示第一项
+colors[2] = "black"; // 修改第三项
+colors[3] = "brown";
+
+
+6.2.4检测数组
+instanceof操作符
+6.2.5 迭代器方法
+ Array 的原型上暴露了3个用于检索数组内容的方法：
+keys() 、 values() 和 entries() 。 keys() 返回数组索引的迭
+代器， values() 返回数组元素的迭代器，而 entries() 返回索引/值
+对的迭代器
+例：
+const a = ["foo", "bar", "baz", "qux"]; // 因为这些方法都返回迭代器，所以可以将它们的内容
+// 通过Array.from()直接转换为数组实例
+const aKeys = Array.from(a.keys()); 
+const aValues = Array.from(a.values());
+ const aEntries = Array.from(a.entries()); 
+console.log(aKeys); // [0, 1, 2, 3] console.log(aValues); 
+// ["foo", "bar", "baz", "qux"] 
+console.log(aEntries); // [[0, "foo"], [1, "bar"],
+[2, "baz"], [3, "qux"]]
+
+
+6.2.6 复制和填充方法 fill()
+例：const zeroes = [0, 0, 0, 0, 0]; // 用5填充整个数组
+zeroes.fill(5); 
+console.log(zeroes); // [5, 5, 5, 5, 5] 
+zeroes.fill(0); // 重置
+
+
+6.2.7 转换方法
+ toLocaleString() , toString()
+
+都返回数组值的逗号分隔的字符串。如果想使用不同的分隔符，则可以使用 join() 方法
+例：
+let colors = ["red", "green", "blue"]; 
+alert(colors.join(",")); // red,green,
+blue alert(colors.join("||")); // red||green||blue
+
+
+
+6.2.10排序方法   reverse() 和sort() 
+ reverse()：反向排列
+例：
+let values = [1, 2, 3, 4, 5]; 
+values.reverse(); alert(values); // 5,4,3,2,1
+sort: sort() 会按照升序重新排列数组元素，即最小的值在前面，最大的值在后面。
+例：
+let values = [0, 1, 5, 10, 15];
+ values.sort(); alert(values); // 0,1,10,15,5
+
+6.2.11 操作方法
+1.concat() 会把这些数组的每一项
+都添加到结果数组。如果参数不是数组，则直接把它们添加到结果数组末
+尾。
+例：
+let colors = ["red", "green", "blue"]; 
+let colors2 = colors.concat("yellow", ["black", "brown"]);
+ console.log(colors); // ["red", "green","blue"]
+console.log(colors2); // ["red", "green", "blue",
+"yellow", "black", "brown"]
+
+2.slice()
+
+例：let colors = ["red", "green", "blue", "yellow", "purple"]; 
+let colors2 = colors.slice(1); 
+let colors3 = colors.slice(1, 4);
+alert(colors2); // green,blue,yellow,purple
+alert(colors3); // green,blue,yellow
+3. 删除：splice() 传2个参数：要删除的第一个元素的位置和要删除的元素数量。
+4.插入：需要给 splice() 传3个参数：开始位置、0（要删除的元素数量）和要插入的元素，
+5.替换：开始位置、要删除元素的数量和要插入的任意多个元素。例：
+splice(2, 1, "red", "green") 会在位置2删除一个元素，然后从该位置开始向数组中插入 "red" 和 "green" 。
+
+6.2.12 搜索和位置方
+1.
+indexOf() 、lastIndexOf() 和 includes() 。
+indexOf() 和 includes() 方法从数组前头（第一项）开始向后搜索，而
+lastIndexOf() 从数组末尾（最后一项）开始向前搜索。
+例：
+let numbers = [1, 2, 3, 4, 5, 4, 3, 2, 1]; 
+alert(numbers.indexOf(4)); // 3 
+alert(numbers.lastIndexOf(4)); // 5
+alert(numbers.includes(4)); // true
+alert(numbers.indexOf(4, 4)); // 5 
+alert(numbers.lastIndexOf(4, 4)); // 3 
+alert(numbers.includes(4, 7)); // false
+2.
+ 断言函数find() 和 findIndex()这两个方法都从
+数组的最小索引开始。 find() 返回第一个匹配的元素，
+findIndex() 返回第一个匹配元素的索引。
+
+
+6.2.13 迭代方法
+
+every() ：对数组每一项都运行传入的函数，如果对每一项函数都
+返回 true ，则这个方法返回 true 。 filter() ：对数组每一项都运行传入的函数，函数返回 true 的
+项会组成数组之后返回。
+forEach() ：对数组每一项都运行传入的函数，没有返回值。
+map() ：对数组每一项都运行传入的函数，返回由每次函数调用的
+结果构成的数组。 
+some() ：对数组每一项都运行传入的函数，如果有一项函数返回
+true ，则这个方法返回 true
+
+
+归并方法reduce() 和reduceRight() 。reduce() 方法从数组第一项开始遍历到最后一项。而 reduceRight() 从最后一项开始遍历至第一项
+
+
+
