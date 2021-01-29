@@ -1023,7 +1023,6 @@ Set加入值**不会发生类型转换，5与'5'不同**
 
 ```js
 var set2 = new Set(['a', 'b', 3]);
-undefined
 for ( let item of set2.entries() ) {
 	console.log(item)
 }
@@ -1060,7 +1059,63 @@ arr // [1, 2, 3]
 
  **`has()`, `delete()`, `add()`**
 
-WeakSet的对象都是弱引用，可以用来存储DOM节点而无需担心这些节点从文档移除时会引发内存泄漏
+- **WeakSet.prototype.add(value)**：向 WeakSet 实例添加一个新成员。
+- **WeakSet.prototype.delete(value)**：清除 WeakSet 实例的指定成员。
+- **WeakSet.prototype.has(value)**：返回一个布尔值，表示某个值是否在 WeakSet 实例之中。
+
+例子:
+
+```js
+const ws = new WeakSet();
+const obj = {};
+const foo = {};
+ 
+ws.add(window); //添加
+ws.add(obj);
+ 
+ws.has(window); // true   检测某个值是否在自身的实例中，如果有就返回true没有就返回false
+ws.has(foo);    // false
+ 
+ws.delete(window); //删除
+ws.has(window);    // false
+```
+
+练习：
+
+```js
+const ws = new WeakSet();
+ws.add(1)
+// TypeError: Invalid value used in weak set
+ws.add(Symbol())
+// TypeError: invalid value used in weak set
+```
+
+我试图向 WeakSet 添加一个数值和`Symbol`值，结果报错，因为 WeakSet 只能放置对象。
+
+```js
+const ws = new WeakSet();
+var obj = { name : "周宇成"}
+ws.add(obj)
+// WeakSet {{…}}[[Entries]]0: value: name: "周宇成"__proto__: Object__proto__: WeakSet
+```
+
+WeakSet的对象都是弱引用，可以用来存储DOM节点而无需担心这些节点从文档移除时会引发内存泄漏，
+
+WeakSet 适合临时存放一组对象，以及存放跟对象绑定的信息。只要这些对象在外部消失，它在 WeakSet 里面的引用就会自动消失
+
+```js
+ws.size // undefined
+ws.forEach // undefined
+ 
+ws.forEach(function(item){ console.log('WeakSet has ' + item)})
+// TypeError: undefined is not a function
+```
+
+WeakSet不能遍历！是因为成员都是弱引用，随时可能消失，遍历机制无法保证成员的存在，很可能刚刚遍历结束，成员就取不到了。WeakSet 的一个用处，是储存 DOM 节点，而不用担心这些节点从文档移除时，会引发内存泄漏。
+
+
+
+总结: WeakSet成员只能是对象,对象都是弱引用,WeakSet是不可遍历的，也没有`size`属性,WeakSet 适合临时存放一组对象，以及存放跟对象绑定的信息。只要这些对象在外部消失，它在 WeakSet 里面的引用就会自动消失
 
 # Map
 
@@ -1096,6 +1151,49 @@ map[Symbol.iterator] === map.entries
 [...map.entries()]与[...map]效果相同
 ```
 
+练习:
+
+```js
+var array1 = [1,4,9,16];
+const map1 = array1.map(x => x *2);
+console.log(map1); //输出 【2，8，18，32】 
+
+var array1 = [1, 4, 9, 16];
+ 
+const map1 = array1.map(x => {
+    if (x == 4) {
+        return x * 2;
+    }
+    return x;
+});
+console.log(map1); //输出 [1, 8, 9, 16] 
+```
+
+！重要：！
+
+ map 方法会给原数组中的每个元素都按顺序调用一次 callback 函数。callback 每次执行后的返回值（包括 undefined）组合起来形成一个新数组。 ***callback 函数只会在有值的索引上被调用；那些从来没被赋过值或者使用 delete 删除的索引则不会被调用。***
+
+callback 是啥？
+
+假设你是一个蜀国将军，这个callback就是军师在你出征的时候交给你的锦囊，告诉你打完仗之后，就拆开锦囊，做里面的事情
+callback()的意思就是执行这个锦囊
+return callback()的意思就是，做完之后告诉军师结果如何
+
+### 思考：
+
+要求: 用map反转个字符串
+
+```js
+var str = '12345';
+Array.prototype.map.call(str, function(x) {
+  return x;
+}).reverse().join(''); 
+
+// 输出: '54321'
+```
+
+
+
 ## WeakMap(了解)
 
 - 键名必须是对象,`null`除外
@@ -1106,3 +1204,78 @@ map[Symbol.iterator] === map.entries
 #### 四个方法：
 
  `set()`, `get()`, `delete()`, `has()`
+
+```js
+// WeakMap 可以使用 set 方法添加成员
+const wm1 = new WeakMap();
+const key = {foo: 1};
+wm1.set(key, 2);
+wm1.get(key) // 2
+ 
+// WeakMap 也可以接受一个数组，
+// 作为构造函数的参数
+const k1 = [1, 2, 3];
+const k2 = [4, 5, 6];
+const wm2 = new WeakMap([[k1, 'foo'], [k2, 'bar']]);
+wm2.get(k2) // "bar"
+```
+
+### `WeakMap`与`Map`的区别
+
+首先，`WeakMap`只接受对象作为键名（`null`除外），不接受其他类型的值作为键名。
+
+```js
+const map = new WeakMap();
+map.set(1, 2)
+// TypeError: 1 is not an object! 报错说 1 不是一个对象
+map.set(Symbol(), 2)
+// TypeError: Invalid value used as weak map key  不接受其他类型的值作为键名
+map.set(null, 2)
+// TypeError: Invalid value used as weak map key 不接受其他类型的值作为键名
+```
+
+```js
+var wm = new WeakMap();  
+var element = document.querySelector(".element");  
+wm.set(element, "Original");  
+wm.get(element) // "Original"  
+element.parentNode.removeChild(element);  
+element = null;  
+wm.get(element) // undefined  
+```
+
+将一个DOM节点element作为键名， 然后销毁这个节点， element对应的键就自动消失了， 再引用这个键名就返回undefined,
+
+当某个 DOM 元素被清除， 其所对应的WeakMap记录就会自动被移除.
+
+ WeakMap的专用场合就是， 它的键所对应的对象， 可能会在将来消失。 WeakMap结构有助于防止内存泄漏。
+
+```js
+var wm = new WeakMap();  
+wm.size  
+// undefined  
+wm.forEach  
+// undefined  
+wm.clear()
+//clear is no function
+```
+
+一是没有遍历操作， 也没有size属性； 二是无法清空， 不支持clear方法 这与WeakMap的键不被计入引用、 被垃圾回收机制忽略有关
+
+ WeakMap 应用的典型场合就是 DOM 节点作为键名。
+
+```js
+
+let myElement = document.getElementById('logo');  
+let myWeakmap = new WeakMap();  
+myWeakmap.set(myElement, {  
+    timesClicked: 0  
+});  
+myElement.addEventListener('click', function() {  
+    let logoData = myWeakmap.get(myElement);  
+    logoData.timesClicked++;  
+    myWeakmap.set(myElement, logoData);  
+}, false);
+```
+
+ myElement是一个 DOM 节点， 每当发生 click 事件， 就更新一下状态。 将这个状态作为键值放在 WeakMap 里， 对应的键名就是myElement。 一旦这个 DOM 节点删除， 该状态就会自动消失， 不存在内存泄漏风险。
