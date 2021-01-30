@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        alert(a);	// ?  function a() { alert(10); } 
+        a();
+        var a = 3;
+        function a() {
+            alert(10);
+        }
+        alert(a);	// ?  3
+        a = 6;
+        a();	// ?  报错 a is not a function
+        var x = 1, y = 0, z = 0;
+
+
+        function add(x) {
+            return (x = x + 1);
+        }
+        y = add(x);
+        console.log(y);	// ?  4
+        function add(x) {
+            return (x = x + 3);
+        }
+        z = add(x);
+        console.log(z);	// ?  4
+        function foo() {
+            console.log(this.a);
+        }
+        function doFoo(fn) {
+            fn();   //调用位置
+        }
+        var obj = {
+            a: 2,
+            foo: foo
+        }
+        var a = 'this is global';
+        obj.foo();	//? 2
+        doFoo(obj.foo); //? 'this is global'
+        function foo() {
+            console.log(this.a);
+        }
+        function doFoo(fn) {
+            fn();   //调用位置
+        }
+        var obj = {
+            a: 2,
+            foo: foo
+        }
+        var obj1 = {
+            a: 3,
+            obj: obj
+        }
+        var a = 'this is global';
+        obj1.obj.foo();	//?  2
+        doFoo(obj1.obj.foo); //?  'this is global'
+        function foo() {
+            console.log(this.a);
+        }
+        function doFoo(fn) {
+            fn();   //调用位置
+        }
+        var obj = {
+            a: 2,
+            foo: foo
+        }
+        var a = 'this is global';
+        setTimeout(obj.foo, 100);	//? 'this is global'
+        function foo() {
+            console.log(this.a);
+        }
+        var obj = {
+            a: 2
+        }
+        var bar = function () {
+            foo.call(obj);
+        }
+        var a = 20;
+        bar();  //? 2
+        setTimeout(bar, 100);
+        bar.call(window);   //? 2
+        function foo() {
+            console.log(this.a);
+        }
+        var obj1 = {
+            a: 2,
+            foo: foo
+        }
+        var obj2 = {
+            a: 3
+        }
+        obj1.foo();     //?  2
+        obj1.foo.call(obj2);    //? 3
+        function foo(a) {
+            this.a = a;
+        }
+        var obj1 = {
+            foo: foo
+        }
+        var obj2 = {}
+        obj1.foo(2);
+        console.log(obj1.a);    //? 2
+        obj1.foo.call(obj2, 3);
+        console.log(obj2.a);    //? 3
+        var bar = new obj1.foo(4);
+        console.log(obj1.a);    //? 2
+        console.log(bar.a); //?  4
+        function foo(a) {
+            this.a = a;
+        }
+        var obj1 = {};
+        var bar = foo.bind(obj1);
+        bar(2);
+        console.log(obj1.a);    //? 2
+        var baz = new bar(3);
+        console.log(obj1.a);    //? 2
+        console.log(baz.a); //?   3
+        var age = 12;
+        function a() {
+            var age = 13;
+            function b() {
+                console.log(this.age);  //?  12
+                console.log(age);   //?  undefined
+                var age = 15;
+                function c() {
+                    var age = 16
+                    console.log(this.age);  //? 12
+                    console.log(age);   //? 16
+                }
+                c();
+            }
+            b();
+            console.log(age);   //? 13
+            console.log(this.age);  //? 12
+        }
+        a();
+        var age = 12;
+        function a() {
+            var age = 13;
+            function b() {
+                console.log(age);
+                var age = 15;
+                function c() {
+                    var age = 16
+                    console.log(age);
+                }
+                c();
+            }
+            b();
+            console.log(age);
+        }
+        a();
+            //请写出以上代码创建执行上下文创建过程
+    </script>
+</body>
+
+</html>
