@@ -1023,7 +1023,6 @@ Set加入值**不会发生类型转换，5与'5'不同**
 
 ```js
 var set2 = new Set(['a', 'b', 3]);
-undefined
 for ( let item of set2.entries() ) {
 	console.log(item)
 }
@@ -1060,7 +1059,63 @@ arr // [1, 2, 3]
 
  **`has()`, `delete()`, `add()`**
 
-WeakSet的对象都是弱引用，可以用来存储DOM节点而无需担心这些节点从文档移除时会引发内存泄漏
+- **WeakSet.prototype.add(value)**：向 WeakSet 实例添加一个新成员。
+- **WeakSet.prototype.delete(value)**：清除 WeakSet 实例的指定成员。
+- **WeakSet.prototype.has(value)**：返回一个布尔值，表示某个值是否在 WeakSet 实例之中。
+
+例子:
+
+```js
+const ws = new WeakSet();
+const obj = {};
+const foo = {};
+ 
+ws.add(window); //添加
+ws.add(obj);
+ 
+ws.has(window); // true   检测某个值是否在自身的实例中，如果有就返回true没有就返回false
+ws.has(foo);    // false
+ 
+ws.delete(window); //删除
+ws.has(window);    // false
+```
+
+练习：
+
+```js
+const ws = new WeakSet();
+ws.add(1)
+// TypeError: Invalid value used in weak set
+ws.add(Symbol())
+// TypeError: invalid value used in weak set
+```
+
+我试图向 WeakSet 添加一个数值和`Symbol`值，结果报错，因为 WeakSet 只能放置对象。
+
+```js
+const ws = new WeakSet();
+var obj = { name : "周宇成"}
+ws.add(obj)
+// WeakSet {{…}}[[Entries]]0: value: name: "周宇成"__proto__: Object__proto__: WeakSet
+```
+
+WeakSet的对象都是弱引用，可以用来存储DOM节点而无需担心这些节点从文档移除时会引发内存泄漏，
+
+WeakSet 适合临时存放一组对象，以及存放跟对象绑定的信息。只要这些对象在外部消失，它在 WeakSet 里面的引用就会自动消失
+
+```js
+ws.size // undefined
+ws.forEach // undefined
+ 
+ws.forEach(function(item){ console.log('WeakSet has ' + item)})
+// TypeError: undefined is not a function
+```
+
+WeakSet不能遍历！是因为成员都是弱引用，随时可能消失，遍历机制无法保证成员的存在，很可能刚刚遍历结束，成员就取不到了。WeakSet 的一个用处，是储存 DOM 节点，而不用担心这些节点从文档移除时，会引发内存泄漏。
+
+
+
+总结: WeakSet成员只能是对象,对象都是弱引用,WeakSet是不可遍历的，也没有`size`属性,WeakSet 适合临时存放一组对象，以及存放跟对象绑定的信息。只要这些对象在外部消失，它在 WeakSet 里面的引用就会自动消失
 
 # Map
 
@@ -1096,6 +1151,49 @@ map[Symbol.iterator] === map.entries
 [...map.entries()]与[...map]效果相同
 ```
 
+练习:
+
+```js
+var array1 = [1,4,9,16];
+const map1 = array1.map(x => x *2);
+console.log(map1); //输出 【2，8，18，32】 
+
+var array1 = [1, 4, 9, 16];
+ 
+const map1 = array1.map(x => {
+    if (x == 4) {
+        return x * 2;
+    }
+    return x;
+});
+console.log(map1); //输出 [1, 8, 9, 16] 
+```
+
+！重要：！
+
+ map 方法会给原数组中的每个元素都按顺序调用一次 callback 函数。callback 每次执行后的返回值（包括 undefined）组合起来形成一个新数组。 ***callback 函数只会在有值的索引上被调用；那些从来没被赋过值或者使用 delete 删除的索引则不会被调用。***
+
+callback 是啥？
+
+假设你是一个蜀国将军，这个callback就是军师在你出征的时候交给你的锦囊，告诉你打完仗之后，就拆开锦囊，做里面的事情
+callback()的意思就是执行这个锦囊
+return callback()的意思就是，做完之后告诉军师结果如何
+
+### 思考：
+
+要求: 用map反转个字符串
+
+```js
+var str = '12345';
+Array.prototype.map.call(str, function(x) {
+  return x;
+}).reverse().join(''); 
+
+// 输出: '54321'
+```
+
+
+
 ## WeakMap(了解)
 
 - 键名必须是对象,`null`除外
@@ -1106,3 +1204,378 @@ map[Symbol.iterator] === map.entries
 #### 四个方法：
 
  `set()`, `get()`, `delete()`, `has()`
+
+```js
+// WeakMap 可以使用 set 方法添加成员
+const wm1 = new WeakMap();
+const key = {foo: 1};
+wm1.set(key, 2);
+wm1.get(key) // 2
+ 
+// WeakMap 也可以接受一个数组，
+// 作为构造函数的参数
+const k1 = [1, 2, 3];
+const k2 = [4, 5, 6];
+const wm2 = new WeakMap([[k1, 'foo'], [k2, 'bar']]);
+wm2.get(k2) // "bar"
+```
+
+### `WeakMap`与`Map`的区别
+
+首先，`WeakMap`只接受对象作为键名（`null`除外），不接受其他类型的值作为键名。
+
+```js
+const map = new WeakMap();
+map.set(1, 2)
+// TypeError: 1 is not an object! 报错说 1 不是一个对象
+map.set(Symbol(), 2)
+// TypeError: Invalid value used as weak map key  不接受其他类型的值作为键名
+map.set(null, 2)
+// TypeError: Invalid value used as weak map key 不接受其他类型的值作为键名
+```
+
+```js
+var wm = new WeakMap();  
+var element = document.querySelector(".element");  
+wm.set(element, "Original");  
+wm.get(element) // "Original"  
+element.parentNode.removeChild(element);  
+element = null;  
+wm.get(element) // undefined  
+```
+
+将一个DOM节点element作为键名， 然后销毁这个节点， element对应的键就自动消失了， 再引用这个键名就返回undefined,
+
+当某个 DOM 元素被清除， 其所对应的WeakMap记录就会自动被移除.
+
+ WeakMap的专用场合就是， 它的键所对应的对象， 可能会在将来消失。 WeakMap结构有助于防止内存泄漏。
+
+```js
+var wm = new WeakMap();  
+wm.size  
+// undefined  
+wm.forEach  
+// undefined  
+wm.clear()
+//clear is no function
+```
+
+一是没有遍历操作， 也没有size属性； 二是无法清空， 不支持clear方法 这与WeakMap的键不被计入引用、 被垃圾回收机制忽略有关
+
+ WeakMap 应用的典型场合就是 DOM 节点作为键名。
+
+```js
+
+let myElement = document.getElementById('logo');  
+let myWeakmap = new WeakMap();  
+myWeakmap.set(myElement, {  
+    timesClicked: 0  
+});  
+myElement.addEventListener('click', function() {  
+    let logoData = myWeakmap.get(myElement);  
+    logoData.timesClicked++;  
+    myWeakmap.set(myElement, logoData);  
+}, false);
+```
+
+ myElement是一个 DOM 节点， 每当发生 click 事件， 就更新一下状态。 将这个状态作为键值放在 WeakMap 里， 对应的键名就是myElement。 一旦这个 DOM 节点删除， 该状态就会自动消失， 不存在内存泄漏风险。
+
+# 继承
+
+### 重点
+
+    - 对象继承
+    - 对象继承的方法
+    - call和apply,bind使用
+
+### 难点
+    - call和apply,bind使用
+
+
+### 内容
+
+1. **继承的基本概念**
+
+    一个对象继承另一个对象，子对象可以直接使用父对象的属性和方法，这种关系就叫做继承。
+        
+    如果父类对象已经定义的属性和方法，子对象可以直接使用，无需再定义，减少内存开销。
+        
+    子函数中的属性和方法如果跟父函数同名的话，子函数会覆盖父函数的属性和方法。  重写
+
+2. **继承的方法**
+
+    **原型链继承**
+
+    ```js
+         //父方法
+            function Father(){
+                this.name = "王建林";
+                this.money = "1个亿";
+    
+                this.works = function(){
+                    console.log("万达房地产");
+                }
+            }
+            
+            Father.prototype.height = "180cm";
+            //子方法
+            function Son(){
+                this.name = "王石";
+            }
+    
+            //把父方法的实例化对象放到子方法的原型中去，原型链继承
+            Son.prototype = new Father();
+    
+            var son = new Son();
+            console.log(son); //子方法继承后实例化
+            console.log(son.money);//访问父函数自身的属性
+            console.log(son.height);//访问父方法原型中的属性
+    
+    ```
+    重点：让新实例的原型等于父类的实例。
+
+    特点：1、实例可继承的属性有：实例的构造函数的属性，父类构造函数属性，父类原型的属性。（新实例不会继承父类实例的属性！）
+
+    缺点：1、新实例无法向父类构造函数传参。
+
+    　　　2、继承单一。
+
+    　　　3、所有新实例都会共享父类实例的属性。（原型上的属性是共享的，一个实例修改了原型属性，另一个实例的原型属性也会被修改！）
+
+    **构造函数继承**
+
+    语法
+
+    ```js
+    
+    function Fu(){
+        this.name = "超级玛丽";
+    
+        this.love = "顶砖吃毛菇";
+    }
+    
+    function Zi(){
+        
+        Fu.call(this);
+        
+    }
+    ```
+
+    例子
+
+```js
+
+
+        //父方法
+        function Father(name,money){
+            this.name = name;
+            this.money = money;
+
+            this.works = function(){
+                console.log("万达房地产");
+            }
+        }
+        
+        Father.prototype.height = "180cm";
+        //子方法
+        function Son(){
+            //call方法，改变this的指向
+            Father.call(this,'王石',100000000);//用当前对象，代替Father对象
+        }
+
+        var son = new Son();
+
+        console.log(son);
+        console.log(son.name);//可以访问父方法属性
+        console.log(son.money);//可以访问父方法属性
+        console.log(son.height);//无法访问父方法原型中的属性
+
+```
+
+构造函数继承的优缺点
+
+重点：用.call()和.apply()将父类构造函数引入子类函数（复制）
+
+特点：1、只继承了父类构造函数的属性，没有继承父类原型的属性。
+
+　　　2、解决了原型链继承缺点。
+
+　　　3、可以继承多个构造函数属性（call多个）。
+
+　　　4、在子实例中可向父实例传参。
+
+缺点：1、只能继承父类构造函数自身的属性。
+
+　　　2、无法实现构造函数的复用。（每次用每次都要重新调用）
+
+　　　3、每个新实例都有父类构造函数的副本，臃肿。
+
+
+
+**组合继承**
+
+```js
+   //父方法
+        function Father(name,money){
+            this.name = name;
+            this.money = money;
+
+            this.works = function(){
+                console.log("万达房地产");
+            }
+        }
+        //Car构造函数
+        function Car(){
+            this.brand="布加迪.孙宵";
+            this.T = "8.0T";
+        }
+        
+        Car.prototype.price = "1800w";
+        //子方法
+        function Son(){
+            //call方法，改变this的指向 构造函数继承
+            Father.call(this,'王石',100000000);//用当前对象，代替Father对象
+        }
+        //原型链的继承
+        Son.prototype = new Car();
+
+        var son = new Son();
+
+        console.log(son);
+
+        console.log(son.name);//访问构造函数继承的属性
+        console.log(son.brand);//访问原型链继承的属性
+        console.log(son.price);//访问原型链继承中的原型中的属性
+
+```
+
+优点: 既能传递参数，也能使用父函数的原型
+缺点：每实例化一次，要调用两次继承父方法
+
+重点：**结合了两种模式的优点，传参和复用**
+
+ 
+
+特点：1、可以继承父类原型上的属性，可以传参，可复用。
+
+　　　2、每个新实例引入的构造函数属性是私有的。
+
+缺点：调用了两次父类构造函数（耗内存），子类的构造函数会代替（替换掉了）原型上的那个父类构造函数。
+
+  **继承方式简单总结**
+    - 原型链继承
+        - 把父方法的new的实例化对象 赋给 子方法的原型属性
+        - 子方法可以使用父方法原型中的属性，缺点：不可以传递参数
+
+- 构造函数继承
+    - 在子函数中通过call方法，改变this指向，把父方法的属性全部继承过来
+        - 父方法.call(this,传递的参数)
+    - 可以传递参数， 无法使用父方法原型中的属性
+
+- 组合继承
+    - 把原型链继承和构造函数继承，糅合到一起
+    - 既可以传递参数，也可以使用父方法的原型属性， 缺点，实例化一次，调用两次继承，资源消耗比较大。
+
+
+
+3. **call和apply的区别**
+
+    A.call(B,参数);   A函数用B对象替代当前对象中的内容
+        
+    调用一个对象的一种方法，用另一个对象来代替当前对象
+
+    apply和call方法的区别:
+    apply传递一个数组参数，但是call传递的是一个参数列表
+
+    还有一个bind方法，但是bind不会自动执行函数，需要手动调用一下\
+    
+    ```js
+        //字面量方式创建一个对象
+            //被替换的对象
+            var person = {
+                name: "龙赐",
+                love: "吃饭，睡觉，挨打,学习",
+                say: function(age=18){
+                    console.log("我是"+this.name,"我喜欢"+this.love,"我今年"+age+"岁");
+                }
+            }
+            person.say();
+            //替换的对象
+            var girl = {
+                name: "小龙",
+                love: "王者荣耀,吃鸡,遛鸭子玩"
+            }
+            
+            person.say.call(girl,28);//call
+            person.say.apply(girl,[48]);//apply
+    
+            person.say.bind(girl)(38);//bind方法必须要手动调用
+    ```
+    
+    
+
+
+4. **继承的案例**
+
+    创建小球的案例，采用继承的方式实现，可以改变小球的大小颜色，等。。。。
+
+```js
+  <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+
+    </div>
+    <script>
+        //构造函数方法，父方法
+        function Common(width,height,bgcolor){
+            //父级盒子
+            this.app = document.getElementById("app");
+            this.borderRadius = "50%";
+            //小球样式
+            this.float = "left";
+            this.marginRight = "10px";
+
+            //默认属性
+            this.width = width;
+            this.height = height;
+            this.backgroundColor = bgcolor;
+
+            this.createBall = function(){
+                var div = document.createElement("div");
+                div.style.float = this.float;
+                div.style.marginRight = this.marginRight;
+                div.style.borderRadius = this.borderRadius;
+                //子级的函数自己实现
+                div.style.width = this.width;
+                div.style.height = this.height;
+                div.style.backgroundColor = this.backgroundColor;
+
+                //小球放到div中去
+                app.appendChild(div);
+            }
+        }
+
+        function Ball1(){
+            Common.call(this,"100px",'100px',"orange");
+        }
+        var ball1 = new Ball1();
+
+        ball1.createBall();
+
+        function Ball2(){
+            Common.call(this,"80px",'80px',"#A00000");
+        }
+        var ball2 = new Ball2();
+
+        ball2.createBall();
+    </script>
+</body>
+</html>
+```
+
