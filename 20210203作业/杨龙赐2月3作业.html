@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function Perosn(name, age, sex, blood, hui) {
+            this.name = name;//名字
+            this.age = age;//年龄
+            this.sex = sex;//性别
+            this.blood = blood;//血型
+            this.hui = hui;//工作方面
+
+        }
+        // 定义的函数（自我介绍）
+        Perosn.prototype.introduction = function () {
+            console.log(`我是${this.name}，今年${this.age}岁了，性别：${this.sex}，血型：${this.blood}，工作方面：${this.hui}`);
+        }
+        // 农民
+        function Famer() {
+            Perosn.call(this)
+        }
+        // 商人
+        function BusinessMan() {
+            Perosn.call(this)
+        }
+        // BusinessMan.prototype = Object.create(Perosn.prototype)
+        // BusinessMan.prototype.constructor = BusinessMan;
+        // 农民
+        // var Famers = new Perosn('农民', 40, '男', 'A型','种地')
+        // console.log(Famers.introduction())
+        // var BusinessMans = new Perosn('商人', 33, '女', 'O型', '做生意')
+        // console.log(BusinessMans.introduction)
+
+        // console.log(BusinessMans instanceof BusinessMan)
+
+
+
+
+
+
+
+
+
+
+
+
+        // 类继承
+        // class Perosn {
+        //     constructor(name, age, sex, blood, hui) {
+        //         this.name = name;//名字
+        //         this.age = age;//年龄
+        //         this.sex = sex;//性别
+        //         this.blood = blood;//血型
+        //         this.hui = hui;//工作方面
+        //     }
+        //     //定义的函数（自我介绍）
+        //     introduction() {
+        //         console.log(`我是${this.name}，今年${this.age}岁了，性别：${this.sex}，血型：${this.blood}，工作方面：${this.hui}`);
+        //     }
+        // }
+
+        // // 农民
+        // class Famer extends Perosn {
+        //     constructor(name, age, sex, blood) {
+        //         super(name, age, sex, blood, '种地');
+        //     }
+        // }
+        // // 商人
+        // class BusinessMan extends Perosn {
+        //     constructor(name, age, sex, blood) {
+        //         super(name, age, sex, blood, '做生意');
+        //     }
+        // }
+        // // 程序员
+        // class Coder extends Perosn {
+        //     constructor(name, age, sex, blood) {
+        //         super(name, age, sex, blood, '敲代码');
+        //     }
+        // }
+        // // Java程序员
+        // class JavaCoder extends Coder {
+        //     constructor(name, age, sex, blood) {
+        //         super(name, age, sex, blood, '写Java的代码');
+        //     }
+        //     //Java程序员的自我介绍
+        //     introduction() {
+        //         super.introduction();
+        //         console.log(`我是个程序员，会写代码。Java是我的主力语言。我目前主要做Java开发。`);
+        //     }
+        // }
+        // // JS程序员
+        // class JSCoder extends Coder {
+        //     constructor(name, age, sex, blood) {
+        //         super(name, age, sex, blood, '写JS的代码');
+        //     }
+        //     //JS程序员的自我介绍
+        //     introduction() {
+        //         super.introduction();
+        //         console.log(`我是个程序员，会写代码。JS是我的主力语言。我目前主要做JS开发。`);
+        //     }
+        // }
+        // // Vue程序员
+        // class VueCoder extends JSCoder {
+        //     constructor(name, age, sex, blood) {
+        //         super(name, age, sex, blood, '开发Vue项目');
+        //     }
+        //      //Vue程序员的自我介绍
+        //      introduction() {
+        //         super.introduction();
+        //         console.log(`我是个程序员，会写代码。JS是我的主力语言。不过我目前主要还是做Vue开发。`);
+        //     }
+        // }
+        // // 农民
+        // let Famers = new Famer('农民', 40, '男', 'A型')
+        // Famers.introduction()
+        // // // 商人
+        // // let BusinessMans = new BusinessMan('商人', 33, '女', 'O型')
+        // // BusinessMans.introduction()
+        // // // 程序员
+        // // let Coders = new Coder('程序员', 25, '男', 'AB型')
+        // // Coders.introduction()
+        // // // Java程序员
+        // // let JavaCoders = new JavaCoder('Java程序员', 25, '男', 'AB型')
+        // // JavaCoders.introduction()
+        // // // Js程序员
+        // // let JSCoders = new JSCoder('JS程序员', 28, '男', 'B型')
+        // // JSCoders.introduction()
+        // // // Js程序员
+        // // let VueCoders = new VueCoder('Vue程序员', 33, '女', 'C型')
+        // // VueCoders.introduction()
+
+    </script>
+</body>
+
+</html>
